@@ -20,59 +20,67 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
   return (
     <div className="p-8">
       <div className="border-b border-gray-200 pb-4 mb-8">
-        <h1 className="text-2xl font-bold text-gray-800 tracking-wide">SALES</h1>
-        <p className="text-gray-500 mt-2">Please Enter your sales detail here</p>
+        <h1 className="text-2xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Fjalla One, sans-serif' }}>
+          SALES
+        </h1>
+        <p className="text-gray-500 mt-2" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
+          Please Enter your sales detail here
+        </p>
       </div>
 
       <div className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
             Gross Sales *
           </label>
           <input
             type="text"
             value={data.grossSales}
             onChange={(e) => handleInputChange('grossSales', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
+            style={{ focusRingColor: '#003A70' }}
             placeholder=""
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Minus Value *
+          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
+            Minus VAT *
           </label>
           <input
             type="text"
             value={data.minusVat}
             onChange={(e) => handleInputChange('minusVat', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
+            style={{ focusRingColor: '#003A70' }}
             placeholder=""
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
             Net Sales *
           </label>
           <input
             type="text"
             value={data.netSales}
             onChange={(e) => handleInputChange('netSales', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
+            style={{ focusRingColor: '#003A70' }}
             placeholder=""
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Minimum Cost Of Sales *
+          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
+            Minus Cost of Sales *
           </label>
           <input
             type="text"
             value={data.minusCostOfSales}
             onChange={(e) => handleInputChange('minusCostOfSales', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
+            style={{ focusRingColor: '#003A70' }}
             placeholder=""
           />
         </div>
@@ -81,9 +89,10 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
       <div className="mt-12 flex justify-end">
         <button
           onClick={onNext}
-          className="flex items-center space-x-2 px-8 py-3 bg-white border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition-colors"
+          className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors"
+          style={{ backgroundColor: '#FFF091', color: '#003A70' }}
         >
-          <span>Next</span>
+          <span style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>Next</span>
           <ArrowRight size={20} />
         </button>
       </div>

@@ -2,6 +2,12 @@
 import React, { useState } from 'react';
 import SalesForm from './SalesForm';
 import ExpensesForm from './ExpensesForm';
+import ExpensesStaffForm from './ExpensesStaffForm';
+import ExpensesStoreForm from './ExpensesStoreForm';
+import ExpensesAdministrativeHQForm from './ExpensesAdministrativeHQForm';
+import OtherExpensesOBForm from './OtherExpensesOBForm';
+import OtherIncomeForm from './OtherIncomeForm';
+import ProfitLossForm from './ProfitLossForm';
 
 export interface SalesData {
   grossSales: string;
@@ -18,6 +24,72 @@ export interface ExpensesData {
   pestControl: string;
   printingStationery: string;
   promotionsPensionersDiscounts: string;
+}
+
+export interface ExpensesStaffData {
+  casualWages: string;
+  protectiveClothingUniforms: string;
+  salariesWagesBonus: string;
+  salariesWagesKitchenFOH: string;
+  salariesWagesManagers: string;
+  salariesOwner: string;
+  salariesWagesOtherUIF: string;
+  staffMealsKitchenCrew: string;
+  staffMealsManagersWaiters: string;
+  staffMedicalCost: string;
+  staffTransport: string;
+  training: string;
+}
+
+export interface ExpensesStoreData {
+  electricity: string;
+  water: string;
+  gas: string;
+  insurance: string;
+  insurancePartners: string;
+  licenseLiquorAnnualFee: string;
+  rentGrossBasicRent: string;
+  rentGrossInsurance: string;
+  rentGrossOpsCosts: string;
+  rentGrossMarketing: string;
+  rentGrossRates: string;
+  rentGrossRentTO: string;
+  repairsMaintenance: string;
+  securityAlarmsGuards: string;
+  telephone: string;
+}
+
+export interface ExpensesAdministrativeHQData {
+  advertisingOwn: string;
+  auditFees: string;
+  bankCreditCardCharges: string;
+  computerRepairsSoftwareRental: string;
+  consultingFeesFCSAudits: string;
+  depreciationComputerEquipment: string;
+  depreciationOtherShopfitting: string;
+  interestOnLoanPaid: string;
+  partnersInvestmentPolicies: string;
+  entertainment: string;
+  equipmentRental: string;
+  fixedAssetsUnder1000: string;
+  generatorLease: string;
+  professionalLegalFees: string;
+  televisionMNETSatellite: string;
+}
+
+export interface OtherExpensesOBData {
+  franchiseFee: string;
+  marketingOBHO: string;
+}
+
+export interface OtherIncomeData {
+  fixedAssetDisposal: string;
+  totalOtherIncome: string;
+}
+
+export interface ProfitLossData {
+  addBackDepreciation: string;
+  loanCapitalPortion: string;
 }
 
 const MultiStepForm = () => {
@@ -39,33 +111,105 @@ const MultiStepForm = () => {
     promotionsPensionersDiscounts: ''
   });
 
+  const [expensesStaffData, setExpensesStaffData] = useState<ExpensesStaffData>({
+    casualWages: '',
+    protectiveClothingUniforms: '',
+    salariesWagesBonus: '',
+    salariesWagesKitchenFOH: '',
+    salariesWagesManagers: '',
+    salariesOwner: '',
+    salariesWagesOtherUIF: '',
+    staffMealsKitchenCrew: '',
+    staffMealsManagersWaiters: '',
+    staffMedicalCost: '',
+    staffTransport: '',
+    training: ''
+  });
+
+  const [expensesStoreData, setExpensesStoreData] = useState<ExpensesStoreData>({
+    electricity: '',
+    water: '',
+    gas: '',
+    insurance: '',
+    insurancePartners: '',
+    licenseLiquorAnnualFee: '',
+    rentGrossBasicRent: '',
+    rentGrossInsurance: '',
+    rentGrossOpsCosts: '',
+    rentGrossMarketing: '',
+    rentGrossRates: '',
+    rentGrossRentTO: '',
+    repairsMaintenance: '',
+    securityAlarmsGuards: '',
+    telephone: ''
+  });
+
+  const [expensesAdministrativeHQData, setExpensesAdministrativeHQData] = useState<ExpensesAdministrativeHQData>({
+    advertisingOwn: '',
+    auditFees: '',
+    bankCreditCardCharges: '',
+    computerRepairsSoftwareRental: '',
+    consultingFeesFCSAudits: '',
+    depreciationComputerEquipment: '',
+    depreciationOtherShopfitting: '',
+    interestOnLoanPaid: '',
+    partnersInvestmentPolicies: '',
+    entertainment: '',
+    equipmentRental: '',
+    fixedAssetsUnder1000: '',
+    generatorLease: '',
+    professionalLegalFees: '',
+    televisionMNETSatellite: ''
+  });
+
+  const [otherExpensesOBData, setOtherExpensesOBData] = useState<OtherExpensesOBData>({
+    franchiseFee: '',
+    marketingOBHO: ''
+  });
+
+  const [otherIncomeData, setOtherIncomeData] = useState<OtherIncomeData>({
+    fixedAssetDisposal: '',
+    totalOtherIncome: ''
+  });
+
+  const [profitLossData, setProfitLossData] = useState<ProfitLossData>({
+    addBackDepreciation: '',
+    loanCapitalPortion: ''
+  });
+
   const navigationItems = [
     { id: 1, title: 'Sales', isActive: currentStep === 1 },
-    { id: 2, title: 'Expense Operational Main', isActive: currentStep === 2 },
-    { id: 3, title: 'Expense Staff Main', isActive: false },
-    { id: 4, title: 'Expense Store', isActive: false },
-    { id: 5, title: 'Expense Administrative HQ', isActive: false },
-    { id: 6, title: 'Other Expense OB', isActive: false },
-    { id: 7, title: 'Other Income', isActive: false },
-    { id: 8, title: 'Profit And Loss', isActive: false }
+    { id: 2, title: 'Expense Operational', isActive: currentStep === 2 },
+    { id: 3, title: 'Expense Staff', isActive: currentStep === 3 },
+    { id: 4, title: 'Expense Store', isActive: currentStep === 4 },
+    { id: 5, title: 'Expense Administrative HQ', isActive: currentStep === 5 },
+    { id: 6, title: 'Other Expense OB', isActive: currentStep === 6 },
+    { id: 7, title: 'Other Income', isActive: currentStep === 7 },
+    { id: 8, title: 'Profit And Loss', isActive: currentStep === 8 }
   ];
 
   const handleNext = () => {
-    if (currentStep < 2) {
+    if (currentStep < 8) {
       setCurrentStep(currentStep + 1);
     }
   };
 
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   const handleStepClick = (stepId: number) => {
-    if (stepId <= 2) {
+    if (stepId <= currentStep) {
       setCurrentStep(stepId);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="min-h-screen flex" style={{ backgroundColor: '#003A70' }}>
       {/* Sidebar Navigation */}
-      <div className="w-80 bg-blue-900 text-white p-6">
+      <div className="w-80 text-white p-6">
         <div className="space-y-3">
           {navigationItems.map((item) => (
             <div
@@ -73,25 +217,35 @@ const MultiStepForm = () => {
               onClick={() => handleStepClick(item.id)}
               className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
                 item.isActive 
-                  ? 'bg-blue-800 border-l-4 border-white' 
-                  : item.id <= 2 
+                  ? 'border-l-4' 
+                  : item.id <= currentStep 
                     ? 'hover:bg-blue-800' 
                     : 'opacity-50 cursor-not-allowed'
               }`}
+              style={{ 
+                backgroundColor: item.isActive ? '#FFF091' : 'transparent',
+                borderLeftColor: item.isActive ? '#FFF091' : 'transparent',
+                color: item.isActive ? '#003A70' : 'white'
+              }}
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                item.isActive ? 'bg-white text-blue-900' : 'bg-blue-800 text-white'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
+                style={{ 
+                  backgroundColor: item.isActive ? '#003A70' : '#FFF091',
+                  color: item.isActive ? '#FFF091' : '#003A70'
+                }}
+              >
                 {item.id}
               </div>
-              <span className="text-sm font-medium">{item.title}</span>
+              <span className="text-sm font-medium" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
+                {item.title}
+              </span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8" style={{ backgroundColor: '#EBEBEB' }}>
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
           {currentStep === 1 && (
             <SalesForm 
@@ -104,6 +258,55 @@ const MultiStepForm = () => {
             <ExpensesForm 
               data={expensesData} 
               setData={setExpensesData} 
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+          {currentStep === 3 && (
+            <ExpensesStaffForm 
+              data={expensesStaffData} 
+              setData={setExpensesStaffData} 
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+          {currentStep === 4 && (
+            <ExpensesStoreForm 
+              data={expensesStoreData} 
+              setData={setExpensesStoreData} 
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+          {currentStep === 5 && (
+            <ExpensesAdministrativeHQForm 
+              data={expensesAdministrativeHQData} 
+              setData={setExpensesAdministrativeHQData} 
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+          {currentStep === 6 && (
+            <OtherExpensesOBForm 
+              data={otherExpensesOBData} 
+              setData={setOtherExpensesOBData} 
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+          {currentStep === 7 && (
+            <OtherIncomeForm 
+              data={otherIncomeData} 
+              setData={setOtherIncomeData} 
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+          {currentStep === 8 && (
+            <ProfitLossForm 
+              data={profitLossData} 
+              setData={setProfitLossData} 
+              onBack={handleBack}
             />
           )}
         </div>
