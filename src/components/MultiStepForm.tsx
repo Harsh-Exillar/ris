@@ -201,6 +201,7 @@ const MultiStepForm = () => {
   };
 
   const handleStepClick = (stepId: number) => {
+    // Only allow navigation to current step or previous completed steps
     if (stepId <= currentStep) {
       setCurrentStep(stepId);
     }
@@ -218,25 +219,25 @@ const MultiStepForm = () => {
               className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
                 item.isActive 
                   ? 'border-l-4' 
-                  : item.id <= currentStep 
+                  : item.id < currentStep 
                     ? 'hover:bg-blue-800' 
                     : 'opacity-50 cursor-not-allowed'
               }`}
               style={{ 
-                backgroundColor: item.isActive ? '#FFF091' : 'transparent',
-                borderLeftColor: item.isActive ? '#FFF091' : 'transparent',
-                color: item.isActive ? '#003A70' : 'white'
+                backgroundColor: item.isActive ? '#3B82F6' : 'transparent',
+                borderLeftColor: item.isActive ? '#3B82F6' : 'transparent',
+                color: item.isActive ? 'white' : 'white'
               }}
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
                 style={{ 
-                  backgroundColor: item.isActive ? '#003A70' : '#FFF091',
-                  color: item.isActive ? '#FFF091' : '#003A70'
+                  backgroundColor: item.isActive ? 'white' : '#3B82F6',
+                  color: item.isActive ? '#003A70' : 'white'
                 }}
               >
                 {item.id}
               </div>
-              <span className="text-sm font-medium" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
+              <span className="text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
                 {item.title}
               </span>
             </div>
@@ -246,7 +247,7 @@ const MultiStepForm = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8" style={{ backgroundColor: '#EBEBEB' }}>
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
           {currentStep === 1 && (
             <SalesForm 
               data={salesData} 

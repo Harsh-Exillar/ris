@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 import { ExpensesStoreData } from './MultiStepForm';
+import { validateNumericInput, isFormValid, getEmptyFields } from '../utils/validation';
 
 interface ExpensesStoreFormProps {
   data: ExpensesStoreData;
@@ -11,240 +12,148 @@ interface ExpensesStoreFormProps {
 }
 
 const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, onNext, onBack }) => {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
+
   const handleInputChange = (field: keyof ExpensesStoreData, value: string) => {
-    setData({
-      ...data,
-      [field]: value
-    });
+    if (value === '' || validateNumericInput(value)) {
+      setData({
+        ...data,
+        [field]: value
+      });
+      setErrors(prev => ({ ...prev, [field]: '' }));
+      setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
+    } else {
+      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only' }));
+    }
   };
 
+  const handleNext = () => {
+    if (isFormValid(data)) {
+      onNext();
+    } else {
+      const emptyFields = getEmptyFields(data);
+      setEmptyFieldsHighlighted(emptyFields);
+    }
+  };
+
+  const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);
+
   return (
-    <div className="p-8">
-      <div className="border-b border-gray-200 pb-4 mb-8">
-        <h1 className="text-2xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Fjalla One, sans-serif' }}>
-          EXPENSE STORE
-        </h1>
-        <p className="text-gray-500 mt-2" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-          Please Enter your Store Expense details here
-        </p>
-      </div>
-
-      <div className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Electricity
-          </label>
-          <input
-            type="text"
-            value={data.electricity}
-            onChange={(e) => handleInputChange('electricity', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
+      <div className="p-8">
+        <div className="border-b border-gray-200 pb-4 mb-8">
+          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Amatic SC, cursive' }}>
+            EXPENSE STORE
+          </h1>
+          <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
+            Please Enter your Store Expense details here
+          </p>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Water
-          </label>
-          <input
-            type="text"
-            value={data.water}
-            onChange={(e) => handleInputChange('water', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Gas
-          </label>
-          <input
-            type="text"
-            value={data.gas}
-            onChange={(e) => handleInputChange('gas', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Insurance
-          </label>
-          <input
-            type="text"
-            value={data.insurance}
-            onChange={(e) => handleInputChange('insurance', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Insurance Partners
-          </label>
-          <input
-            type="text"
-            value={data.insurancePartners}
-            onChange={(e) => handleInputChange('insurancePartners', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            License Liquor Annual Fee
-          </label>
-          <input
-            type="text"
-            value={data.licenseLiquorAnnualFee}
-            onChange={(e) => handleInputChange('licenseLiquorAnnualFee', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
-        </div>
-
-        <div className="border-l-4 border-yellow-400 pl-4">
-          <h3 className="text-lg font-semibold mb-4" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Rent Gross
-          </h3>
-          <div className="space-y-4 ml-4">
-            <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-                Basic Rent
+        <div className="space-y-6">
+          {/* Basic store expenses */}
+          {['electricity', 'water', 'gas', 'insurance', 'insurancePartners', 'licenseLiquorAnnualFee'].map((field) => (
+            <div key={field}>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
               </label>
               <input
                 type="text"
-                value={data.rentGrossBasicRent}
-                onChange={(e) => handleInputChange('rentGrossBasicRent', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-                placeholder=""
+                value={data[field as keyof ExpensesStoreData]}
+                onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter numerical value"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
+              {errors[field] && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors[field]}
+                </p>
+              )}
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-                Insurance
-              </label>
-              <input
-                type="text"
-                value={data.rentGrossInsurance}
-                onChange={(e) => handleInputChange('rentGrossInsurance', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-                Ops Costs
-              </label>
-              <input
-                type="text"
-                value={data.rentGrossOpsCosts}
-                onChange={(e) => handleInputChange('rentGrossOpsCosts', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-                Marketing
-              </label>
-              <input
-                type="text"
-                value={data.rentGrossMarketing}
-                onChange={(e) => handleInputChange('rentGrossMarketing', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-                Rates
-              </label>
-              <input
-                type="text"
-                value={data.rentGrossRates}
-                onChange={(e) => handleInputChange('rentGrossRates', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-                Rent TO
-              </label>
-              <input
-                type="text"
-                value={data.rentGrossRentTO}
-                onChange={(e) => handleInputChange('rentGrossRentTO', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-                placeholder=""
-              />
+          ))}
+
+          {/* Rent Gross section */}
+          <div className="border-l-4 border-blue-400 pl-4 bg-blue-50 p-4 rounded-r-lg">
+            <h3 className="text-lg font-semibold mb-4" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Rent Gross
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {['rentGrossBasicRent', 'rentGrossInsurance', 'rentGrossOpsCosts', 'rentGrossMarketing', 'rentGrossRates', 'rentGrossRentTO'].map((field) => (
+                <div key={field}>
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                    {field.replace('rentGross', '').replace(/([A-Z])/g, ' $1').trim()}
+                  </label>
+                  <input
+                    type="text"
+                    value={data[field as keyof ExpensesStoreData]}
+                    onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
+                    className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                      isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    placeholder="Enter numerical value"
+                    style={{ fontFamily: 'Montserrat, sans-serif' }}
+                  />
+                  {errors[field] && (
+                    <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                      {errors[field]}
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
+
+          {/* Remaining fields */}
+          {['repairsMaintenance', 'securityAlarmsGuards', 'telephone'].map((field) => (
+            <div key={field}>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              </label>
+              <input
+                type="text"
+                value={data[field as keyof ExpensesStoreData]}
+                onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter numerical value"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors[field] && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors[field]}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Repairs & Maintenance
-          </label>
-          <input
-            type="text"
-            value={data.repairsMaintenance}
-            onChange={(e) => handleInputChange('repairsMaintenance', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
+        <div className="mt-12 flex justify-between">
+          <button
+            onClick={onBack}
+            className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors"
+            style={{ backgroundColor: '#EBEBEB', color: '#003A70' }}
+          >
+            <ArrowLeft size={20} />
+            <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Back</span>
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={!isFormValid(data)}
+            className={`flex items-center space-x-2 px-8 py-3 rounded-full transition-colors ${
+              isFormValid(data)
+                ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Next</span>
+            <ArrowRight size={20} />
+          </button>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Security Alarms & Guards
-          </label>
-          <input
-            type="text"
-            value={data.securityAlarmsGuards}
-            onChange={(e) => handleInputChange('securityAlarmsGuards', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>
-            Telephone
-          </label>
-          <input
-            type="text"
-            value={data.telephone}
-            onChange={(e) => handleInputChange('telephone', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:border-transparent outline-none transition-all"
-            placeholder=""
-          />
-        </div>
-      </div>
-
-      <div className="mt-12 flex justify-between">
-        <button
-          onClick={onBack}
-          className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors"
-          style={{ backgroundColor: '#EBEBEB', color: '#003A70' }}
-        >
-          <ArrowLeft size={20} />
-          <span style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>Back</span>
-        </button>
-        <button
-          onClick={onNext}
-          className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors"
-          style={{ backgroundColor: '#FFF091', color: '#003A70' }}
-        >
-          <span style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700 }}>Next</span>
-          <ArrowRight size={20} />
-        </button>
       </div>
     </div>
   );
