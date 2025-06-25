@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { ProfitLossData } from './MultiStepForm';
@@ -106,12 +105,7 @@ const ProfitLossForm: React.FC<ProfitLossFormProps> = ({ data, setData, onBack }
           </button>
           <button
             onClick={handleSubmit}
-            disabled={!isFormValid(data)}
-            className={`flex items-center space-x-2 px-8 py-3 rounded-full transition-colors ${
-              isFormValid(data)
-                ? 'bg-blue-500 hover:bg-blue-600 text-white'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+            className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors bg-blue-500 hover:bg-blue-600 text-white"
           >
             <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Submit</span>
           </button>

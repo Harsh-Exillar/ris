@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 import { ExpensesAdministrativeHQData } from './MultiStepForm';
@@ -105,12 +104,7 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
           </button>
           <button
             onClick={handleNext}
-            disabled={!isFormValid(data)}
-            className={`flex items-center space-x-2 px-8 py-3 rounded-full transition-colors ${
-              isFormValid(data)
-                ? 'bg-blue-500 hover:bg-blue-600 text-white'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+            className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors bg-blue-500 hover:bg-blue-600 text-white"
           >
             <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Next</span>
             <ArrowRight size={20} />

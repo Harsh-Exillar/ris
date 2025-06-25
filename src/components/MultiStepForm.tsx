@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SalesForm from './SalesForm';
 import ExpensesForm from './ExpensesForm';
@@ -8,6 +7,7 @@ import ExpensesAdministrativeHQForm from './ExpensesAdministrativeHQForm';
 import OtherExpensesOBForm from './OtherExpensesOBForm';
 import OtherIncomeForm from './OtherIncomeForm';
 import ProfitLossForm from './ProfitLossForm';
+import { isFormValid } from '../utils/validation';
 
 export interface SalesData {
   grossSales: string;
@@ -94,6 +94,8 @@ export interface ProfitLossData {
 
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  
   const [salesData, setSalesData] = useState<SalesData>({
     grossSales: '',
     minusVat: '',
@@ -188,9 +190,30 @@ const MultiStepForm = () => {
     { id: 8, title: 'Profit And Loss', isActive: currentStep === 8 }
   ];
 
+  const getFormData = (stepId: number) => {
+    switch (stepId) {
+      case 1: return salesData;
+      case 2: return expensesData;
+      case 3: return expensesStaffData;
+      case 4: return expensesStoreData;
+      case 5: return expensesAdministrativeHQData;
+      case 6: return otherExpensesOBData;
+      case 7: return otherIncomeData;
+      case 8: return profitLossData;
+      default: return {};
+    }
+  };
+
   const handleNext = () => {
     if (currentStep < 8) {
-      setCurrentStep(currentStep + 1);
+      const currentFormData = getFormData(currentStep);
+      if (isFormValid(currentFormData)) {
+        // Mark current step as completed
+        if (!completedSteps.includes(currentStep)) {
+          setCompletedSteps([...completedSteps, currentStep]);
+        }
+        setCurrentStep(currentStep + 1);
+      }
     }
   };
 
@@ -201,10 +224,14 @@ const MultiStepForm = () => {
   };
 
   const handleStepClick = (stepId: number) => {
-    // Only allow navigation to current step or previous completed steps
-    if (stepId <= currentStep) {
+    // Allow navigation to current step, previous steps, or next step if current is completed
+    if (stepId <= currentStep || completedSteps.includes(stepId - 1)) {
       setCurrentStep(stepId);
     }
+  };
+
+  const isStepAccessible = (stepId: number) => {
+    return stepId <= currentStep || completedSteps.includes(stepId - 1);
   };
 
   return (
@@ -219,7 +246,7 @@ const MultiStepForm = () => {
               className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
                 item.isActive 
                   ? 'border-l-4' 
-                  : item.id < currentStep 
+                  : isStepAccessible(item.id)
                     ? 'hover:bg-blue-800' 
                     : 'opacity-50 cursor-not-allowed'
               }`}
@@ -231,11 +258,11 @@ const MultiStepForm = () => {
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
                 style={{ 
-                  backgroundColor: item.isActive ? 'white' : '#3B82F6',
+                  backgroundColor: item.isActive ? 'white' : completedSteps.includes(item.id) ? '#10B981' : '#3B82F6',
                   color: item.isActive ? '#003A70' : 'white'
                 }}
               >
-                {item.id}
+                {completedSteps.includes(item.id) ? '✓' : item.id}
               </div>
               <span className="text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
                 {item.title}
