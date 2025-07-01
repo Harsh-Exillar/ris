@@ -23,7 +23,7 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
     }
   };
 
@@ -42,7 +42,7 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
       <div className="p-8">
         <div className="border-b border-gray-200 pb-4 mb-8">
-          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Amatic SC, cursive' }}>
+          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
             EXPENSE STORE
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
@@ -61,10 +61,10 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
                 type="text"
                 value={data[field as keyof ExpensesStoreData]}
                 onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
-                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                   isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
-                placeholder="Enter numerical value"
+                placeholder="Enter numerical value (e.g., 126.33)"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
               {errors[field] && (
@@ -76,7 +76,7 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
           ))}
 
           {/* Rent Gross section */}
-          <div className="border-l-4 border-blue-400 pl-4 bg-blue-50 p-4 rounded-r-lg">
+          <div className="border-l-4 border-yellow-400 pl-4 bg-yellow-50 p-4 rounded-r-lg">
             <h3 className="text-lg font-semibold mb-4" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
               Rent Gross
             </h3>
@@ -90,10 +90,10 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
                     type="text"
                     value={data[field as keyof ExpensesStoreData]}
                     onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                    className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                       isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                     }`}
-                    placeholder="Enter numerical value"
+                    placeholder="Enter numerical value (e.g., 126.33)"
                     style={{ fontFamily: 'Montserrat, sans-serif' }}
                   />
                   {errors[field] && (
@@ -116,10 +116,10 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
                 type="text"
                 value={data[field as keyof ExpensesStoreData]}
                 onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
-                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                   isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
-                placeholder="Enter numerical value"
+                placeholder="Enter numerical value (e.g., 126.33)"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
               {errors[field] && (
@@ -142,7 +142,8 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
           </button>
           <button
             onClick={handleNext}
-            className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors bg-blue-500 hover:bg-blue-600 text-white"
+            className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors text-black"
+            style={{ backgroundColor: '#FFF091' }}
           >
             <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Next</span>
             <ArrowRight size={20} />

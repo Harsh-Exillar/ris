@@ -23,7 +23,7 @@ const OtherExpensesOBForm: React.FC<OtherExpensesOBFormProps> = ({ data, setData
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
     }
   };
 
@@ -42,7 +42,7 @@ const OtherExpensesOBForm: React.FC<OtherExpensesOBFormProps> = ({ data, setData
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
       <div className="p-8">
         <div className="border-b border-gray-200 pb-4 mb-8">
-          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Amatic SC, cursive' }}>
+          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
             OTHER EXPENSE OB
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
@@ -59,10 +59,10 @@ const OtherExpensesOBForm: React.FC<OtherExpensesOBFormProps> = ({ data, setData
               type="text"
               value={data.franchiseFee}
               onChange={(e) => handleInputChange('franchiseFee', e.target.value)}
-              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('franchiseFee') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value"
+              placeholder="Enter numerical value (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.franchiseFee && (
@@ -80,10 +80,10 @@ const OtherExpensesOBForm: React.FC<OtherExpensesOBFormProps> = ({ data, setData
               type="text"
               value={data.marketingOBHO}
               onChange={(e) => handleInputChange('marketingOBHO', e.target.value)}
-              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('marketingOBHO') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value"
+              placeholder="Enter numerical value (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.marketingOBHO && (
@@ -105,7 +105,8 @@ const OtherExpensesOBForm: React.FC<OtherExpensesOBFormProps> = ({ data, setData
           </button>
           <button
             onClick={handleNext}
-            className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors bg-blue-500 hover:bg-blue-600 text-white"
+            className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors text-black"
+            style={{ backgroundColor: '#FFF091' }}
           >
             <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Next</span>
             <ArrowRight size={20} />

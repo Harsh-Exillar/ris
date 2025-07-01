@@ -251,15 +251,15 @@ const MultiStepForm = () => {
                     : 'opacity-50 cursor-not-allowed'
               }`}
               style={{ 
-                backgroundColor: item.isActive ? '#3B82F6' : 'transparent',
-                borderLeftColor: item.isActive ? '#3B82F6' : 'transparent',
-                color: item.isActive ? 'white' : 'white'
+                backgroundColor: item.isActive ? '#FFF091' : 'transparent',
+                borderLeftColor: item.isActive ? '#FFF091' : 'transparent',
+                color: item.isActive ? '#003A70' : 'white'
               }}
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
                 style={{ 
-                  backgroundColor: item.isActive ? 'white' : completedSteps.includes(item.id) ? '#10B981' : '#3B82F6',
-                  color: item.isActive ? '#003A70' : 'white'
+                  backgroundColor: item.isActive ? '#003A70' : completedSteps.includes(item.id) ? '#10B981' : '#FFF091',
+                  color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#003A70'
                 }}
               >
                 {completedSteps.includes(item.id) ? '✓' : item.id}
