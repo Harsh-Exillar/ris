@@ -52,72 +52,11 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left side - Clean white/light */}
-      <div className="flex-1 bg-gray-100 relative flex items-center justify-center">
-        {/* OB CashPlate logo on left side */}
-        <div className="text-center">
-          <div className="flex items-center justify-center mb-8">
-            <div className="bg-white rounded-full p-4 mr-4 shadow-lg">
-              <span className="text-blue-800 font-bold text-2xl">OB</span>
-            </div>
-            <h1 className="text-gray-400 text-4xl font-light italic">CashPlate</h1>
-          </div>
-          <h2 className="text-gray-400 text-3xl font-light tracking-wider">LOG-IN</h2>
-          
-          {/* Login form on left side */}
-          <form onSubmit={handleSubmit} className="mt-12 space-y-6 max-w-sm">
-            <div>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent border-0 border-b-2 border-gray-300 text-gray-600 placeholder-gray-400 px-0 py-3 focus:outline-none focus:border-gray-500 text-lg"
-                placeholder="Email"
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-2">{errors.email}</p>
-              )}
-            </div>
-
-            <div className="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent border-0 border-b-2 border-gray-300 text-gray-600 placeholder-gray-400 px-0 py-3 focus:outline-none focus:border-gray-500 text-lg"
-                placeholder="Password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-0 top-3 text-gray-400 hover:text-gray-600"
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-              {errors.password && (
-                <p className="text-red-500 text-sm mt-2">{errors.password}</p>
-              )}
-            </div>
-
-            {errors.general && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
-                {errors.general}
-              </div>
-            )}
-
-            <div className="pt-6">
-              <button
-                type="submit"
-                className="bg-gray-300 text-gray-600 py-3 px-12 rounded-full text-lg font-light hover:bg-gray-400 transition-colors duration-300"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-        </div>
+      {/* Left side - Clean white */}
+      <div className="flex-1 bg-white">
       </div>
 
-      {/* Right side - Blue with form */}
+      {/* Right side - Blue with login form */}
       <div className="flex-1 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center relative overflow-hidden">
         {/* Wave patterns at bottom */}
         <div className="absolute bottom-0 left-0 right-0">
@@ -146,40 +85,56 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <h2 className="text-white text-3xl font-light tracking-wider">LOG-IN</h2>
           </div>
 
-          {/* Error message display */}
-          {errors.general && (
-            <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-lg text-sm mb-6">
-              {errors.general}
-            </div>
-          )}
-
-          {/* Prefilled form display */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-lg p-4">
+          {/* Login Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
               <input
-                type="text"
-                value="harshm@exillar.com"
-                readOnly
-                className="w-full text-gray-800 text-lg bg-transparent border-none outline-none"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-white rounded-lg px-4 py-4 text-gray-800 text-lg placeholder-gray-500"
+                placeholder="harshm@exillar.com"
               />
+              {errors.email && (
+                <p className="text-red-300 text-sm mt-2">{errors.email}</p>
+              )}
             </div>
 
-            <div className="bg-white rounded-lg p-4 flex items-center justify-between">
-              <span className="text-gray-800 text-lg">12345678</span>
-              <Eye className="text-gray-400" size={20} />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-white rounded-lg px-4 py-4 text-gray-800 text-lg placeholder-gray-500 pr-12"
+                placeholder="12345678"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+              {errors.password && (
+                <p className="text-red-300 text-sm mt-2">{errors.password}</p>
+              )}
             </div>
 
-            <button
-              onClick={() => {
-                setEmail('harshm@exillar.com');
-                setPassword('123456789');
-                onLogin();
-              }}
-              className="w-full bg-transparent border-2 border-white text-white py-4 px-8 rounded-full text-xl font-light hover:bg-white hover:text-blue-800 transition-colors duration-300"
-            >
-              Login
-            </button>
-          </div>
+            {errors.general && (
+              <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {errors.general}
+              </div>
+            )}
+
+            <div className="pt-6">
+              <button
+                type="submit"
+                className="w-full bg-transparent border-2 border-white text-white py-4 px-8 rounded-full text-xl font-light hover:bg-white hover:text-blue-800 transition-colors duration-300"
+              >
+                Login
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
