@@ -92,7 +92,11 @@ export interface ProfitLossData {
   loanCapitalPortion: string;
 }
 
-const MultiStepForm = () => {
+interface MultiStepFormProps {
+  onSubmissionComplete: () => void;
+}
+
+const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   
@@ -234,6 +238,21 @@ const MultiStepForm = () => {
     return stepId <= currentStep || completedSteps.includes(stepId - 1);
   };
 
+  const handleFinalSubmit = () => {
+    // Here you can add logic to save data or send to backend
+    console.log('Final submission data:', {
+      salesData,
+      expensesData,
+      expensesStaffData,
+      expensesStoreData,
+      expensesAdministrativeHQData,
+      otherExpensesOBData,
+      otherIncomeData,
+      profitLossData
+    });
+    onSubmissionComplete();
+  };
+
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: '#003A70' }}>
       {/* Sidebar Navigation */}
@@ -335,6 +354,7 @@ const MultiStepForm = () => {
               data={profitLossData} 
               setData={setProfitLossData} 
               onBack={handleBack}
+              onSubmit={handleFinalSubmit}
             />
           )}
         </div>
