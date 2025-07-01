@@ -52,8 +52,17 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left side - Clean white */}
-      <div className="flex-1 bg-white">
+      {/* Left side - White with wave pattern */}
+      <div className="flex-1 bg-white relative overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `url('/lovable-uploads/b23a763b-14af-41fa-a224-4a3938194160.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
       </div>
 
       {/* Right side - Blue with login form */}
