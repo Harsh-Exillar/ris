@@ -93,7 +93,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-white rounded-lg px-4 py-4 text-gray-800 text-lg placeholder-gray-500"
-                placeholder="harshm@exillar.com"
+                placeholder="Enter email"
               />
               {errors.email && (
                 <p className="text-red-300 text-sm mt-2">{errors.email}</p>
@@ -106,7 +106,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-white rounded-lg px-4 py-4 text-gray-800 text-lg placeholder-gray-500 pr-12"
-                placeholder="12345678"
+                placeholder="Enter Password"
               />
               <button
                 type="button"
