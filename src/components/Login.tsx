@@ -21,19 +21,16 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     e.preventDefault();
     const newErrors: { email?: string; password?: string; general?: string } = {};
 
-    // Validate email format
     if (!email) {
       newErrors.email = 'Email is required';
     } else if (!validateEmail(email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    // Validate password
     if (!password) {
       newErrors.password = 'Password is required';
     }
 
-    // Check credentials
     if (email && password && validateEmail(email)) {
       if (email !== 'harshm@exillar.com' || password !== '123456789') {
         newErrors.general = 'Invalid email or password';
@@ -42,39 +39,79 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
     setErrors(newErrors);
 
-    // If no errors, proceed with login
     if (Object.keys(newErrors).length === 0) {
       onLogin();
     }
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #003A70 0%, #0066CC 50%, #004080 100%)' }}>
-      {/* Wave patterns background */}
-      <div className="absolute inset-0 opacity-10">
-        <svg className="absolute bottom-0 left-0 w-full h-64" viewBox="0 0 1200 320" fill="none">
-          <path d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,208C960,213,1056,171,1152,160L1200,149.3V320H1152C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320H0V160Z" fill="white"/>
-        </svg>
-        <svg className="absolute top-0 right-0 w-full h-64 transform rotate-180" viewBox="0 0 1200 320" fill="none">
-          <path d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,208C960,213,1056,171,1152,160L1200,149.3V320H1152C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320H0V160Z" fill="white"/>
-        </svg>
+    <div className="min-h-screen flex">
+      {/* Left side - White/Light with diagonal patterns */}
+      <div className="flex-1 bg-gray-50 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url(/lovable-uploads/cef92998-6b48-4893-976f-f000861e8b80.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        {/* Diagonal line patterns */}
+        <div className="absolute inset-0">
+          <svg className="w-full h-full" viewBox="0 0 800 600" fill="none">
+            <g opacity="0.1">
+              {Array.from({ length: 20 }, (_, i) => (
+                <line
+                  key={i}
+                  x1={i * 50 - 200}
+                  y1="0"
+                  x2={i * 50 + 200}
+                  y2="600"
+                  stroke="#003A70"
+                  strokeWidth="1"
+                />
+              ))}
+            </g>
+          </svg>
+        </div>
       </div>
 
-      {/* Main content */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+      {/* Right side - Blue login form */}
+      <div className="flex-1 bg-gradient-to-br from-blue-800 to-blue-900 flex items-center justify-center relative overflow-hidden">
+        {/* Wave patterns at bottom */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg className="w-full h-32" viewBox="0 0 1200 200" fill="none">
+            <path
+              d="M0,100 C150,150 300,50 450,100 C600,150 750,50 900,100 C1050,150 1200,100 1200,100 L1200,200 L0,200 Z"
+              fill="rgba(255,255,255,0.1)"
+            />
+            <path
+              d="M0,120 C150,170 300,70 450,120 C600,170 750,70 900,120 C1050,170 1200,120 1200,120 L1200,200 L0,200 Z"
+              fill="rgba(255,255,255,0.05)"
+            />
+          </svg>
+        </div>
+
+        {/* Login form container */}
+        <div className="relative z-10 w-full max-w-md px-8">
           {/* Logo/Brand */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif' }}>
-              OB CashPlate
-            </h1>
-            <p className="text-gray-600" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Welcome back! Please sign in to your account.
-            </p>
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-6">
+              <div className="bg-white rounded-full p-3 mr-3">
+                <span className="text-blue-800 font-bold text-lg">OB</span>
+              </div>
+              <h1 className="text-white text-3xl font-light italic">CashPlate</h1>
+            </div>
+          </div>
+
+          {/* LOG-IN title */}
+          <div className="text-center mb-12">
+            <h2 className="text-white text-2xl font-light tracking-wider">LOG-IN</h2>
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
             {errors.general && (
               <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
                 {errors.general}
@@ -82,73 +119,57 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif' }}>
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                  errors.email ? 'border-red-500 focus:ring-red-300' : 'border-gray-300 focus:ring-yellow-300'
-                }`}
-                placeholder="Enter your email"
-                style={{ fontFamily: 'Montserrat, sans-serif' }}
-              />
+              <div className="relative">
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-transparent border-0 border-b-2 border-white/50 text-white placeholder-white/70 px-0 py-3 focus:outline-none focus:border-white text-lg"
+                  placeholder="Email"
+                  style={{ fontFamily: 'Arial, sans-serif' }}
+                />
+                <span className="absolute right-0 top-3 text-white/70 text-lg">•</span>
+              </div>
               {errors.email && (
-                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  {errors.email}
-                </p>
+                <p className="text-red-300 text-sm mt-2">{errors.email}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-semibold mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif' }}>
-                Password
-              </label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full px-4 py-3 pr-12 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                    errors.password ? 'border-red-500 focus:ring-red-300' : 'border-gray-300 focus:ring-yellow-300'
-                  }`}
-                  placeholder="Enter your password"
-                  style={{ fontFamily: 'Montserrat, sans-serif' }}
+                  className="w-full bg-transparent border-0 border-b-2 border-white/50 text-white placeholder-white/70 px-0 py-3 focus:outline-none focus:border-white text-lg"
+                  placeholder="Password"
+                  style={{ fontFamily: 'Arial, sans-serif' }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute right-0 top-3 text-white/70 hover:text-white"
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  {errors.password}
-                </p>
+                <p className="text-red-300 text-sm mt-2">{errors.password}</p>
               )}
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-3 rounded-lg font-semibold text-black transition-colors hover:opacity-90"
-              style={{ backgroundColor: '#FFF091', fontFamily: 'Montserrat, sans-serif' }}
-            >
-              Sign In
-            </button>
+            <div className="pt-8">
+              <button
+                type="submit"
+                className="w-full bg-transparent border-2 border-white text-white py-3 px-8 rounded-full text-lg font-light hover:bg-white hover:text-blue-800 transition-colors duration-300"
+                style={{ fontFamily: 'Arial, sans-serif' }}
+              >
+                Login
+              </button>
+            </div>
           </form>
-
-          {/* Additional info */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              For demo purposes: harshm@exillar.com / 123456789
-            </p>
-          </div>
         </div>
       </div>
     </div>
