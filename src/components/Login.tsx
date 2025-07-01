@@ -52,7 +52,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#f8f9fa' }}>
-      {/* Wave pattern background */}
+      {/* Wave pattern background - positioned to show above and below the login box */}
       <div 
         className="absolute inset-0"
         style={{
@@ -64,33 +64,33 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         }}
       />
       
-      {/* Login container positioned on the right */}
-      <div className="min-h-screen flex items-center justify-end pr-16">
-        <div className="relative z-10 w-full max-w-md">
-          {/* Blue login box */}
+      {/* Login container positioned on the right with larger size */}
+      <div className="min-h-screen flex items-center justify-end pr-8">
+        <div className="relative z-10 w-full max-w-2xl">
+          {/* Blue login box - made significantly larger */}
           <div 
-            className="rounded-lg shadow-2xl p-12 text-center"
+            className="rounded-lg shadow-2xl p-16 text-center mx-8"
             style={{ backgroundColor: '#003A70' }}
           >
             {/* Logo/Brand */}
-            <div className="mb-12">
-              <div className="flex items-center justify-center mb-8">
-                <div className="bg-white rounded-full p-4 mr-4">
-                  <span className="text-2xl font-bold" style={{ color: '#003A70' }}>OB</span>
+            <div className="mb-16">
+              <div className="flex items-center justify-center mb-10">
+                <div className="bg-white rounded-full p-6 mr-6">
+                  <span className="text-3xl font-bold" style={{ color: '#003A70' }}>OB</span>
                 </div>
-                <h1 className="text-white text-4xl font-light italic">CashPlate</h1>
+                <h1 className="text-white text-5xl font-light italic">CashPlate</h1>
               </div>
-              <h2 className="text-white text-3xl font-light tracking-wider">LOG-IN</h2>
+              <h2 className="text-white text-4xl font-light tracking-wider">LOG-IN</h2>
             </div>
 
             {/* Login Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-8">
               <div>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-transparent border-b-2 border-white px-0 py-4 text-white text-lg placeholder-gray-300 focus:outline-none focus:border-yellow-300"
+                  className="w-full bg-transparent border-b-2 border-white px-0 py-6 text-white text-xl placeholder-gray-300 focus:outline-none focus:border-yellow-300"
                   placeholder="Email"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
                 />
@@ -104,7 +104,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-transparent border-b-2 border-white px-0 py-4 text-white text-lg placeholder-gray-300 focus:outline-none focus:border-yellow-300 pr-10"
+                  className="w-full bg-transparent border-b-2 border-white px-0 py-6 text-white text-xl placeholder-gray-300 focus:outline-none focus:border-yellow-300 pr-12"
                   placeholder="Password"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
                 />
@@ -113,7 +113,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white"
                 >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {showPassword ? <EyeOff size={24} /> : <Eye size={24} />}
                 </button>
                 {errors.password && (
                   <p className="text-red-300 text-sm mt-2">{errors.password}</p>
@@ -126,10 +126,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 </div>
               )}
 
-              <div className="pt-8">
+              <div className="pt-10">
                 <button
                   type="submit"
-                  className="w-full bg-transparent border-2 border-white text-white py-4 px-8 rounded-full text-xl font-light hover:bg-white transition-colors duration-300"
+                  className="w-full bg-transparent border-2 border-white text-white py-5 px-10 rounded-full text-2xl font-light hover:bg-white transition-colors duration-300"
                   style={{ 
                     fontFamily: 'Montserrat, sans-serif',
                     color: 'white'
