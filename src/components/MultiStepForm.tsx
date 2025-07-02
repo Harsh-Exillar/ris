@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import SalesForm from './SalesForm';
 import ExpensesForm from './ExpensesForm';
 import ExpensesStaffForm from './ExpensesStaffForm';
@@ -99,6 +100,7 @@ interface MultiStepFormProps {
 const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const [salesData, setSalesData] = useState<SalesData>({
     grossSales: '',
@@ -280,109 +282,168 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row" style={{ backgroundColor: '#00263A' }}>
-      {/* Sidebar Navigation */}
-      <div className="w-full md:w-80 text-white p-4 md:p-6 order-2 md:order-1">
-        <div className="space-y-3">
-          {navigationItems.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => handleStepClick(item.id)}
-              className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
-                item.isActive 
-                  ? 'border-l-4' 
-                  : isStepAccessible(item.id)
-                    ? 'hover:bg-blue-800' 
-                    : 'opacity-50 cursor-not-allowed'
-              }`}
-              style={{ 
-                backgroundColor: item.isActive ? '#FFC801' : 'transparent',
-                borderLeftColor: item.isActive ? '#FFC801' : 'transparent',
-                color: item.isActive ? '#00263A' : 'white'
-              }}
-            >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
+    <div className="min-h-screen" style={{ backgroundColor: '#00263A' }}>
+      {/* Mobile Navigation Header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
+        <div className="flex items-center justify-between p-4">
+          <h2 className="text-lg font-semibold" style={{ color: '#00263A', fontFamily: 'Montserrat, sans-serif' }}>
+            Step {currentStep}: {navigationItems.find(item => item.id === currentStep)?.title}
+          </h2>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 rounded-lg"
+            style={{ backgroundColor: '#FFC801' }}
+          >
+            {isMobileMenuOpen ? <X size={24} color="#00263A" /> : <Menu size={24} color="#00263A" />}
+          </button>
+        </div>
+        
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-white border-t shadow-lg max-h-80 overflow-y-auto">
+            {navigationItems.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => {
+                  if (isStepAccessible(item.id)) {
+                    handleStepClick(item.id);
+                    setIsMobileMenuOpen(false);
+                  }
+                }}
+                className={`flex items-center space-x-3 p-4 border-b cursor-pointer transition-colors ${
+                  item.isActive 
+                    ? '' 
+                    : isStepAccessible(item.id)
+                      ? 'hover:bg-gray-50' 
+                      : 'opacity-50 cursor-not-allowed'
+                }`}
                 style={{ 
-                  backgroundColor: item.isActive ? '#00263A' : completedSteps.includes(item.id) ? '#10B981' : '#FFC801',
-                  color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#00263A'
+                  backgroundColor: item.isActive ? '#FFC801' : 'white',
+                  color: item.isActive ? '#00263A' : '#666'
                 }}
               >
-                {completedSteps.includes(item.id) ? '✓' : item.id}
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
+                  style={{ 
+                    backgroundColor: item.isActive ? '#00263A' : completedSteps.includes(item.id) ? '#003A70' : '#FFC801',
+                    color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#00263A'
+                  }}
+                >
+                  {completedSteps.includes(item.id) ? '✓' : item.id}
+                </div>
+                <span className="text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                  {item.title}
+                </span>
               </div>
-              <span className="text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                {item.title}
-              </span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-4 md:p-8 order-1 md:order-2" style={{ backgroundColor: '#EBEBEB' }}>
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-          {currentStep === 1 && (
-            <SalesForm 
-              data={salesData} 
-              setData={setSalesData} 
-              onNext={handleNext} 
-            />
-          )}
-          {currentStep === 2 && (
-            <ExpensesForm 
-              data={expensesData} 
-              setData={setExpensesData} 
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          {currentStep === 3 && (
-            <ExpensesStaffForm 
-              data={expensesStaffData} 
-              setData={setExpensesStaffData} 
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          {currentStep === 4 && (
-            <ExpensesStoreForm 
-              data={expensesStoreData} 
-              setData={setExpensesStoreData} 
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          {currentStep === 5 && (
-            <ExpensesAdministrativeHQForm 
-              data={expensesAdministrativeHQData} 
-              setData={setExpensesAdministrativeHQData} 
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          {currentStep === 6 && (
-            <OtherExpensesOBForm 
-              data={otherExpensesOBData} 
-              setData={setOtherExpensesOBData} 
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          {currentStep === 7 && (
-            <OtherIncomeForm 
-              data={otherIncomeData} 
-              setData={setOtherIncomeData} 
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          {currentStep === 8 && (
-            <ProfitLossForm 
-              data={profitLossData} 
-              setData={setProfitLossData} 
-              onBack={handleBack}
-              onSubmit={handleFinalSubmit}
-            />
-          )}
+      {/* Desktop & Mobile Layout */}
+      <div className="flex min-h-screen">
+        {/* Desktop Sidebar Navigation */}
+        <div className="hidden md:block w-80 text-white p-6">
+          <div className="space-y-3">
+            {navigationItems.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleStepClick(item.id)}
+                className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
+                  item.isActive 
+                    ? 'border-l-4' 
+                    : isStepAccessible(item.id)
+                      ? 'hover:bg-blue-800' 
+                      : 'opacity-50 cursor-not-allowed'
+                }`}
+                style={{ 
+                  backgroundColor: item.isActive ? '#FFC801' : 'transparent',
+                  borderLeftColor: item.isActive ? '#FFC801' : 'transparent',
+                  color: item.isActive ? '#00263A' : 'white'
+                }}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
+                  style={{ 
+                    backgroundColor: item.isActive ? '#00263A' : completedSteps.includes(item.id) ? '#003A70' : '#FFC801',
+                    color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#00263A'
+                  }}
+                >
+                  {completedSteps.includes(item.id) ? '✓' : item.id}
+                </div>
+                <span className="text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                  {item.title}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 pt-20 md:pt-8 p-4 md:p-8" style={{ backgroundColor: '#2E5D8A' }}>
+          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+            {currentStep === 1 && (
+              <SalesForm 
+                data={salesData} 
+                setData={setSalesData} 
+                onNext={handleNext} 
+              />
+            )}
+            {currentStep === 2 && (
+              <ExpensesForm 
+                data={expensesData} 
+                setData={setExpensesData} 
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            )}
+            {currentStep === 3 && (
+              <ExpensesStaffForm 
+                data={expensesStaffData} 
+                setData={setExpensesStaffData} 
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            )}
+            {currentStep === 4 && (
+              <ExpensesStoreForm 
+                data={expensesStoreData} 
+                setData={setExpensesStoreData} 
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            )}
+            {currentStep === 5 && (
+              <ExpensesAdministrativeHQForm 
+                data={expensesAdministrativeHQData} 
+                setData={setExpensesAdministrativeHQData} 
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            )}
+            {currentStep === 6 && (
+              <OtherExpensesOBForm 
+                data={otherExpensesOBData} 
+                setData={setOtherExpensesOBData} 
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            )}
+            {currentStep === 7 && (
+              <OtherIncomeForm 
+                data={otherIncomeData} 
+                setData={setOtherIncomeData} 
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            )}
+            {currentStep === 8 && (
+              <ProfitLossForm 
+                data={profitLossData} 
+                setData={setProfitLossData} 
+                onBack={handleBack}
+                onSubmit={handleFinalSubmit}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

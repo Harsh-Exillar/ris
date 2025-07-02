@@ -34,6 +34,13 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
+    /* Custom colors for the app */
+    --app-primary-blue: 197 100% 7.8%; /* #00263A */
+    --app-secondary-yellow: 45 100% 50.4%; /* #FFC801 */
+    --app-background-blue: 209 48% 34%; /* #2E5D8A */
+    --app-back-button: 210 14% 73%; /* #B8C2CB */
+    --app-success-blue: 197 100% 7.8%; /* #003A70 */
+
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;

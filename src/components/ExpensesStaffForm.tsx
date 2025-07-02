@@ -94,7 +94,7 @@ const ExpensesStaffForm: React.FC<ExpensesStaffFormProps> = ({ data, setData, on
           <button
             onClick={onBack}
             className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors"
-            style={{ backgroundColor: '#EBEBEB', color: '#003A70' }}
+            style={{ backgroundColor: '#B8C2CB', color: '#003A70' }}
           >
             <ArrowLeft size={20} />
             <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Back</span>
