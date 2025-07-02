@@ -241,22 +241,17 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
   const sendWebhookData = async (allData: any) => {
     try {
       const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant Income Statement';
-      const params = new URLSearchParams({
+      const payload = {
         timestamp: new Date().toISOString(),
-        ...Object.entries(allData).reduce((acc, [key, value]) => {
-          if (typeof value === 'object') {
-            Object.entries(value).forEach(([subKey, subValue]) => {
-              acc[`${key}_${subKey}`] = String(subValue);
-            });
-          } else {
-            acc[key] = String(value);
-          }
-          return acc;
-        }, {} as Record<string, string>)
-      });
+        ...allData
+      };
       
-      await fetch(`${webhookUrl}?${params}`, {
-        method: 'GET',
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
       });
       console.log('Webhook data sent successfully');
     } catch (error) {
