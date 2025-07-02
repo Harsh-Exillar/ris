@@ -238,9 +238,34 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
     return stepId <= currentStep || completedSteps.includes(stepId - 1);
   };
 
-  const handleFinalSubmit = () => {
-    // Here you can add logic to save data or send to backend
-    console.log('Final submission data:', {
+  const sendWebhookData = async (allData: any) => {
+    try {
+      const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant Income Statement';
+      const params = new URLSearchParams({
+        timestamp: new Date().toISOString(),
+        ...Object.entries(allData).reduce((acc, [key, value]) => {
+          if (typeof value === 'object') {
+            Object.entries(value).forEach(([subKey, subValue]) => {
+              acc[`${key}_${subKey}`] = String(subValue);
+            });
+          } else {
+            acc[key] = String(value);
+          }
+          return acc;
+        }, {} as Record<string, string>)
+      });
+      
+      await fetch(`${webhookUrl}?${params}`, {
+        method: 'GET',
+      });
+      console.log('Webhook data sent successfully');
+    } catch (error) {
+      console.error('Error sending webhook data:', error);
+    }
+  };
+
+  const handleFinalSubmit = async () => {
+    const allData = {
       salesData,
       expensesData,
       expensesStaffData,
@@ -249,14 +274,20 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
       otherExpensesOBData,
       otherIncomeData,
       profitLossData
-    });
+    };
+    
+    console.log('Final submission data:', allData);
+    
+    // Send data to webhook
+    await sendWebhookData(allData);
+    
     onSubmissionComplete();
   };
 
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: '#003A70' }}>
+    <div className="min-h-screen flex flex-col md:flex-row" style={{ backgroundColor: '#00263A' }}>
       {/* Sidebar Navigation */}
-      <div className="w-80 text-white p-6">
+      <div className="w-full md:w-80 text-white p-4 md:p-6 order-2 md:order-1">
         <div className="space-y-3">
           {navigationItems.map((item) => (
             <div
@@ -270,15 +301,15 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
                     : 'opacity-50 cursor-not-allowed'
               }`}
               style={{ 
-                backgroundColor: item.isActive ? '#FFF091' : 'transparent',
-                borderLeftColor: item.isActive ? '#FFF091' : 'transparent',
-                color: item.isActive ? '#003A70' : 'white'
+                backgroundColor: item.isActive ? '#FFC801' : 'transparent',
+                borderLeftColor: item.isActive ? '#FFC801' : 'transparent',
+                color: item.isActive ? '#00263A' : 'white'
               }}
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
                 style={{ 
-                  backgroundColor: item.isActive ? '#003A70' : completedSteps.includes(item.id) ? '#10B981' : '#FFF091',
-                  color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#003A70'
+                  backgroundColor: item.isActive ? '#00263A' : completedSteps.includes(item.id) ? '#10B981' : '#FFC801',
+                  color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#00263A'
                 }}
               >
                 {completedSteps.includes(item.id) ? '✓' : item.id}
@@ -292,7 +323,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-8" style={{ backgroundColor: '#EBEBEB' }}>
+      <div className="flex-1 p-4 md:p-8 order-1 md:order-2" style={{ backgroundColor: '#EBEBEB' }}>
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
           {currentStep === 1 && (
             <SalesForm 
