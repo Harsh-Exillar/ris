@@ -42,18 +42,18 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
     advertisingOwn: 'Advertising Own',
     auditFees: 'Audit Fees',
     bankCreditCardCharges: 'Bank & Credit Card Charges',
-    computerRepairsSoftwareRental: 'Computer Repairs & Software RENTAL',
+    computerRepairs: 'Computer Repairs',
+    softwareRental: 'Software Rental',
     consultingFeesFCSAudits: 'Consulting Fees FCS Audits',
-    depreciationComputerEquipment: 'Depreciation - Computer Equipment (3 years)',
-    depreciationOtherShopfitting: 'Depreciation - Other (Shopfitting etc) (5 years)',
-    interestOnLoanPaid: 'Interest on Loan Paid',
-    partnersInvestmentPolicies: 'Partners Investment policies',
+    depreciationComputerEquipment: 'Depreciation - Computer Equipment',
+    depreciationOtherShopfitting: 'Depreciation - Other (Shopfitting etc)',
+    interestPaid: 'Interest Paid',
     entertainment: 'Entertainment',
     equipmentRental: 'Equipment Rental',
-    fixedAssetsUnder1000: 'Fixed assets < R1000',
+    fixedAssetsUnder7000: 'Fixed assets < R7000',
     generatorLease: 'Generator Lease',
     professionalLegalFees: 'Professional & Legal Fees',
-    televisionMNETSatellite: 'Television MNET Satellite'
+    television: 'Television'
   };
 
   return (
@@ -61,10 +61,10 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
       <div className="p-8">
         <div className="border-b border-gray-200 pb-4 mb-8">
           <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
-            EXPENSE ADMINISTRATIVE HQ
+            EXPENSES ADMINISTRATIVE HQ
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please Enter your Administrative HQ Expense details here
+            Please enter your restaurant expense details here (All values to exclude vat where applicable)
           </p>
         </div>
 

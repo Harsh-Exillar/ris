@@ -46,14 +46,14 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
             SALES
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please Enter your sales detail here
+            Please enter your sales details here
           </p>
         </div>
 
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Gross Sales *
+              Gross Sales (incl VAT) *
             </label>
             <input
               type="text"
@@ -74,21 +74,21 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
 
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Minus VAT *
+              VAT *
             </label>
             <input
               type="text"
-              value={data.minusVat}
-              onChange={(e) => handleInputChange('minusVat', e.target.value)}
+              value={data.vat}
+              onChange={(e) => handleInputChange('vat', e.target.value)}
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
-                isFieldEmpty('minusVat') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                isFieldEmpty('vat') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
               placeholder="Enter numerical value (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
-            {errors.minusVat && (
+            {errors.vat && (
               <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                {errors.minusVat}
+                {errors.vat}
               </p>
             )}
           </div>
@@ -116,21 +116,21 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
 
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Minus Cost of Sales *
+              Cost of Sales (ex VAT) *
             </label>
             <input
               type="text"
-              value={data.minusCostOfSales}
-              onChange={(e) => handleInputChange('minusCostOfSales', e.target.value)}
+              value={data.costOfSales}
+              onChange={(e) => handleInputChange('costOfSales', e.target.value)}
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
-                isFieldEmpty('minusCostOfSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                isFieldEmpty('costOfSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
               placeholder="Enter numerical value (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
-            {errors.minusCostOfSales && (
+            {errors.costOfSales && (
               <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                {errors.minusCostOfSales}
+                {errors.costOfSales}
               </p>
             )}
           </div>

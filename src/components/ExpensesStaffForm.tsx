@@ -40,15 +40,17 @@ const ExpensesStaffForm: React.FC<ExpensesStaffFormProps> = ({ data, setData, on
 
   const inputFields = [
     { key: 'casualWages', label: 'Casual Wages' },
-    { key: 'protectiveClothingUniforms', label: 'Protective Clothing & Uniforms' },
+    { key: 'uniforms', label: 'Uniforms' },
     { key: 'salariesWagesBonus', label: 'Salaries & Wages Bonus' },
-    { key: 'salariesWagesKitchenFOH', label: 'Salaries & Wages Kitchen and FOH' },
+    { key: 'salariesWagesBOH', label: 'Salaries & Wages BOH (Back of House)' },
+    { key: 'salariesWagesFOH', label: 'Salaries & Wages FOH (Front of House)' },
     { key: 'salariesWagesManagers', label: 'Salaries & Wages Managers' },
-    { key: 'salariesOwner', label: 'Salaries: Owner' },
-    { key: 'salariesWagesOtherUIF', label: 'Salaries & Wages Other "U.I.F,RSC ,etc."' },
+    { key: 'salariesOwner', label: 'Salaries Owner' },
+    { key: 'salariesWagesStatutoryDeductions', label: 'Salaries & Wages Statutory deductions (UIF, SDL), etc' },
     { key: 'staffMealsKitchenCrew', label: 'Staff Meals Kitchen Crew' },
     { key: 'staffMealsManagersWaiters', label: 'Staff Meals Managers & Waiters' },
-    { key: 'staffMedicalCost', label: 'Staff Medical Cost (First Aid)' },
+    { key: 'staffMealsOwners', label: 'Staff Meals Owners' },
+    { key: 'staffMedicalCost', label: 'Staff Medical Cost ( First Aid )' },
     { key: 'staffTransport', label: 'Staff Transport' },
     { key: 'training', label: 'Training' }
   ];
@@ -58,10 +60,10 @@ const ExpensesStaffForm: React.FC<ExpensesStaffFormProps> = ({ data, setData, on
       <div className="p-8">
         <div className="border-b border-gray-200 pb-4 mb-8">
           <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
-            EXPENSE STAFF
+            EXPENSES STAFF
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please Enter your Staff Expense details here
+            Please enter your staff expense details here (All values to exclude vat where applicable)
           </p>
         </div>
 

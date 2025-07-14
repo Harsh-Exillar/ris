@@ -43,88 +43,46 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
       <div className="p-8">
         <div className="border-b border-gray-200 pb-4 mb-8">
           <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
-            EXPENSE STORE
+            EXPENSES STORE
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please Enter your Store Expense details here
+            Please enter your restaurant expense details here (All values to exclude vat where applicable)
           </p>
         </div>
 
-        <div className="space-y-6">
-          {/* Basic store expenses */}
-          {['electricity', 'water', 'gas', 'insurance', 'insurancePartners', 'licenseLiquorAnnualFee'].map((field) => (
-            <div key={field}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[
+            { key: 'electricity', label: 'Electricity' },
+            { key: 'water', label: 'Water' },
+            { key: 'gas', label: 'Gas' },
+            { key: 'insurance', label: 'Insurance' },
+            { key: 'licenses', label: 'Licenses' },
+            { key: 'rent', label: 'Rent' },
+            { key: 'operationalCosts', label: 'Operational Costs' },
+            { key: 'marketing', label: 'Marketing' },
+            { key: 'rates', label: 'Rates' },
+            { key: 'otherRentalExpenses', label: 'Other Rental Expenses' },
+            { key: 'repairsMaintenance', label: 'Repairs & Maintenance' },
+            { key: 'securityAlarmsGuards', label: 'Security Alarms & Guards' },
+            { key: 'telephone', label: 'Telephone' }
+          ].map(({ key, label }) => (
+            <div key={key}>
               <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                {label}
               </label>
               <input
                 type="text"
-                value={data[field as keyof ExpensesStoreData]}
-                onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
+                value={data[key as keyof ExpensesStoreData]}
+                onChange={(e) => handleInputChange(key as keyof ExpensesStoreData, e.target.value)}
                 className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
-                  isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                  isFieldEmpty(key) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
                 placeholder="Enter numerical value (e.g., 126.33)"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
-              {errors[field] && (
+              {errors[key] && (
                 <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  {errors[field]}
-                </p>
-              )}
-            </div>
-          ))}
-
-          {/* Rent Gross section */}
-          <div className="border-l-4 border-yellow-400 pl-4 bg-yellow-50 p-4 rounded-r-lg">
-            <h3 className="text-lg font-semibold mb-4" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Rent Gross
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {['rentGrossBasicRent', 'rentGrossInsurance', 'rentGrossOpsCosts', 'rentGrossMarketing', 'rentGrossRates', 'rentGrossRentTO'].map((field) => (
-                <div key={field}>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                    {field.replace('rentGross', '').replace(/([A-Z])/g, ' $1').trim()}
-                  </label>
-                  <input
-                    type="text"
-                    value={data[field as keyof ExpensesStoreData]}
-                    onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
-                      isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter numerical value (e.g., 126.33)"
-                    style={{ fontFamily: 'Montserrat, sans-serif' }}
-                  />
-                  {errors[field] && (
-                    <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                      {errors[field]}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Remaining fields */}
-          {['repairsMaintenance', 'securityAlarmsGuards', 'telephone'].map((field) => (
-            <div key={field}>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-              </label>
-              <input
-                type="text"
-                value={data[field as keyof ExpensesStoreData]}
-                onChange={(e) => handleInputChange(field as keyof ExpensesStoreData, e.target.value)}
-                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
-                  isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                }`}
-                placeholder="Enter numerical value (e.g., 126.33)"
-                style={{ fontFamily: 'Montserrat, sans-serif' }}
-              />
-              {errors[field] && (
-                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  {errors[field]}
+                  {errors[key]}
                 </p>
               )}
             </div>

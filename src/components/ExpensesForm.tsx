@@ -46,7 +46,7 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
     { key: 'obVouchers', label: 'OB Vouchers' },
     { key: 'pestControl', label: 'Pest Control' },
     { key: 'printingStationery', label: 'Printing & Stationery' },
-    { key: 'promotionsPensionersDiscounts', label: 'Promotions 10% PENSIONERS DISCOUNTS' }
+    { key: 'promotions', label: 'Promotions' }
   ];
 
   return (
@@ -54,10 +54,10 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
       <div className="p-8">
         <div className="border-b border-gray-200 pb-4 mb-8">
           <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
-            EXPENSE OPERATIONAL
+            EXPENSES OPERATIONAL
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please Enter your Expense detail here
+            Please enter your expense details here (All values to exclude vat where applicable)
           </p>
         </div>
 
