@@ -28,6 +28,7 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
   };
 
   const handleNext = () => {
+    console.log('handleNext called');
     // Custom validation for Other Expenses
     const requiredFields: string[] = [];
     
@@ -51,8 +52,13 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
     console.log('Required fields:', requiredFields);
     
     if (requiredFields.length === 0) {
-      console.log('No required fields, proceeding to next');
-      onNext();
+      console.log('No required fields, calling onNext()');
+      try {
+        onNext();
+        console.log('onNext() called successfully');
+      } catch (error) {
+        console.error('Error calling onNext():', error);
+      }
     } else {
       console.log('Setting empty fields highlighted:', requiredFields);
       setEmptyFieldsHighlighted(requiredFields);
