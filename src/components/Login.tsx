@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import logoImage from '../assets/restaurant-logo.png';
 
 interface LoginProps {
   onLogin: () => void;
@@ -72,83 +73,105 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left side - Light background with diagonal lines */}
-      <div className="flex-1 bg-gray-100 relative overflow-hidden">
-        {/* Diagonal line pattern */}
+      {/* Left side - Light background with wave pattern */}
+      <div className="w-2/5 bg-gray-50 relative overflow-hidden">
+        {/* Wave Pattern Background */}
         <div className="absolute inset-0">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="40" height="40">
-                <line x1="0" y1="0" x2="40" y2="40" stroke="#e5e7eb" strokeWidth="1" opacity="0.3"/>
+              <pattern id="wave-pattern" patternUnits="userSpaceOnUse" width="100%" height="60">
+                <path 
+                  d="M0,30 Q25,10 50,30 T100,30" 
+                  stroke="#d1d5db" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  opacity="0.4"
+                />
+                <path 
+                  d="M0,35 Q30,15 60,35 T120,35" 
+                  stroke="#d1d5db" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  opacity="0.3"
+                />
+                <path 
+                  d="M0,40 Q20,20 40,40 T80,40" 
+                  stroke="#d1d5db" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  opacity="0.5"
+                />
+                <path 
+                  d="M0,45 Q35,25 70,45 T140,45" 
+                  stroke="#d1d5db" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  opacity="0.35"
+                />
+                <path 
+                  d="M0,50 Q25,30 50,50 T100,50" 
+                  stroke="#d1d5db" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  opacity="0.4"
+                />
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#diagonal-lines)"/>
+            <rect width="100%" height="100%" fill="url(#wave-pattern)"/>
           </svg>
         </div>
       </div>
 
-      {/* Right side - Blue section with login form */}
-      <div className="w-3/5 bg-primary relative flex items-center justify-center">
-        {/* Decorative wave pattern at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
-          <svg className="w-full h-full" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-            <path 
-              d="M0,120 C300,80 600,40 900,60 C1050,70 1150,90 1200,100 L1200,120 Z" 
-              fill="hsl(var(--app-background-blue))" 
-              opacity="0.6"
-            />
-            <path 
-              d="M0,120 C200,100 400,80 600,85 C800,90 1000,95 1200,100 L1200,120 Z" 
-              fill="hsl(var(--app-background-blue))" 
-              opacity="0.4"
-            />
-          </svg>
-        </div>
-
+      {/* Right side - Navy blue section with login form */}
+      <div className="w-3/5 relative flex items-center justify-center" style={{ backgroundColor: '#00263a' }}>
         {/* Login form container */}
         <div className="relative z-10 w-full max-w-md px-8">
           {/* Logo section */}
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-8">
-              <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mr-4">
-                <span className="text-primary font-bold text-xl">OB</span>
-              </div>
-              <h1 className="text-white text-2xl font-script">Restaurant Income Statement</h1>
+              <img 
+                src={logoImage} 
+                alt="Restaurant Logo" 
+                className="w-16 h-16 rounded-full mr-4 bg-white p-2"
+              />
+              <h1 className="text-white text-lg font-semibold uppercase tracking-wider">
+                RESTAURANT INCOME STATEMENT
+              </h1>
             </div>
             <h2 className="text-white text-3xl font-normal tracking-[0.3em] uppercase">LOG-IN</h2>
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-12">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div className="relative">
-              <label className="text-white text-sm mb-2 block">
+              <label className="text-white text-sm mb-3 block">
                 Email <span className="text-orange-500 ml-1">•</span>
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
+                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-white"
                 placeholder=""
               />
               {errors.email && (
-                <p className="text-red-300 text-sm mt-2">{errors.email}</p>
+                <p className="text-orange-400 text-sm mt-2">{errors.email}</p>
               )}
             </div>
 
             <div className="relative">
-              <label className="text-white text-sm mb-2 block">
+              <label className="text-white text-sm mb-3 block">
                 Password <span className="text-orange-500 ml-1">•</span>
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
+                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-white"
                 placeholder=""
               />
               {errors.password && (
-                <p className="text-red-300 text-sm mt-2">{errors.password}</p>
+                <p className="text-orange-400 text-sm mt-2">{errors.password}</p>
               )}
             </div>
 
@@ -161,7 +184,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <div className="pt-8">
               <button
                 type="submit"
-                className="w-full bg-transparent border border-white text-white py-4 px-8 rounded-full text-lg font-normal hover:bg-white hover:text-primary transition-colors duration-300"
+                className="w-full bg-transparent border border-white text-white py-4 px-8 rounded-lg text-lg font-normal hover:bg-white hover:text-[#00263a] transition-colors duration-300"
               >
                 Login
               </button>
