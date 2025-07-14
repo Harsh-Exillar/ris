@@ -31,6 +31,8 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
     // Custom validation for Other Expenses
     const requiredFields: string[] = [];
     
+    console.log('Other Expenses Data:', data);
+    
     // Check each expense field and make comment required if expense is filled
     for (let i = 1; i <= 10; i++) {
       const expenseField = `otherExpenses${i}`;
@@ -38,14 +40,21 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
       const expenseValue = data[expenseField as keyof OtherExpensesData];
       const commentValue = data[commentField as keyof OtherExpensesData];
       
+      console.log(`Field ${i}: expense="${expenseValue}", comment="${commentValue}"`);
+      
       if (expenseValue && expenseValue.trim() !== '' && (!commentValue || commentValue.trim() === '')) {
+        console.log(`Adding required field: ${commentField}`);
         requiredFields.push(commentField);
       }
     }
     
+    console.log('Required fields:', requiredFields);
+    
     if (requiredFields.length === 0) {
+      console.log('No required fields, proceeding to next');
       onNext();
     } else {
+      console.log('Setting empty fields highlighted:', requiredFields);
       setEmptyFieldsHighlighted(requiredFields);
     }
   };
@@ -68,7 +77,7 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {expenseFields.map((num) => (
-            <React.Fragment key={num}>
+            <div key={`expense-${num}`} className="col-span-1 lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
                   Other Expenses {num}
@@ -109,7 +118,7 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
                   </p>
                 )}
               </div>
-            </React.Fragment>
+            </div>
           ))}
         </div>
 
