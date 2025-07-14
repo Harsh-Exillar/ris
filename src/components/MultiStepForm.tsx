@@ -262,12 +262,41 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
   const handleNext = () => {
     if (currentStep < 9) {
       const currentFormData = getFormData(currentStep);
-      if (isFormValid(currentFormData)) {
-        // Mark current step as completed
-        if (!completedSteps.includes(currentStep)) {
-          setCompletedSteps([...completedSteps, currentStep]);
+      
+      // Custom validation for Other Expenses (step 7)
+      if (currentStep === 7) {
+        const otherExpensesData = currentFormData as OtherExpensesData;
+        let isValid = true;
+        
+        // Check each expense field and make comment required if expense is filled
+        for (let i = 1; i <= 10; i++) {
+          const expenseField = `otherExpenses${i}`;
+          const commentField = `otherExpenses${i}Comment`;
+          const expenseValue = otherExpensesData[expenseField as keyof OtherExpensesData];
+          const commentValue = otherExpensesData[commentField as keyof OtherExpensesData];
+          
+          if (expenseValue && expenseValue.trim() !== '' && (!commentValue || commentValue.trim() === '')) {
+            isValid = false;
+            break;
+          }
         }
-        setCurrentStep(currentStep + 1);
+        
+        if (isValid) {
+          // Mark current step as completed
+          if (!completedSteps.includes(currentStep)) {
+            setCompletedSteps([...completedSteps, currentStep]);
+          }
+          setCurrentStep(currentStep + 1);
+        }
+      } else {
+        // Use general validation for all other steps
+        if (isFormValid(currentFormData)) {
+          // Mark current step as completed
+          if (!completedSteps.includes(currentStep)) {
+            setCompletedSteps([...completedSteps, currentStep]);
+          }
+          setCurrentStep(currentStep + 1);
+        }
       }
     }
   };
