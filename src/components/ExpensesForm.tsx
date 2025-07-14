@@ -40,13 +40,13 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
   const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);
 
   const inputFields = [
-    { key: 'cleaningMaterialsLaundry', label: 'Cleaning Materials & Laundry' },
-    { key: 'consumablePackaging', label: 'Consumable & Packaging' },
-    { key: 'cutleryCrockery', label: 'Cutlery & Crockery' },
-    { key: 'obVouchers', label: 'OB Vouchers' },
-    { key: 'pestControl', label: 'Pest Control' },
-    { key: 'printingStationery', label: 'Printing & Stationery' },
-    { key: 'promotions', label: 'Promotions' }
+    { key: 'cleaningMaterialsLaundry', label: 'Cleaning Material & Laundry *' },
+    { key: 'consumablePackaging', label: 'Consumable & Packaging *' },
+    { key: 'cutleryCrockery', label: 'Cutlery & Crockery *' },
+    { key: 'obVouchers', label: 'OB Vouchers *' },
+    { key: 'pestControl', label: 'Pest Control *' },
+    { key: 'printingStationery', label: 'Printing & Stationery *' },
+    { key: 'promotions', label: 'Promotions *' }
   ];
 
   return (

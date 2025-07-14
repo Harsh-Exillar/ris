@@ -40,8 +40,8 @@ const ProfitLossForm: React.FC<ProfitLossFormProps> = ({ data, setData, onBack, 
   const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);
 
   const inputFields = [
-    { key: 'addBackDepreciation', label: 'Add Back Depreciation' },
-    { key: 'loanCapitalPortion', label: 'Loan Capital Portion' }
+    { key: 'addBackDepreciation', label: 'Add back Depreciation *' },
+    { key: 'loanCapitalPortion', label: 'Loan Capital Portion *' }
   ];
 
   return (
@@ -52,7 +52,7 @@ const ProfitLossForm: React.FC<ProfitLossFormProps> = ({ data, setData, onBack, 
             PROFIT AND LOSS
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please Enter your Profit and Loss detail here
+            Please enter your Profit & Loss details here (All values to exclude vat where applicable)
           </p>
         </div>
 

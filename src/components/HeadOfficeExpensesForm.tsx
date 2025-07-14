@@ -39,8 +39,8 @@ const HeadOfficeExpensesForm: React.FC<HeadOfficeExpensesFormProps> = ({ data, s
   const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);
 
   const inputFields = [
-    { key: 'obRoyaltyFees', label: 'OB Royalty Fees' },
-    { key: 'obMarketingFees', label: 'OB Marketing Fees' }
+    { key: 'obRoyaltyFees', label: 'OB Royalty Fees *' },
+    { key: 'obMarketingFees', label: 'OB Marketing Fees *' }
   ];
 
   return (

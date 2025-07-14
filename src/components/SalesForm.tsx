@@ -53,7 +53,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Gross Sales (incl VAT) *
+              Gross Sales (incl Vat) *
             </label>
             <input
               type="text"
@@ -116,7 +116,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
 
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Cost of Sales (ex VAT) *
+              Cost of Sales (ex Vat) *
             </label>
             <input
               type="text"

@@ -52,19 +52,19 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
-            { key: 'electricity', label: 'Electricity' },
-            { key: 'water', label: 'Water' },
-            { key: 'gas', label: 'Gas' },
-            { key: 'insurance', label: 'Insurance' },
-            { key: 'licenses', label: 'Licenses' },
-            { key: 'rent', label: 'Rent' },
-            { key: 'operationalCosts', label: 'Operational Costs' },
-            { key: 'marketing', label: 'Marketing' },
-            { key: 'rates', label: 'Rates' },
-            { key: 'otherRentalExpenses', label: 'Other Rental Expenses' },
-            { key: 'repairsMaintenance', label: 'Repairs & Maintenance' },
-            { key: 'securityAlarmsGuards', label: 'Security Alarms & Guards' },
-            { key: 'telephone', label: 'Telephone' }
+            { key: 'electricity', label: 'Electricity *' },
+            { key: 'water', label: 'Water *' },
+            { key: 'gas', label: 'Gas *' },
+            { key: 'insurance', label: 'Insurance *' },
+            { key: 'licenses', label: 'Licenses *' },
+            { key: 'rent', label: 'Rent *' },
+            { key: 'operationalCosts', label: 'Operational Costs *' },
+            { key: 'marketing', label: 'Marketing *' },
+            { key: 'rates', label: 'Rates *' },
+            { key: 'otherRentalExpenses', label: 'Other Rental Expenses *' },
+            { key: 'repairsMaintenance', label: 'Repairs & Maintenance *' },
+            { key: 'securityAlarmsGuards', label: 'Security Alarms & Guards *' },
+            { key: 'telephone', label: 'Telephone *' }
           ].map(({ key, label }) => (
             <div key={key}>
               <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>

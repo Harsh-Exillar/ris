@@ -39,20 +39,20 @@ const ExpensesStaffForm: React.FC<ExpensesStaffFormProps> = ({ data, setData, on
   const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);
 
   const inputFields = [
-    { key: 'casualWages', label: 'Casual Wages' },
-    { key: 'uniforms', label: 'Uniforms' },
-    { key: 'salariesWagesBonus', label: 'Salaries & Wages Bonus' },
-    { key: 'salariesWagesBOH', label: 'Salaries & Wages BOH (Back of House)' },
-    { key: 'salariesWagesFOH', label: 'Salaries & Wages FOH (Front of House)' },
-    { key: 'salariesWagesManagers', label: 'Salaries & Wages Managers' },
-    { key: 'salariesOwner', label: 'Salaries Owner' },
-    { key: 'salariesWagesStatutoryDeductions', label: 'Salaries & Wages Statutory deductions (UIF, SDL), etc' },
-    { key: 'staffMealsKitchenCrew', label: 'Staff Meals Kitchen Crew' },
-    { key: 'staffMealsManagersWaiters', label: 'Staff Meals Managers & Waiters' },
-    { key: 'staffMealsOwners', label: 'Staff Meals Owners' },
-    { key: 'staffMedicalCost', label: 'Staff Medical Cost ( First Aid )' },
-    { key: 'staffTransport', label: 'Staff Transport' },
-    { key: 'training', label: 'Training' }
+    { key: 'casualWages', label: 'Casual Wages *' },
+    { key: 'uniforms', label: 'Uniforms *' },
+    { key: 'salariesWagesBonus', label: 'Salaries & Wages Bonus *' },
+    { key: 'salariesWagesBOH', label: 'Salaries & Wages BOH (Back of House) *' },
+    { key: 'salariesWagesFOH', label: 'Salaries & Wages FOH (Front of House) *' },
+    { key: 'salariesWagesManagers', label: 'Salaries & Wages Managers *' },
+    { key: 'salariesOwner', label: 'Salaries Owner *' },
+    { key: 'salariesWagesStatutoryDeductions', label: 'Salaries & Wages Statutory deductions (UIF, SDL), etc *' },
+    { key: 'staffMealsKitchenCrew', label: 'Staff Meals Kitchen Crew *' },
+    { key: 'staffMealsManagersWaiters', label: 'Staff Meals Managers & Waiters *' },
+    { key: 'staffMealsOwners', label: 'Staff Meals Owners *' },
+    { key: 'staffMedicalCost', label: 'Staff Medical Cost ( First Aid ) *' },
+    { key: 'staffTransport', label: 'Staff Transport *' },
+    { key: 'training', label: 'Training *' }
   ];
 
   return (

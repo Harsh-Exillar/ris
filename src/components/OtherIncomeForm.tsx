@@ -46,14 +46,14 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
             OTHER INCOME
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please Enter your Other Income details here
+            Please enter your Other Income details here (All values to exclude vat where applicable)
           </p>
         </div>
 
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Fixed Asset Disposal
+              Fixed Asset Disposal *
             </label>
             <input
               type="text"
@@ -74,7 +74,7 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
 
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              TOTAL OTHER INCOME
+              Total Other Income *
             </label>
             <input
               type="text"

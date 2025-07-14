@@ -39,21 +39,21 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
   const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);
 
   const fieldLabels = {
-    advertisingOwn: 'Advertising Own',
-    auditFees: 'Audit Fees',
-    bankCreditCardCharges: 'Bank & Credit Card Charges',
-    computerRepairs: 'Computer Repairs',
-    softwareRental: 'Software Rental',
-    consultingFeesFCSAudits: 'Consulting Fees FCS Audits',
-    depreciationComputerEquipment: 'Depreciation - Computer Equipment',
-    depreciationOtherShopfitting: 'Depreciation - Other (Shopfitting etc)',
-    interestPaid: 'Interest Paid',
-    entertainment: 'Entertainment',
-    equipmentRental: 'Equipment Rental',
-    fixedAssetsUnder7000: 'Fixed assets < R7000',
-    generatorLease: 'Generator Lease',
-    professionalLegalFees: 'Professional & Legal Fees',
-    television: 'Television'
+    advertisingOwn: 'Advertising Own *',
+    auditFees: 'Audit Fees *',
+    bankCreditCardCharges: 'Bank & Credit Card Charges *',
+    computerRepairs: 'Computer Repairs *',
+    softwareRental: 'Software Rental *',
+    consultingFeesFCSAudits: 'Consulting Fees FCS Audits *',
+    depreciationComputerEquipment: 'Depreciation - Computer Equipment *',
+    depreciationOtherShopfitting: 'Depreciation - Other (Shopfitting etc) *',
+    interestPaid: 'Interest Paid *',
+    entertainment: 'Entertainment *',
+    equipmentRental: 'Equipment Rental *',
+    fixedAssetsUnder7000: 'Fixed assets < R7000 *',
+    generatorLease: 'Generator Lease *',
+    professionalLegalFees: 'Professional & Legal Fees *',
+    television: 'Television *'
   };
 
   return (

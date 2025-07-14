@@ -60,8 +60,8 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                    Other Expenses {num}
+                   <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                    Other Expenses {num} *
                   </label>
                   <input
                     type="text"
@@ -80,8 +80,8 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                    Other Expenses {num} Comment
+                   <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                    Other Expenses {num} Comment *
                   </label>
                   <textarea
                     value={data[`otherExpenses${num}Comment` as keyof OtherExpensesData]}
