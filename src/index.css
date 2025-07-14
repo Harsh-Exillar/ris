@@ -43,6 +43,9 @@
 
     --radius: 0.5rem;
 
+    /* Font families */
+    --font-script: 'Amatic SC', cursive;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;
