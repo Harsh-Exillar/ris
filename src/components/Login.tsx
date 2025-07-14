@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import logoImage from '@/assets/logo.png';
 
 interface LoginProps {
   onLogin: () => void;
@@ -72,35 +73,29 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left side - Light background with diagonal lines */}
-      <div className="flex-1 bg-gray-100 relative overflow-hidden">
-        {/* Diagonal line pattern */}
-        <div className="absolute inset-0">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="40" height="40">
-                <line x1="0" y1="0" x2="40" y2="40" stroke="#e5e7eb" strokeWidth="1" opacity="0.3"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#diagonal-lines)"/>
-          </svg>
-        </div>
+      {/* Left side - Light gray background */}
+      <div className="w-2/5 bg-gray-100">
       </div>
 
-      {/* Right side - Blue section with login form */}
-      <div className="w-3/5 bg-primary relative flex items-center justify-center">
-        {/* Decorative wave pattern at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
+      {/* Right side - Deep teal section with login form */}
+      <div className="w-3/5 bg-teal-800 relative flex items-center justify-center overflow-hidden">
+        {/* Multiple wave layers at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-32">
           <svg className="w-full h-full" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+            {/* First wave layer */}
             <path 
               d="M0,120 C300,80 600,40 900,60 C1050,70 1150,90 1200,100 L1200,120 Z" 
-              fill="hsl(var(--app-background-blue))" 
-              opacity="0.6"
+              fill="rgba(45, 212, 191, 0.2)" 
             />
+            {/* Second wave layer */}
             <path 
               d="M0,120 C200,100 400,80 600,85 C800,90 1000,95 1200,100 L1200,120 Z" 
-              fill="hsl(var(--app-background-blue))" 
-              opacity="0.4"
+              fill="rgba(45, 212, 191, 0.15)" 
+            />
+            {/* Third wave layer */}
+            <path 
+              d="M0,120 C150,110 350,90 550,95 C750,100 950,105 1200,110 L1200,120 Z" 
+              fill="rgba(45, 212, 191, 0.1)" 
             />
           </svg>
         </div>
@@ -108,60 +103,66 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         {/* Login form container */}
         <div className="relative z-10 w-full max-w-md px-8">
           {/* Logo section */}
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-8">
-              <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mr-4">
-                <span className="text-primary font-bold text-xl">OB</span>
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center mb-12">
+              <div className="w-20 h-20 rounded-full overflow-hidden mr-6 bg-white flex items-center justify-center">
+                <img 
+                  src={logoImage} 
+                  alt="Logo" 
+                  className="w-16 h-16 object-contain"
+                />
               </div>
-              <h1 className="text-white text-2xl font-script">Restaurant Income Statement</h1>
+              <h1 className="text-white text-xl font-medium uppercase tracking-wide">
+                RESTAURANT INCOME STATEMENT
+              </h1>
             </div>
-            <h2 className="text-white text-3xl font-normal tracking-[0.3em] uppercase">LOG-IN</h2>
+            <h2 className="text-white text-4xl font-light tracking-[0.4em] uppercase">LOG-IN</h2>
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-12">
+          <form onSubmit={handleSubmit} className="space-y-16">
             <div className="relative">
-              <label className="text-white text-sm mb-2 block">
-                Email <span className="text-orange-500 ml-1">•</span>
+              <label className="text-white text-sm mb-3 block font-medium">
+                Email <span className="text-orange-400 ml-1">•</span>
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
+                className="w-full bg-transparent border-0 border-b border-white px-0 py-4 text-white text-lg placeholder-white/50 focus:outline-none focus:border-teal-300 transition-colors"
                 placeholder=""
               />
               {errors.email && (
-                <p className="text-red-300 text-sm mt-2">{errors.email}</p>
+                <p className="text-orange-400 text-sm mt-3 italic">{errors.email}</p>
               )}
             </div>
 
             <div className="relative">
-              <label className="text-white text-sm mb-2 block">
-                Password <span className="text-orange-500 ml-1">•</span>
+              <label className="text-white text-sm mb-3 block font-medium">
+                Password <span className="text-orange-400 ml-1">•</span>
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
+                className="w-full bg-transparent border-0 border-b border-white px-0 py-4 text-white text-lg placeholder-white/50 focus:outline-none focus:border-teal-300 transition-colors"
                 placeholder=""
               />
               {errors.password && (
-                <p className="text-red-300 text-sm mt-2">{errors.password}</p>
+                <p className="text-orange-400 text-sm mt-3 italic">{errors.password}</p>
               )}
             </div>
 
             {errors.general && (
-              <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-red-900/30 border border-red-400 text-red-300 px-4 py-3 rounded-lg text-sm">
                 {errors.general}
               </div>
             )}
 
-            <div className="pt-8">
+            <div className="pt-12">
               <button
                 type="submit"
-                className="w-full bg-transparent border border-white text-white py-4 px-8 rounded-full text-lg font-normal hover:bg-white hover:text-primary transition-colors duration-300"
+                className="w-full bg-transparent border-2 border-white text-white py-5 px-8 rounded-2xl text-lg font-medium hover:bg-white hover:text-teal-800 transition-all duration-300 tracking-wide"
               >
                 Login
               </button>
