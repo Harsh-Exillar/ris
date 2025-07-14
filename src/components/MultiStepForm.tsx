@@ -12,31 +12,33 @@ import { isFormValid } from '../utils/validation';
 
 export interface SalesData {
   grossSales: string;
-  minusVat: string;
+  vat: string;
   netSales: string;
-  minusCostOfSales: string;
+  costOfSales: string;
 }
 
 export interface ExpensesData {
-  cleaningMaterialsLaundry: string;
+  cleaningMaterialLaundry: string;
   consumablePackaging: string;
   cutleryCrockery: string;
   obVouchers: string;
   pestControl: string;
   printingStationery: string;
-  promotionsPensionersDiscounts: string;
+  promotions: string;
 }
 
 export interface ExpensesStaffData {
   casualWages: string;
-  protectiveClothingUniforms: string;
+  uniforms: string;
   salariesWagesBonus: string;
-  salariesWagesKitchenFOH: string;
+  salariesWagesBOH: string;
+  salariesWagesFOH: string;
   salariesWagesManagers: string;
   salariesOwner: string;
-  salariesWagesOtherUIF: string;
+  salariesWagesStatutoryDeductions: string;
   staffMealsKitchenCrew: string;
   staffMealsManagersWaiters: string;
+  staffMealsOwners: string;
   staffMedicalCost: string;
   staffTransport: string;
   training: string;
@@ -47,14 +49,12 @@ export interface ExpensesStoreData {
   water: string;
   gas: string;
   insurance: string;
-  insurancePartners: string;
-  licenseLiquorAnnualFee: string;
-  rentGrossBasicRent: string;
-  rentGrossInsurance: string;
-  rentGrossOpsCosts: string;
-  rentGrossMarketing: string;
-  rentGrossRates: string;
-  rentGrossRentTO: string;
+  licenses: string;
+  rent: string;
+  operationalCosts: string;
+  marketing: string;
+  rates: string;
+  otherRentalExpenses: string;
   repairsMaintenance: string;
   securityAlarmsGuards: string;
   telephone: string;
@@ -64,18 +64,23 @@ export interface ExpensesAdministrativeHQData {
   advertisingOwn: string;
   auditFees: string;
   bankCreditCardCharges: string;
-  computerRepairsSoftwareRental: string;
+  computerRepairs: string;
+  softwareRental: string;
   consultingFeesFCSAudits: string;
   depreciationComputerEquipment: string;
-  depreciationOtherShopfitting: string;
-  interestOnLoanPaid: string;
-  partnersInvestmentPolicies: string;
+  depreciationOther: string;
+  interestPaid: string;
   entertainment: string;
   equipmentRental: string;
-  fixedAssetsUnder1000: string;
+  fixedAssetsUnder7000: string;
   generatorLease: string;
   professionalLegalFees: string;
-  televisionMNETSatellite: string;
+  television: string;
+}
+
+export interface HeadOfficeExpensesData {
+  obRoyaltyFees: string;
+  obMarketingFees: string;
 }
 
 export interface OtherExpensesOBData {
