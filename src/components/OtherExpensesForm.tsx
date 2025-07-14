@@ -28,11 +28,25 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
   };
 
   const handleNext = () => {
-    if (isFormValid(data)) {
+    // Custom validation for Other Expenses
+    const requiredFields: string[] = [];
+    
+    // Check each expense field and make comment required if expense is filled
+    for (let i = 1; i <= 10; i++) {
+      const expenseField = `otherExpenses${i}`;
+      const commentField = `otherExpenses${i}Comment`;
+      const expenseValue = data[expenseField as keyof OtherExpensesData];
+      const commentValue = data[commentField as keyof OtherExpensesData];
+      
+      if (expenseValue && expenseValue.trim() !== '' && (!commentValue || commentValue.trim() === '')) {
+        requiredFields.push(commentField);
+      }
+    }
+    
+    if (requiredFields.length === 0) {
       onNext();
     } else {
-      const emptyFields = getEmptyFields(data);
-      setEmptyFieldsHighlighted(emptyFields);
+      setEmptyFieldsHighlighted(requiredFields);
     }
   };
 
@@ -52,55 +66,50 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {expenseFields.map((num) => (
-            <div key={num} className="border border-gray-200 rounded-lg p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-4" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                Other Expenses {num}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                   <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                    Other Expenses {num} *
-                  </label>
-                  <input
-                    type="text"
-                    value={data[`otherExpenses${num}` as keyof OtherExpensesData]}
-                    onChange={(e) => handleInputChange(`otherExpenses${num}` as keyof OtherExpensesData, e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
-                      isFieldEmpty(`otherExpenses${num}`) ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter numerical value (e.g., 126.33)"
-                    style={{ fontFamily: 'Montserrat, sans-serif' }}
-                  />
-                  {errors[`otherExpenses${num}`] && (
-                    <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                      {errors[`otherExpenses${num}`]}
-                    </p>
-                  )}
-                </div>
-                <div>
-                   <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                    Other Expenses {num} Comment *
-                  </label>
-                  <textarea
-                    value={data[`otherExpenses${num}Comment` as keyof OtherExpensesData]}
-                    onChange={(e) => handleInputChange(`otherExpenses${num}Comment` as keyof OtherExpensesData, e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all resize-none ${
-                      isFieldEmpty(`otherExpenses${num}Comment`) ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter description or comment"
-                    style={{ fontFamily: 'Montserrat, sans-serif' }}
-                    rows={3}
-                  />
-                  {errors[`otherExpenses${num}Comment`] && (
-                    <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                      {errors[`otherExpenses${num}Comment`]}
-                    </p>
-                  )}
-                </div>
+            <React.Fragment key={num}>
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                  Other Expenses {num}
+                </label>
+                <input
+                  type="text"
+                  value={data[`otherExpenses${num}` as keyof OtherExpensesData]}
+                  onChange={(e) => handleInputChange(`otherExpenses${num}` as keyof OtherExpensesData, e.target.value)}
+                  className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                    isFieldEmpty(`otherExpenses${num}`) ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                  }`}
+                  placeholder="Enter numerical value (e.g., 126.33)"
+                  style={{ fontFamily: 'Montserrat, sans-serif' }}
+                />
+                {errors[`otherExpenses${num}`] && (
+                  <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                    {errors[`otherExpenses${num}`]}
+                  </p>
+                )}
               </div>
-            </div>
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                  Other Expenses {num} Comment {data[`otherExpenses${num}` as keyof OtherExpensesData] ? '*' : ''}
+                </label>
+                <textarea
+                  value={data[`otherExpenses${num}Comment` as keyof OtherExpensesData]}
+                  onChange={(e) => handleInputChange(`otherExpenses${num}Comment` as keyof OtherExpensesData, e.target.value)}
+                  className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all resize-none ${
+                    isFieldEmpty(`otherExpenses${num}Comment`) ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                  }`}
+                  placeholder="Enter description or comment"
+                  style={{ fontFamily: 'Montserrat, sans-serif' }}
+                  rows={3}
+                />
+                {errors[`otherExpenses${num}Comment`] && (
+                  <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                    {errors[`otherExpenses${num}Comment`]}
+                  </p>
+                )}
+              </div>
+            </React.Fragment>
           ))}
         </div>
 
