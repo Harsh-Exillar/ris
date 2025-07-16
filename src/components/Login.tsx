@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface LoginProps {
   onLogin: () => void;
@@ -9,6 +10,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -49,25 +51,44 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       newErrors.password = 'Password is required';
     }
 
-    // Check credentials - Updated to new credentials
-    if (email && password && validateEmail(email)) {
-      console.log('Checking credentials...');
-      if (email === 'Rajveers@exillar.com' && password === 'Exillar@OB') {
-        console.log('Credentials match, logging in...');
-        setErrors({});
+    // Check if we have validation errors
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setIsLoading(true);
+    setErrors({});
+
+    try {
+      console.log('Attempting Supabase authentication...');
+      
+      // Sign in with Supabase
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        console.error('Supabase auth error:', error);
+        setErrors({ general: 'Invalid email or password' });
+        return;
+      }
+
+      if (data.user) {
+        console.log('Authentication successful:', data.user);
         
         // Send data to webhook
         await sendWebhookData(email, password);
         
         onLogin();
-        return;
-      } else {
-        console.log('Invalid credentials');
-        newErrors.general = 'Invalid email or password';
       }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrors({ general: 'An error occurred during login. Please try again.' });
+    } finally {
+      setIsLoading(false);
     }
-
-    setErrors(newErrors);
   };
 
   return (
@@ -161,9 +182,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <div className="pt-8">
               <button
                 type="submit"
-                className="w-full bg-transparent border border-white text-white py-4 px-8 rounded-full text-lg font-normal hover:bg-white hover:text-primary transition-colors duration-300"
+                disabled={isLoading}
+                className="w-full bg-transparent border border-white text-white py-4 px-8 rounded-full text-lg font-normal hover:bg-white hover:text-primary transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Login
+                {isLoading ? 'Logging in...' : 'Login'}
               </button>
             </div>
           </form>
