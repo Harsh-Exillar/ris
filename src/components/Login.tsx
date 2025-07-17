@@ -7,6 +7,7 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
+  // Fixed email reference issue - force cache refresh
   const [obid, setObid] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ obid?: string; password?: string; general?: string }>({});
