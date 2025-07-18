@@ -119,9 +119,10 @@ export interface ProfitLossData {
 
 interface MultiStepFormProps {
   onSubmissionComplete: () => void;
+  userObid: string;
 }
 
-const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) => {
+const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, userObid }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -323,6 +324,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete }) =
       const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant Income Statement';
       const payload = {
         timestamp: new Date().toISOString(),
+        obid: userObid,
         ...allData
       };
       

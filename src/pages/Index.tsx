@@ -7,8 +7,10 @@ import Login from "@/components/Login";
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [userObid, setUserObid] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = (obid: string) => {
+    setUserObid(obid);
     setIsLoggedIn(true);
   };
 
@@ -28,7 +30,7 @@ const Index = () => {
     return <SuccessPage onGoHome={handleGoHome} />;
   }
 
-  return <MultiStepForm onSubmissionComplete={handleSubmissionComplete} />;
+  return <MultiStepForm onSubmissionComplete={handleSubmissionComplete} userObid={userObid} />;
 };
 
 export default Index;

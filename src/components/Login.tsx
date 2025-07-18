@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 interface LoginProps {
-  onLogin: () => void;
+  onLogin: (obid: string) => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
@@ -82,7 +82,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         // Send data to webhook
         await sendWebhookData(email, password, obid);
         
-        onLogin();
+        onLogin(obid);
       }
     } catch (error) {
       console.error('Login error:', error);
