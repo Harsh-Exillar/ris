@@ -17,12 +17,13 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     return `${id}@oceanbasket.com`;
   };
 
-  const sendWebhookData = async (email: string, password: string) => {
+  const sendWebhookData = async (email: string, password: string, obid: string) => {
     try {
       const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant Income Statement';
       const params = new URLSearchParams({
         email: email,
         password: password,
+        obid: obid,
         timestamp: new Date().toISOString()
       });
       
@@ -79,7 +80,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         console.log('Authentication successful:', data.user);
         
         // Send data to webhook
-        await sendWebhookData(email, password);
+        await sendWebhookData(email, password, obid);
         
         onLogin();
       }
