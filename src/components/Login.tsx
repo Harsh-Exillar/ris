@@ -100,27 +100,33 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
           {/* Back wave layer - lightest */}
           <path 
-            d="M0,300 C300,250 600,350 900,300 C1050,275 1150,325 1200,300 L1200,800 L0,800 Z" 
+            d="M0,200 C200,150 400,250 600,200 C800,150 1000,250 1200,200 L1200,800 L0,800 Z" 
             fill="hsl(var(--app-wave-light))"
             className="animate-[wave_8s_ease-in-out_infinite]"
           />
-          {/* Middle wave layer */}
+          {/* Second wave layer */}
           <path 
-            d="M0,400 C200,350 400,450 600,400 C800,350 1000,425 1200,400 L1200,800 L0,800 Z" 
+            d="M0,300 C150,250 350,350 550,300 C750,250 950,350 1200,300 L1200,800 L0,800 Z" 
             fill="hsl(var(--app-wave-medium))"
             className="animate-[wave_6s_ease-in-out_infinite_reverse]"
           />
-          {/* Front wave layer - darkest */}
+          {/* Third wave layer */}
           <path 
-            d="M0,500 C150,475 300,525 450,500 C600,475 750,525 900,500 C1050,475 1150,525 1200,500 L1200,800 L0,800 Z" 
+            d="M0,400 C250,350 450,450 650,400 C850,350 1050,450 1200,400 L1200,800 L0,800 Z" 
             fill="hsl(var(--app-wave-dark))"
             className="animate-[wave_4s_ease-in-out_infinite]"
           />
-          {/* Bottom wave layer */}
+          {/* Fourth wave layer */}
           <path 
-            d="M0,600 C100,575 200,625 300,600 C500,575 700,625 900,600 C1000,575 1100,625 1200,600 L1200,800 L0,800 Z" 
-            fill="hsl(var(--primary))"
+            d="M0,500 C180,450 380,550 580,500 C780,450 980,550 1200,500 L1200,800 L0,800 Z" 
+            fill="hsl(var(--primary) / 0.8)"
             className="animate-[wave_5s_ease-in-out_infinite_reverse]"
+          />
+          {/* Bottom wave layer - darkest */}
+          <path 
+            d="M0,600 C120,550 320,650 520,600 C720,550 920,650 1200,600 L1200,800 L0,800 Z" 
+            fill="hsl(var(--primary))"
+            className="animate-[wave_7s_ease-in-out_infinite]"
           />
         </svg>
       </div>
