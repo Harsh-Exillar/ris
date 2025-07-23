@@ -93,7 +93,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex relative bg-gray-50">
+    <div className="min-h-screen flex flex-col lg:flex-row relative bg-gray-50">
       {/* Ocean wave background effect */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Wave layers for depth effect */}
@@ -119,23 +119,23 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         </svg>
       </div>
 
-      {/* Right side - Login form */}
-      <div className="ml-auto w-2/5 bg-primary/95 backdrop-blur-sm relative flex items-center justify-center border-l border-primary/30">
+      {/* Login form section - responsive */}
+      <div className="w-full lg:ml-auto lg:w-2/5 bg-primary/95 backdrop-blur-sm relative flex items-center justify-center lg:border-l border-primary/30 min-h-screen">
         {/* Login form container */}
-        <div className="relative z-10 w-full max-w-md px-8">
+        <div className="relative z-10 w-full max-w-md px-6 lg:px-8 py-8">
           {/* Logo section */}
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-8">
-              <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mr-4">
-                <span className="text-primary font-bold text-xl">OB</span>
+          <div className="text-center mb-8 lg:mb-16">
+            <div className="flex flex-col sm:flex-row items-center justify-center mb-6 lg:mb-8">
+              <div className="bg-white rounded-full w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center mb-3 sm:mb-0 sm:mr-4">
+                <span className="text-primary font-bold text-lg lg:text-xl">OB</span>
               </div>
-              <h1 className="text-white text-2xl font-script">Restaurant Income Statement</h1>
+              <h1 className="text-white text-lg sm:text-xl lg:text-2xl font-script text-center">Restaurant Income Statement</h1>
             </div>
-            <h2 className="text-secondary text-3xl font-normal tracking-[0.3em] uppercase">LOG-IN</h2>
+            <h2 className="text-secondary text-xl lg:text-3xl font-normal tracking-[0.2em] lg:tracking-[0.3em] uppercase">LOG-IN</h2>
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-12">
+          <form onSubmit={handleSubmit} className="space-y-8 lg:space-y-12">
             <div className="relative">
               <label className="text-white text-sm mb-2 block">
                 OBID <span className="text-secondary ml-1">•</span>
@@ -144,7 +144,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 type="text"
                 value={obid}
                 onChange={(e) => setObid(e.target.value)}
-                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
+                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-base lg:text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
                 placeholder=""
               />
               {errors.obid && (
@@ -160,7 +160,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
+                className="w-full bg-transparent border-0 border-b border-white px-0 py-3 text-white text-base lg:text-lg placeholder-white/70 focus:outline-none focus:border-secondary"
                 placeholder=""
               />
               {errors.password && (
@@ -174,11 +174,11 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               </div>
             )}
 
-            <div className="pt-8">
+            <div className="pt-6 lg:pt-8">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-transparent border border-white text-white py-4 px-8 rounded-full text-lg font-normal hover:bg-white hover:text-primary transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-transparent border border-white text-white py-3 lg:py-4 px-6 lg:px-8 rounded-full text-base lg:text-lg font-normal hover:bg-white hover:text-primary transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Logging in...' : 'Login'}
               </button>
