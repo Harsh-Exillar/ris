@@ -98,9 +98,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       <div className="absolute inset-0 overflow-hidden">
         {/* Wave layers for depth effect */}
         <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-          {/* Ground/bottom different color */}
-          <rect x="0" y="700" width="1200" height="100" fill="hsl(var(--app-light-gray))" />
-          
           {/* Simple wave line patterns - no animation */}
           <g stroke="hsl(var(--app-light-gray))" strokeWidth="1" fill="none" opacity="0.4">
             <path d="M0,100 Q300,50 600,100 T1200,100" />
