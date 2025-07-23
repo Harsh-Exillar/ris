@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import loginBackground from '@/assets/login-background.png';
 
 interface LoginProps {
   onLogin: (obid: string) => void;
@@ -94,20 +93,39 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div 
-      className="min-h-screen flex relative"
-      style={{
-        backgroundImage: `url(${loginBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
-      {/* Background overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/20"></div>
+    <div className="min-h-screen flex relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+      {/* Ocean wave background effect */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Wave layers for depth effect */}
+        <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+          {/* Back wave layer */}
+          <path 
+            d="M0,400 C300,350 600,450 900,400 C1050,375 1150,425 1200,400 L1200,800 L0,800 Z" 
+            fill="rgba(59, 130, 246, 0.3)"
+            className="animate-[wave_8s_ease-in-out_infinite]"
+          />
+          {/* Middle wave layer */}
+          <path 
+            d="M0,500 C200,450 400,550 600,500 C800,450 1000,525 1200,500 L1200,800 L0,800 Z" 
+            fill="rgba(29, 78, 216, 0.4)"
+            className="animate-[wave_6s_ease-in-out_infinite_reverse]"
+          />
+          {/* Front wave layer */}
+          <path 
+            d="M0,600 C150,575 300,625 450,600 C600,575 750,625 900,600 C1050,575 1150,625 1200,600 L1200,800 L0,800 Z" 
+            fill="rgba(30, 64, 175, 0.5)"
+            className="animate-[wave_4s_ease-in-out_infinite]"
+          />
+        </svg>
+        
+        {/* Floating elements for ocean effect */}
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-200/30 rounded-full animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-blue-100/40 rounded-full animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-blue-300/20 rounded-full animate-pulse delay-500"></div>
+      </div>
 
       {/* Right side - Login form */}
-      <div className="ml-auto w-2/5 bg-primary/95 backdrop-blur-sm relative flex items-center justify-center">
+      <div className="ml-auto w-2/5 bg-blue-900/90 backdrop-blur-sm relative flex items-center justify-center border-l border-blue-700/50">
         {/* Login form container */}
         <div className="relative z-10 w-full max-w-md px-8">
           {/* Logo section */}
