@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import oceanBasketLogo from '@/assets/ocean-basket-logo.png';
 
 interface LoginProps {
   onLogin: (obid: string) => void;
@@ -127,12 +126,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           {/* Logo section */}
           <div className="text-center mb-8 lg:mb-16">
             <div className="flex flex-col sm:flex-row items-center justify-center mb-6 lg:mb-8">
-              <div className="w-12 h-12 lg:w-16 lg:h-16 mb-3 sm:mb-0 sm:mr-4">
-                <img 
-                  src={oceanBasketLogo} 
-                  alt="Ocean Basket Logo" 
-                  className="w-full h-full object-contain"
-                />
+              <div className="bg-white rounded-full w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center mb-3 sm:mb-0 sm:mr-4">
+                <span className="text-primary font-bold text-lg lg:text-xl">OB</span>
               </div>
               <h1 className="text-white text-lg sm:text-xl lg:text-2xl font-script text-center">Restaurant Income Statement</h1>
             </div>
