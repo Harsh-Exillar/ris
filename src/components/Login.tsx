@@ -93,7 +93,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex relative bg-gradient-to-b from-blue-50 to-blue-100">
+    <div className="min-h-screen flex relative bg-white">
       {/* Ocean wave background effect */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Wave layers for depth effect */}
@@ -101,32 +101,32 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           {/* Back wave layer - lightest */}
           <path 
             d="M0,300 C300,250 600,350 900,300 C1050,275 1150,325 1200,300 L1200,800 L0,800 Z" 
-            fill="#BFDBFE"
+            fill="hsl(var(--app-wave-light))"
             className="animate-[wave_8s_ease-in-out_infinite]"
           />
           {/* Middle wave layer */}
           <path 
             d="M0,400 C200,350 400,450 600,400 C800,350 1000,425 1200,400 L1200,800 L0,800 Z" 
-            fill="#93C5FD"
+            fill="hsl(var(--app-wave-medium))"
             className="animate-[wave_6s_ease-in-out_infinite_reverse]"
           />
           {/* Front wave layer - darkest */}
           <path 
             d="M0,500 C150,475 300,525 450,500 C600,475 750,525 900,500 C1050,475 1150,525 1200,500 L1200,800 L0,800 Z" 
-            fill="#60A5FA"
+            fill="hsl(var(--app-wave-dark))"
             className="animate-[wave_4s_ease-in-out_infinite]"
           />
           {/* Bottom wave layer */}
           <path 
             d="M0,600 C100,575 200,625 300,600 C500,575 700,625 900,600 C1000,575 1100,625 1200,600 L1200,800 L0,800 Z" 
-            fill="#3B82F6"
+            fill="hsl(var(--primary))"
             className="animate-[wave_5s_ease-in-out_infinite_reverse]"
           />
         </svg>
       </div>
 
       {/* Right side - Login form */}
-      <div className="ml-auto w-2/5 bg-blue-600/95 backdrop-blur-sm relative flex items-center justify-center border-l border-blue-500/30">
+      <div className="ml-auto w-2/5 bg-primary/95 backdrop-blur-sm relative flex items-center justify-center border-l border-primary/30">
         {/* Login form container */}
         <div className="relative z-10 w-full max-w-md px-8">
           {/* Logo section */}
@@ -137,14 +137,14 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               </div>
               <h1 className="text-white text-2xl font-script">Restaurant Income Statement</h1>
             </div>
-            <h2 className="text-white text-3xl font-normal tracking-[0.3em] uppercase">LOG-IN</h2>
+            <h2 className="text-secondary text-3xl font-normal tracking-[0.3em] uppercase">LOG-IN</h2>
           </div>
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-12">
             <div className="relative">
               <label className="text-white text-sm mb-2 block">
-                OBID <span className="text-orange-500 ml-1">•</span>
+                OBID <span className="text-secondary ml-1">•</span>
               </label>
               <input
                 type="text"
@@ -160,7 +160,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
             <div className="relative">
               <label className="text-white text-sm mb-2 block">
-                Password <span className="text-orange-500 ml-1">•</span>
+                Password <span className="text-secondary ml-1">•</span>
               </label>
               <input
                 type="password"
