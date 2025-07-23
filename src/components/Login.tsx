@@ -93,39 +93,40 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+    <div className="min-h-screen flex relative bg-gradient-to-b from-blue-50 to-blue-100">
       {/* Ocean wave background effect */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Wave layers for depth effect */}
         <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-          {/* Back wave layer */}
+          {/* Back wave layer - lightest */}
           <path 
-            d="M0,400 C300,350 600,450 900,400 C1050,375 1150,425 1200,400 L1200,800 L0,800 Z" 
-            fill="rgba(59, 130, 246, 0.3)"
+            d="M0,300 C300,250 600,350 900,300 C1050,275 1150,325 1200,300 L1200,800 L0,800 Z" 
+            fill="#BFDBFE"
             className="animate-[wave_8s_ease-in-out_infinite]"
           />
           {/* Middle wave layer */}
           <path 
-            d="M0,500 C200,450 400,550 600,500 C800,450 1000,525 1200,500 L1200,800 L0,800 Z" 
-            fill="rgba(29, 78, 216, 0.4)"
+            d="M0,400 C200,350 400,450 600,400 C800,350 1000,425 1200,400 L1200,800 L0,800 Z" 
+            fill="#93C5FD"
             className="animate-[wave_6s_ease-in-out_infinite_reverse]"
           />
-          {/* Front wave layer */}
+          {/* Front wave layer - darkest */}
           <path 
-            d="M0,600 C150,575 300,625 450,600 C600,575 750,625 900,600 C1050,575 1150,625 1200,600 L1200,800 L0,800 Z" 
-            fill="rgba(30, 64, 175, 0.5)"
+            d="M0,500 C150,475 300,525 450,500 C600,475 750,525 900,500 C1050,475 1150,525 1200,500 L1200,800 L0,800 Z" 
+            fill="#60A5FA"
             className="animate-[wave_4s_ease-in-out_infinite]"
           />
+          {/* Bottom wave layer */}
+          <path 
+            d="M0,600 C100,575 200,625 300,600 C500,575 700,625 900,600 C1000,575 1100,625 1200,600 L1200,800 L0,800 Z" 
+            fill="#3B82F6"
+            className="animate-[wave_5s_ease-in-out_infinite_reverse]"
+          />
         </svg>
-        
-        {/* Floating elements for ocean effect */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-200/30 rounded-full animate-pulse"></div>
-        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-blue-100/40 rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-blue-300/20 rounded-full animate-pulse delay-500"></div>
       </div>
 
       {/* Right side - Login form */}
-      <div className="ml-auto w-2/5 bg-blue-900/90 backdrop-blur-sm relative flex items-center justify-center border-l border-blue-700/50">
+      <div className="ml-auto w-2/5 bg-blue-600/95 backdrop-blur-sm relative flex items-center justify-center border-l border-blue-500/30">
         {/* Login form container */}
         <div className="relative z-10 w-full max-w-md px-8">
           {/* Logo section */}
