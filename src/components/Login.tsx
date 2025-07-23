@@ -98,35 +98,31 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       <div className="absolute inset-0 overflow-hidden">
         {/* Wave layers for depth effect */}
         <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-          {/* Back wave layer - lightest */}
+          {/* Wave line patterns */}
+          <g stroke="hsl(var(--app-wave-light))" strokeWidth="1" fill="none" opacity="0.6">
+            <path d="M0,100 Q300,50 600,100 T1200,100" className="animate-[wave_8s_ease-in-out_infinite]" />
+            <path d="M0,140 Q300,90 600,140 T1200,140" className="animate-[wave_6s_ease-in-out_infinite_reverse]" />
+            <path d="M0,180 Q300,130 600,180 T1200,180" className="animate-[wave_7s_ease-in-out_infinite]" />
+            <path d="M0,220 Q300,170 600,220 T1200,220" className="animate-[wave_5s_ease-in-out_infinite_reverse]" />
+            <path d="M0,260 Q300,210 600,260 T1200,260" className="animate-[wave_9s_ease-in-out_infinite]" />
+            <path d="M0,300 Q300,250 600,300 T1200,300" className="animate-[wave_4s_ease-in-out_infinite_reverse]" />
+            <path d="M0,340 Q300,290 600,340 T1200,340" className="animate-[wave_8s_ease-in-out_infinite]" />
+            <path d="M0,380 Q300,330 600,380 T1200,380" className="animate-[wave_6s_ease-in-out_infinite_reverse]" />
+            <path d="M0,420 Q300,370 600,420 T1200,420" className="animate-[wave_7s_ease-in-out_infinite]" />
+            <path d="M0,460 Q300,410 600,460 T1200,460" className="animate-[wave_5s_ease-in-out_infinite_reverse]" />
+            <path d="M0,500 Q300,450 600,500 T1200,500" className="animate-[wave_9s_ease-in-out_infinite]" />
+            <path d="M0,540 Q300,490 600,540 T1200,540" className="animate-[wave_4s_ease-in-out_infinite_reverse]" />
+            <path d="M0,580 Q300,530 600,580 T1200,580" className="animate-[wave_8s_ease-in-out_infinite]" />
+            <path d="M0,620 Q300,570 600,620 T1200,620" className="animate-[wave_6s_ease-in-out_infinite_reverse]" />
+            <path d="M0,660 Q300,610 600,660 T1200,660" className="animate-[wave_7s_ease-in-out_infinite]" />
+            <path d="M0,700 Q300,650 600,700 T1200,700" className="animate-[wave_5s_ease-in-out_infinite_reverse]" />
+          </g>
+          
+          {/* Bottom filled wave for depth */}
           <path 
-            d="M0,200 C200,150 400,250 600,200 C800,150 1000,250 1200,200 L1200,800 L0,800 Z" 
-            fill="hsl(var(--app-wave-light))"
-            className="animate-[wave_8s_ease-in-out_infinite]"
-          />
-          {/* Second wave layer */}
-          <path 
-            d="M0,300 C150,250 350,350 550,300 C750,250 950,350 1200,300 L1200,800 L0,800 Z" 
-            fill="hsl(var(--app-wave-medium))"
-            className="animate-[wave_6s_ease-in-out_infinite_reverse]"
-          />
-          {/* Third wave layer */}
-          <path 
-            d="M0,400 C250,350 450,450 650,400 C850,350 1050,450 1200,400 L1200,800 L0,800 Z" 
-            fill="hsl(var(--app-wave-dark))"
-            className="animate-[wave_4s_ease-in-out_infinite]"
-          />
-          {/* Fourth wave layer */}
-          <path 
-            d="M0,500 C180,450 380,550 580,500 C780,450 980,550 1200,500 L1200,800 L0,800 Z" 
-            fill="hsl(var(--primary) / 0.8)"
-            className="animate-[wave_5s_ease-in-out_infinite_reverse]"
-          />
-          {/* Bottom wave layer - darkest */}
-          <path 
-            d="M0,600 C120,550 320,650 520,600 C720,550 920,650 1200,600 L1200,800 L0,800 Z" 
-            fill="hsl(var(--primary))"
-            className="animate-[wave_7s_ease-in-out_infinite]"
+            d="M0,600 C200,550 400,650 600,600 C800,550 1000,650 1200,600 L1200,800 L0,800 Z" 
+            fill="hsl(var(--primary) / 0.1)"
+            className="animate-[wave_6s_ease-in-out_infinite]"
           />
         </svg>
       </div>
