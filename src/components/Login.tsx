@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import loginBackground from '@/assets/login-background.png';
 
 interface LoginProps {
   onLogin: (obid: string) => void;
@@ -93,40 +94,20 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left side - Light background with diagonal lines */}
-      <div className="flex-1 bg-gray-100 relative overflow-hidden">
-        {/* Diagonal line pattern */}
-        <div className="absolute inset-0">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="40" height="40">
-                <line x1="0" y1="0" x2="40" y2="40" stroke="#e5e7eb" strokeWidth="1" opacity="0.3"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#diagonal-lines)"/>
-          </svg>
-        </div>
-      </div>
+    <div 
+      className="min-h-screen flex relative"
+      style={{
+        backgroundImage: `url(${loginBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Background overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/20"></div>
 
-      {/* Right side - Blue section with login form */}
-      <div className="w-3/5 bg-primary relative flex items-center justify-center">
-        {/* Decorative wave pattern at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
-          <svg className="w-full h-full" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-            <path 
-              d="M0,120 C300,80 600,40 900,60 C1050,70 1150,90 1200,100 L1200,120 Z" 
-              fill="hsl(var(--app-background-blue))" 
-              opacity="0.6"
-            />
-            <path 
-              d="M0,120 C200,100 400,80 600,85 C800,90 1000,95 1200,100 L1200,120 Z" 
-              fill="hsl(var(--app-background-blue))" 
-              opacity="0.4"
-            />
-          </svg>
-        </div>
-
+      {/* Right side - Login form */}
+      <div className="ml-auto w-2/5 bg-primary/95 backdrop-blur-sm relative flex items-center justify-center">
         {/* Login form container */}
         <div className="relative z-10 w-full max-w-md px-8">
           {/* Logo section */}
