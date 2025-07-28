@@ -100,38 +100,35 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         {/* Ocean gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-accent/10 to-secondary/20"></div>
         
-        {/* Multiple wave layers with Ocean Basket colors */}
-        <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="oceanWave1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.15"/>
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.35"/>
-            </linearGradient>
-            <linearGradient id="oceanWave2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.1"/>
-              <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.25"/>
-            </linearGradient>
-            <linearGradient id="oceanWave3" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--secondary))" stopOpacity="0.05"/>
-              <stop offset="100%" stopColor="hsl(var(--secondary))" stopOpacity="0.15"/>
-            </linearGradient>
-          </defs>
-          
-          {/* Large ocean waves */}
-          <path d="M0,450 Q360,350 720,450 T1440,450 L1440,800 L0,800 Z" fill="url(#oceanWave1)" />
-          <path d="M0,550 Q360,450 720,550 T1440,550 L1440,800 L0,800 Z" fill="url(#oceanWave2)" />
-          <path d="M0,650 Q360,580 720,650 T1440,650 L1440,800 L0,800 Z" fill="url(#oceanWave3)" />
-          
-          {/* Detailed wave lines */}
-          <g stroke="hsl(var(--primary))" strokeWidth="1.5" fill="none" opacity="0.4">
-            <path d="M0,200 Q180,160 360,200 T720,200 Q900,160 1080,200 T1440,200" />
-            <path d="M0,260 Q180,220 360,260 T720,260 Q900,220 1080,260 T1440,260" />
-            <path d="M0,320 Q180,280 360,320 T720,320 Q900,280 1080,320 T1440,320" />
+        {/* Small ocean wave lines throughout the page */}
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+          {/* Consistent small wave lines throughout */}
+          <g stroke="hsl(var(--primary))" strokeWidth="1.5" fill="none" opacity="0.3">
+            <path d="M0,100 Q180,80 360,100 T720,100 Q900,80 1080,100 T1440,100" />
+            <path d="M0,150 Q180,130 360,150 T720,150 Q900,130 1080,150 T1440,150" />
+            <path d="M0,200 Q180,180 360,200 T720,200 Q900,180 1080,200 T1440,200" />
+            <path d="M0,250 Q180,230 360,250 T720,250 Q900,230 1080,250 T1440,250" />
+            <path d="M0,300 Q180,280 360,300 T720,300 Q900,280 1080,300 T1440,300" />
+            <path d="M0,350 Q180,330 360,350 T720,350 Q900,330 1080,350 T1440,350" />
+            <path d="M0,400 Q180,380 360,400 T720,400 Q900,380 1080,400 T1440,400" />
+            <path d="M0,450 Q180,430 360,450 T720,450 Q900,430 1080,450 T1440,450" />
+            <path d="M0,500 Q180,480 360,500 T720,500 Q900,480 1080,500 T1440,500" />
+            <path d="M0,550 Q180,530 360,550 T720,550 Q900,530 1080,550 T1440,550" />
+            <path d="M0,600 Q180,580 360,600 T720,600 Q900,580 1080,600 T1440,600" />
+            <path d="M0,650 Q180,630 360,650 T720,650 Q900,630 1080,650 T1440,650" />
+            <path d="M0,700 Q180,680 360,700 T720,700 Q900,680 1080,700 T1440,700" />
+            <path d="M0,750 Q180,730 360,750 T720,750 Q900,730 1080,750 T1440,750" />
           </g>
           
-          {/* Subtle accent waves */}
-          <g stroke="hsl(var(--accent))" strokeWidth="1" fill="none" opacity="0.3">
-            <path d="M0,380 Q120,350 240,380 T480,380 Q600,350 720,380 T960,380 Q1080,350 1200,380 T1440,380" />
+          {/* Additional subtle accent waves */}
+          <g stroke="hsl(var(--accent))" strokeWidth="1" fill="none" opacity="0.2">
+            <path d="M0,120 Q120,100 240,120 T480,120 Q600,100 720,120 T960,120 Q1080,100 1200,120 T1440,120" />
+            <path d="M0,220 Q120,200 240,220 T480,220 Q600,200 720,220 T960,220 Q1080,200 1200,220 T1440,220" />
+            <path d="M0,320 Q120,300 240,320 T480,320 Q600,300 720,320 T960,320 Q1080,300 1200,320 T1440,320" />
+            <path d="M0,420 Q120,400 240,420 T480,420 Q600,400 720,420 T960,420 Q1080,400 1200,420 T1440,420" />
+            <path d="M0,520 Q120,500 240,520 T480,520 Q600,500 720,520 T960,520 Q1080,500 1200,520 T1440,520" />
+            <path d="M0,620 Q120,600 240,620 T480,620 Q600,600 720,620 T960,620 Q1080,600 1200,620 T1440,620" />
+            <path d="M0,720 Q120,700 240,720 T480,720 Q600,700 720,720 T960,720 Q1080,700 1200,720 T1440,720" />
           </g>
         </svg>
         
