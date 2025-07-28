@@ -94,129 +94,140 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-white to-cyan-50 overflow-hidden">
-      {/* Enhanced Ocean wave background effect */}
+    <div className="min-h-screen relative bg-gradient-to-br from-background to-secondary/30 overflow-hidden">
+      {/* Ocean wave background effect inspired by Ocean Basket branding */}
       <div className="absolute inset-0">
-        {/* Animated gradient waves */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent"></div>
+        {/* Ocean gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-accent/10 to-secondary/20"></div>
         
-        {/* Multiple wave layers with different opacities */}
+        {/* Multiple wave layers with Ocean Basket colors */}
         <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
-          {/* Background wave fills */}
           <defs>
-            <linearGradient id="wave1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.1"/>
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.3"/>
+            <linearGradient id="oceanWave1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.15"/>
+              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.35"/>
             </linearGradient>
-            <linearGradient id="wave2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id="oceanWave2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.1"/>
+              <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.25"/>
+            </linearGradient>
+            <linearGradient id="oceanWave3" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="hsl(var(--secondary))" stopOpacity="0.05"/>
-              <stop offset="100%" stopColor="hsl(var(--secondary))" stopOpacity="0.2"/>
+              <stop offset="100%" stopColor="hsl(var(--secondary))" stopOpacity="0.15"/>
             </linearGradient>
           </defs>
           
-          {/* Filled wave shapes */}
-          <path d="M0,400 Q360,320 720,400 T1440,400 L1440,800 L0,800 Z" fill="url(#wave1)" />
-          <path d="M0,500 Q360,420 720,500 T1440,500 L1440,800 L0,800 Z" fill="url(#wave2)" />
+          {/* Large ocean waves */}
+          <path d="M0,450 Q360,350 720,450 T1440,450 L1440,800 L0,800 Z" fill="url(#oceanWave1)" />
+          <path d="M0,550 Q360,450 720,550 T1440,550 L1440,800 L0,800 Z" fill="url(#oceanWave2)" />
+          <path d="M0,650 Q360,580 720,650 T1440,650 L1440,800 L0,800 Z" fill="url(#oceanWave3)" />
           
-          {/* Wave line patterns */}
-          <g stroke="hsl(var(--primary))" strokeWidth="2" fill="none" opacity="0.3">
-            <path d="M0,200 Q360,150 720,200 T1440,200" />
-            <path d="M0,250 Q360,200 720,250 T1440,250" />
-            <path d="M0,300 Q360,250 720,300 T1440,300" />
+          {/* Detailed wave lines */}
+          <g stroke="hsl(var(--primary))" strokeWidth="1.5" fill="none" opacity="0.4">
+            <path d="M0,200 Q180,160 360,200 T720,200 Q900,160 1080,200 T1440,200" />
+            <path d="M0,260 Q180,220 360,260 T720,260 Q900,220 1080,260 T1440,260" />
+            <path d="M0,320 Q180,280 360,320 T720,320 Q900,280 1080,320 T1440,320" />
+          </g>
+          
+          {/* Subtle accent waves */}
+          <g stroke="hsl(var(--accent))" strokeWidth="1" fill="none" opacity="0.3">
+            <path d="M0,380 Q120,350 240,380 T480,380 Q600,350 720,380 T960,380 Q1080,350 1200,380 T1440,380" />
           </g>
         </svg>
         
-        {/* Floating decorative elements */}
-        <div className="absolute top-20 left-10 w-4 h-4 bg-primary/20 rounded-full animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-6 h-6 bg-secondary/30 rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute bottom-40 left-20 w-3 h-3 bg-primary/15 rounded-full animate-pulse delay-500"></div>
+        {/* Floating ocean-inspired elements */}
+        <div className="absolute top-16 left-8 w-3 h-3 bg-accent/30 rounded-full animate-pulse"></div>
+        <div className="absolute top-32 right-16 w-5 h-5 bg-primary/20 rounded-full animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 left-16 w-4 h-4 bg-accent/25 rounded-full animate-pulse delay-500"></div>
+        <div className="absolute top-48 left-1/3 w-2 h-2 bg-secondary/40 rounded-full animate-pulse delay-1500"></div>
+        <div className="absolute bottom-48 right-1/4 w-3 h-3 bg-primary/15 rounded-full animate-pulse delay-700"></div>
       </div>
 
       {/* Centered login container */}
       <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        {/* Login card */}
+        {/* Ocean Basket themed login card */}
         <div className="relative z-10 w-full max-w-md">
-          {/* Glass morphism card effect */}
-          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl p-8 lg:p-10">
-            {/* Subtle inner glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl"></div>
+          {/* Ocean-inspired glass morphism card */}
+          <div className="bg-background/90 backdrop-blur-xl border border-primary/20 rounded-3xl shadow-2xl p-8 lg:p-10 ring-1 ring-primary/10">
+            {/* Ocean Basket brand glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 rounded-3xl"></div>
             
             {/* Content container */}
             <div className="relative z-10">
-              {/* Logo section */}
+              {/* Ocean Basket logo section */}
               <div className="text-center mb-8 lg:mb-10">
                 <div className="flex flex-col items-center justify-center mb-6">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-full w-16 h-16 lg:w-20 lg:h-20 flex items-center justify-center mb-4 p-2 shadow-lg ring-4 ring-white/20 hover:ring-white/40 transition-all duration-300">
+                  <div className="bg-background/95 backdrop-blur-sm rounded-full w-20 h-20 lg:w-24 lg:h-24 flex items-center justify-center mb-6 p-3 shadow-xl ring-4 ring-primary/20 hover:ring-primary/30 transition-all duration-300 border border-primary/10">
                     <img 
                       src={oceanBasketLogo} 
                       alt="Ocean Basket Logo" 
-                      className="w-full h-full object-contain rounded-full"
+                      className="w-full h-full object-contain"
                     />
                   </div>
-                  <h1 className="text-primary text-xl lg:text-2xl font-script text-center font-bold mb-2">Restaurant Income Statement</h1>
-                  <h2 className="text-primary/80 text-lg lg:text-xl font-medium tracking-[0.2em] uppercase">LOG-IN</h2>
+                  <h1 className="text-primary text-xl lg:text-2xl font-script font-bold mb-3 tracking-wide">Restaurant Income Statement</h1>
+                  <h2 className="text-primary/70 text-base lg:text-lg font-medium tracking-[0.15em] uppercase">Staff Login Portal</h2>
                 </div>
               </div>
 
-              {/* Login Form */}
+              {/* Ocean Basket themed login form */}
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="relative group">
-                  <label className="text-primary/80 text-sm font-medium mb-2 block">
-                    OBID <span className="text-secondary ml-1">•</span>
+                  <label className="text-primary font-medium text-sm mb-2 block">
+                    OBID <span className="text-accent ml-1">•</span>
                   </label>
                   <div className="relative">
                     <input
                       type="text"
                       value={obid}
                       onChange={(e) => setObid(e.target.value)}
-                      className="w-full bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-3 text-primary placeholder-primary/50 focus:outline-none focus:border-secondary focus:bg-white/30 transition-all duration-300"
+                      className="w-full bg-background/60 backdrop-blur-sm border border-primary/20 rounded-xl px-4 py-3.5 text-primary placeholder-primary/60 focus:outline-none focus:border-accent focus:bg-background/80 focus:ring-2 focus:ring-accent/20 transition-all duration-300 font-medium"
                       placeholder="Enter your OBID"
                     />
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                   </div>
                   {errors.obid && (
-                    <p className="text-red-500 text-sm mt-2 font-medium">{errors.obid}</p>
+                    <p className="text-destructive text-sm mt-2 font-medium">{errors.obid}</p>
                   )}
                 </div>
 
                 <div className="relative group">
-                  <label className="text-primary/80 text-sm font-medium mb-2 block">
-                    Password <span className="text-secondary ml-1">•</span>
+                  <label className="text-primary font-medium text-sm mb-2 block">
+                    Password <span className="text-accent ml-1">•</span>
                   </label>
                   <div className="relative">
                     <input
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-3 text-primary placeholder-primary/50 focus:outline-none focus:border-secondary focus:bg-white/30 transition-all duration-300"
+                      className="w-full bg-background/60 backdrop-blur-sm border border-primary/20 rounded-xl px-4 py-3.5 text-primary placeholder-primary/60 focus:outline-none focus:border-accent focus:bg-background/80 focus:ring-2 focus:ring-accent/20 transition-all duration-300 font-medium"
                       placeholder="Enter your password"
                     />
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                   </div>
                   {errors.password && (
-                    <p className="text-red-500 text-sm mt-2 font-medium">{errors.password}</p>
+                    <p className="text-destructive text-sm mt-2 font-medium">{errors.password}</p>
                   )}
                 </div>
 
                 {errors.general && (
-                  <div className="bg-red-50/90 backdrop-blur-sm border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm font-medium animate-fade-in">
+                  <div className="bg-destructive/10 backdrop-blur-sm border border-destructive/20 text-destructive px-4 py-3 rounded-xl text-sm font-medium">
                     {errors.general}
                   </div>
                 )}
 
-                <div className="pt-4">
+                <div className="pt-6">
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white py-4 px-6 rounded-lg text-base font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="w-full bg-gradient-to-r from-primary via-primary to-accent hover:from-primary/90 hover:via-primary/95 hover:to-accent/90 text-primary-foreground py-4 px-6 rounded-xl text-base font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ring-1 ring-primary/20"
                   >
                     {isLoading ? (
                       <div className="flex items-center justify-center">
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
-                        Logging in...
+                        <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2"></div>
+                        Authenticating...
                       </div>
                     ) : (
-                      'Login'
+                      'Access Portal'
                     )}
                   </button>
                 </div>
