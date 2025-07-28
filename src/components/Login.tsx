@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import oceanBasketLogo from '@/assets/ocean-basket-logo.png';
-import OceanBackground from './ui/ocean-background';
 
 interface LoginProps {
   onLogin: (obid: string) => void;
@@ -95,13 +94,50 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <OceanBackground variant="login">
+    <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-white to-cyan-50 overflow-hidden">
+      {/* Enhanced Ocean wave background effect */}
+      <div className="absolute inset-0">
+        {/* Animated gradient waves */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent"></div>
+        
+        {/* Multiple wave layers with different opacities */}
+        <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+          {/* Background wave fills */}
+          <defs>
+            <linearGradient id="wave1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.1"/>
+              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.3"/>
+            </linearGradient>
+            <linearGradient id="wave2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="hsl(var(--secondary))" stopOpacity="0.05"/>
+              <stop offset="100%" stopColor="hsl(var(--secondary))" stopOpacity="0.2"/>
+            </linearGradient>
+          </defs>
+          
+          {/* Filled wave shapes */}
+          <path d="M0,400 Q360,320 720,400 T1440,400 L1440,800 L0,800 Z" fill="url(#wave1)" />
+          <path d="M0,500 Q360,420 720,500 T1440,500 L1440,800 L0,800 Z" fill="url(#wave2)" />
+          
+          {/* Wave line patterns */}
+          <g stroke="hsl(var(--primary))" strokeWidth="2" fill="none" opacity="0.3">
+            <path d="M0,200 Q360,150 720,200 T1440,200" />
+            <path d="M0,250 Q360,200 720,250 T1440,250" />
+            <path d="M0,300 Q360,250 720,300 T1440,300" />
+          </g>
+        </svg>
+        
+        {/* Floating decorative elements */}
+        <div className="absolute top-20 left-10 w-4 h-4 bg-primary/20 rounded-full animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-6 h-6 bg-secondary/30 rounded-full animate-pulse delay-1000"></div>
+        <div className="absolute bottom-40 left-20 w-3 h-3 bg-primary/15 rounded-full animate-pulse delay-500"></div>
+      </div>
+
       {/* Centered login container */}
-      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         {/* Login card */}
-        <div className="w-full max-w-md">
+        <div className="relative z-10 w-full max-w-md">
           {/* Glass morphism card effect */}
-          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl p-8 lg:p-10 relative">
+          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl p-8 lg:p-10">
             {/* Subtle inner glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl"></div>
             
@@ -189,7 +225,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           </div>
         </div>
       </div>
-    </OceanBackground>
+    </div>
   );
 };
 
