@@ -164,7 +164,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <h1 className="text-primary text-xl lg:text-2xl font-script font-bold mb-3 tracking-wide">Restaurant Income Statement</h1>
+                  <h1 className="text-primary text-2xl lg:text-3xl font-script font-bold mb-6 mt-4 tracking-wide">Restaurant Income Statement</h1>
                 </div>
               </div>
 
