@@ -165,7 +165,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     />
                   </div>
                   <h1 className="text-primary text-xl lg:text-2xl font-script font-bold mb-3 tracking-wide">Restaurant Income Statement</h1>
-                  <h2 className="text-primary/70 text-base lg:text-lg font-medium tracking-[0.15em] uppercase">Staff Login Portal</h2>
                 </div>
               </div>
 
