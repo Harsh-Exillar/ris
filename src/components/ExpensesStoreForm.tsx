@@ -45,9 +45,14 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
           <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
             EXPENSES STORE
           </h1>
-          <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please enter your restaurant expense details here (All values must exclude VAT). If you don't have a number for any field, type 0
-          </p>
+          <div className="bg-green-50 p-4 rounded-lg mt-3">
+            <p className="text-gray-700 text-sm leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
+              Enter your store expense details below. All amounts must exclude VAT.
+            </p>
+            <p className="text-gray-600 text-xs mt-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+              Note: Enter "0" for any field where you don't have data
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -76,9 +76,14 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
           <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
             OTHER EXPENSES
           </h1>
-          <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please enter your Other Expense details here (All values must exclude VAT). If you don't have a number for any field, type 0
-          </p>
+          <div className="bg-yellow-50 p-4 rounded-lg mt-3">
+            <p className="text-gray-700 text-sm leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
+              Enter your other expense details below. All amounts must exclude VAT.
+            </p>
+            <p className="text-gray-600 text-xs mt-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+              Note: Enter "0" for any field where you don't have data
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
