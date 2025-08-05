@@ -72,13 +72,36 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
       <div className="p-8">
-        <div className="border-b border-gray-200 pb-4 mb-8">
-          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
-            OTHER EXPENSES
-          </h1>
-          <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please enter your Other Expense details here (All values must exclude VAT). If you don't have a number for any field, type 0
-          </p>
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <h1 className="text-4xl font-bold tracking-wide mb-4" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
+              📝 OTHER EXPENSES
+            </h1>
+          </div>
+          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-xl p-6 shadow-sm">
+            <div className="flex items-start space-x-3">
+              <div className="bg-yellow-500 rounded-full p-2 mt-1">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  📊 Record Additional Expenses
+                </h3>
+                <div className="space-y-2 text-sm text-gray-600" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  <div className="flex items-center space-x-2">
+                    <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">Important</span>
+                    <span>All values must exclude VAT</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">Tip</span>
+                    <span>Enter 0 for any field you don't have data for</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
