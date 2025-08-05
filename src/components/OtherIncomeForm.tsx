@@ -58,36 +58,13 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
       <div className="p-8">
-        <div className="mb-8">
-          <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold tracking-wide mb-4" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
-              💸 OTHER INCOME
-            </h1>
-          </div>
-          <div className="bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl p-6 shadow-sm">
-            <div className="flex items-start space-x-3">
-              <div className="bg-emerald-500 rounded-full p-2 mt-1">
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  💰 Document Additional Income Sources
-                </h3>
-                <div className="space-y-2 text-sm text-gray-600" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  <div className="flex items-center space-x-2">
-                    <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">Important</span>
-                    <span>All values must exclude VAT</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">Tip</span>
-                    <span>Enter 0 for any field you don't have data for</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="border-b border-gray-200 pb-4 mb-8">
+          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
+            OTHER INCOME
+          </h1>
+          <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
+            Please enter your Other Income details here (All values must exclude VAT). If you don't have a number for any field, type 0
+          </p>
         </div>
 
         <div className="space-y-6">

@@ -41,36 +41,13 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
       <div className="p-8">
-        <div className="mb-8">
-          <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold tracking-wide mb-4" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
-              🍽️ EXPENSES STORE
-            </h1>
-          </div>
-          <div className="bg-gradient-to-r from-green-50 to-teal-50 border border-green-200 rounded-xl p-6 shadow-sm">
-            <div className="flex items-start space-x-3">
-              <div className="bg-green-500 rounded-full p-2 mt-1">
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  🏪 Document Restaurant Expenses
-                </h3>
-                <div className="space-y-2 text-sm text-gray-600" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  <div className="flex items-center space-x-2">
-                    <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">Important</span>
-                    <span>All values must exclude VAT</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">Tip</span>
-                    <span>Enter 0 for any field you don't have data for</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="border-b border-gray-200 pb-4 mb-8">
+          <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
+            EXPENSES STORE
+          </h1>
+          <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
+            Please enter your restaurant expense details here (All values must exclude VAT). If you don't have a number for any field, type 0
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
