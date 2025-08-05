@@ -282,17 +282,8 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
           setCurrentStep(currentStep + 1);
         }
       } else if (currentStep === 8) {
-        // Final step - validate and submit the form
-        const otherIncomeData = currentFormData as OtherIncomeData;
-        const requiredFields = ['fixedAssetDisposal', 'totalOtherIncome', 'otherIncomeComment'];
-        const emptyFields = requiredFields.filter(field => {
-          const value = otherIncomeData[field as keyof OtherIncomeData];
-          return !value || value.trim() === '';
-        });
-        
-        if (emptyFields.length === 0) {
-          handleFinalSubmit();
-        }
+        // Final step - OtherIncomeForm handles its own validation
+        handleFinalSubmit();
       } else {
         // Use general validation for all other steps
         if (isFormValid(currentFormData)) {
