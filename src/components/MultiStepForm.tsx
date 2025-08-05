@@ -346,6 +346,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
   };
 
   const handleFinalSubmit = async () => {
+    console.log('handleFinalSubmit called');
     const allData = {
       salesData,
       expensesData,
@@ -359,10 +360,17 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     
     console.log('Final submission data:', allData);
     
-    // Send data to webhook
-    await sendWebhookData(allData);
-    
-    onSubmissionComplete();
+    try {
+      // Send data to webhook
+      await sendWebhookData(allData);
+      console.log('Webhook data sent successfully, showing thank you page');
+      
+      // Show thank you page
+      onSubmissionComplete();
+    } catch (error) {
+      console.error('Error during final submission:', error);
+      alert('There was an error submitting your data. Please try again.');
+    }
   };
 
   return (
