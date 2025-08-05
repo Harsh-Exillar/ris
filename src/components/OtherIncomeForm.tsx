@@ -36,19 +36,18 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
   };
 
   const handleNext = () => {
-    // Custom validation for Other Income form
-    const isValidForm = Object.entries(data).every(([key, value]) => {
-      if (key === 'otherIncomeComment') {
-        return (value as string).trim() !== '';
-      } else {
-        return (value as string).trim() !== '' && validateNumericInput(value as string);
-      }
+    // Check if all required fields are filled
+    const requiredFields = ['fixedAssetDisposal', 'totalOtherIncome', 'otherIncomeComment'];
+    const emptyFields = requiredFields.filter(field => {
+      const value = data[field as keyof OtherIncomeData];
+      return !value || value.trim() === '';
     });
 
-    if (isValidForm) {
+    if (emptyFields.length === 0) {
+      // All fields are filled, proceed with submission
       onNext();
     } else {
-      const emptyFields = getEmptyFields(data);
+      // Highlight empty fields
       setEmptyFieldsHighlighted(emptyFields);
     }
   };
