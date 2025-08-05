@@ -15,7 +15,15 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
   const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
 
   const handleInputChange = (field: keyof OtherIncomeData, value: string) => {
-    if (value === '' || validateNumericInput(value)) {
+    if (field === 'otherIncomeComment') {
+      // Allow any text for comment field
+      setData({
+        ...data,
+        [field]: value
+      });
+      setErrors(prev => ({ ...prev, [field]: '' }));
+      setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
+    } else if (value === '' || validateNumericInput(value)) {
       setData({
         ...data,
         [field]: value
@@ -28,7 +36,16 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
   };
 
   const handleNext = () => {
-    if (isFormValid(data)) {
+    // Custom validation for Other Income form
+    const isValidForm = Object.entries(data).every(([key, value]) => {
+      if (key === 'otherIncomeComment') {
+        return (value as string).trim() !== '';
+      } else {
+        return (value as string).trim() !== '' && validateNumericInput(value as string);
+      }
+    });
+
+    if (isValidForm) {
       onNext();
     } else {
       const emptyFields = getEmptyFields(data);
@@ -46,7 +63,7 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
             OTHER INCOME
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please enter your Other Income details here (All values to exclude vat where applicable)
+            Please enter your Other Income details here (All values must exclude VAT). If you don't have a number for any field, type 0
           </p>
         </div>
 
@@ -62,7 +79,7 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('fixedAssetDisposal') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value (e.g., 126.33)"
+              placeholder="Enter numerical value or 0 (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.fixedAssetDisposal && (
@@ -74,7 +91,7 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
 
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              Total Other Income *
+              Other Income *
             </label>
             <input
               type="text"
@@ -83,12 +100,32 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('totalOtherIncome') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value (e.g., 126.33)"
+              placeholder="Enter numerical value or 0 (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.totalOtherIncome && (
               <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 {errors.totalOtherIncome}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Comment about Other Income *
+            </label>
+            <textarea
+              value={data.otherIncomeComment}
+              onChange={(e) => handleInputChange('otherIncomeComment', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all min-h-[100px] ${
+                isFieldEmpty('otherIncomeComment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              placeholder="Please describe what this other income is about..."
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            />
+            {errors.otherIncomeComment && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.otherIncomeComment}
               </p>
             )}
           </div>
@@ -108,7 +145,7 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
             className="flex items-center space-x-2 px-8 py-3 rounded-full transition-colors text-black"
             style={{ backgroundColor: '#FFF091' }}
           >
-            <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Next</span>
+            <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>Submit</span>
             <ArrowRight size={20} />
           </button>
         </div>

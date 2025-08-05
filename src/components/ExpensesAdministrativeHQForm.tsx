@@ -44,7 +44,7 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
     bankCreditCardCharges: 'Bank & Credit Card Charges *',
     computerRepairs: 'Computer Repairs *',
     softwareRental: 'Software Rental *',
-    consultingFeesFCSAudits: 'Consulting Fees FCS Audits *',
+    consultingFeesFCSAudits: 'Consulting Fees *',
     depreciationComputerEquipment: 'Depreciation - Computer Equipment *',
     depreciationOtherShopfitting: 'Depreciation - Other (Shopfitting etc) *',
     interestPaid: 'Interest Paid *',
@@ -64,7 +64,7 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
             EXPENSES ADMINISTRATIVE HQ
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please enter your restaurant expense details here (All values to exclude vat where applicable)
+            Please enter your restaurant expense details here (All values must exclude VAT). If you don't have a number for any field, type 0
           </p>
         </div>
 
@@ -81,7 +81,7 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
                 className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                   isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
-                placeholder="Enter numerical value (e.g., 126.33)"
+                placeholder="Enter numerical value or 0 (e.g., 126.33)"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
               {errors[field] && (

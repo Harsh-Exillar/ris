@@ -8,7 +8,7 @@ import ExpensesAdministrativeHQForm from './ExpensesAdministrativeHQForm';
 import HeadOfficeExpensesForm from './HeadOfficeExpensesForm';
 import OtherExpensesForm from './OtherExpensesForm';
 import OtherIncomeForm from './OtherIncomeForm';
-import ProfitLossForm from './ProfitLossForm';
+
 import { isFormValid } from '../utils/validation';
 
 export interface SalesData {
@@ -110,12 +110,9 @@ export interface OtherExpensesData {
 export interface OtherIncomeData {
   fixedAssetDisposal: string;
   totalOtherIncome: string;
+  otherIncomeComment: string;
 }
 
-export interface ProfitLossData {
-  addBackDepreciation: string;
-  loanCapitalPortion: string;
-}
 
 interface MultiStepFormProps {
   onSubmissionComplete: () => void;
@@ -225,13 +222,10 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
 
   const [otherIncomeData, setOtherIncomeData] = useState<OtherIncomeData>({
     fixedAssetDisposal: '',
-    totalOtherIncome: ''
+    totalOtherIncome: '',
+    otherIncomeComment: ''
   });
 
-  const [profitLossData, setProfitLossData] = useState<ProfitLossData>({
-    addBackDepreciation: '',
-    loanCapitalPortion: ''
-  });
 
   const navigationItems = [
     { id: 1, title: 'Sales', isActive: currentStep === 1 },
@@ -241,8 +235,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     { id: 5, title: 'Expense Administrative HQ', isActive: currentStep === 5 },
     { id: 6, title: 'Head Office Expenses', isActive: currentStep === 6 },
     { id: 7, title: 'Other Expenses', isActive: currentStep === 7 },
-    { id: 8, title: 'Other Income', isActive: currentStep === 8 },
-    { id: 9, title: 'Profit And Loss', isActive: currentStep === 9 }
+    { id: 8, title: 'Other Income', isActive: currentStep === 8 }
   ];
 
   const getFormData = (stepId: number) => {
@@ -255,13 +248,12 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       case 6: return headOfficeExpensesData;
       case 7: return otherExpensesData;
       case 8: return otherIncomeData;
-      case 9: return profitLossData;
       default: return {};
     }
   };
 
   const handleNext = () => {
-    if (currentStep < 9) {
+    if (currentStep < 8) {
       const currentFormData = getFormData(currentStep);
       
       // Custom validation for Other Expenses (step 7)
@@ -288,6 +280,11 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
             setCompletedSteps([...completedSteps, currentStep]);
           }
           setCurrentStep(currentStep + 1);
+        }
+      } else if (currentStep === 8) {
+        // Final step - submit the form
+        if (isFormValid(currentFormData)) {
+          handleFinalSubmit();
         }
       } else {
         // Use general validation for all other steps
@@ -350,8 +347,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       expensesAdministrativeHQData,
       headOfficeExpensesData,
       otherExpensesData,
-      otherIncomeData,
-      profitLossData
+      otherIncomeData
     };
     
     console.log('Final submission data:', allData);
@@ -522,14 +518,6 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
                 setData={setOtherIncomeData} 
                 onNext={handleNext}
                 onBack={handleBack}
-              />
-            )}
-            {currentStep === 9 && (
-              <ProfitLossForm 
-                data={profitLossData} 
-                setData={setProfitLossData} 
-                onBack={handleBack}
-                onSubmit={handleFinalSubmit}
               />
             )}
           </div>

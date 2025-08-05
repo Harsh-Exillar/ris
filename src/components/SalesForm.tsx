@@ -46,7 +46,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
             SALES
           </h1>
           <p className="text-gray-500 mt-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-            Please enter your sales details here
+            Please enter your sales details here (All values must exclude VAT). If you don't have a number for any field, type 0
           </p>
         </div>
 
@@ -62,7 +62,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('grossSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value (e.g., 126.33)"
+              placeholder="Enter numerical value or 0 (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.grossSales && (
@@ -83,7 +83,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('vat') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value (e.g., 126.33)"
+              placeholder="Enter numerical value or 0 (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.vat && (
@@ -104,7 +104,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('netSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value (e.g., 126.33)"
+              placeholder="Enter numerical value or 0 (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.netSales && (
@@ -125,7 +125,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('costOfSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value (e.g., 126.33)"
+              placeholder="Enter numerical value or 0 (e.g., 126.33)"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.costOfSales && (
