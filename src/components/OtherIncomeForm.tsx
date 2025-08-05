@@ -37,17 +37,17 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
 
   const handleNext = () => {
     console.log('Submit button clicked in OtherIncomeForm');
-    console.log('Current data:', data);
+    console.log('Current data:', JSON.stringify(data, null, 2));
     
     // Check if all required fields are filled
     const requiredFields = ['fixedAssetDisposal', 'totalOtherIncome', 'otherIncomeComment'];
     const emptyFields = requiredFields.filter(field => {
       const value = data[field as keyof OtherIncomeData];
-      console.log(`Field ${field}:`, value, 'isEmpty:', !value || value.trim() === '');
-      return !value || value.trim() === '';
+      console.log(`Field ${field}: "${value}" (type: ${typeof value}) isEmpty: ${!value || value.toString().trim() === ''}`);
+      return !value || value.toString().trim() === '';
     });
 
-    console.log('Empty fields:', emptyFields);
+    console.log('Empty fields count:', emptyFields.length, 'Empty fields:', emptyFields);
 
     if (emptyFields.length === 0) {
       console.log('All fields are filled, calling onNext()');
