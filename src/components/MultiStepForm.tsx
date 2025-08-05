@@ -253,6 +253,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
   };
 
   const handleNext = () => {
+    console.log('MultiStepForm handleNext called for step:', currentStep);
     if (currentStep < 8) {
       const currentFormData = getFormData(currentStep);
       
@@ -281,9 +282,6 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
           }
           setCurrentStep(currentStep + 1);
         }
-      } else if (currentStep === 8) {
-        // Final step - OtherIncomeForm handles its own validation
-        handleFinalSubmit();
       } else {
         // Use general validation for all other steps
         if (isFormValid(currentFormData)) {
@@ -294,6 +292,10 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
           setCurrentStep(currentStep + 1);
         }
       }
+    } else if (currentStep === 8) {
+      // Final step - OtherIncomeForm handles its own validation
+      console.log('Step 8 reached, calling handleFinalSubmit');
+      handleFinalSubmit();
     }
   };
 

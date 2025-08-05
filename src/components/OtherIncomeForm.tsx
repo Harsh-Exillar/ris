@@ -52,7 +52,9 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
 
     if (emptyFields.length === 0) {
       console.log('All fields are filled, calling onNext()');
+      console.log('About to call onNext function...');
       onNext(); // This will trigger the final submission
+      console.log('onNext function called successfully');
     } else {
       console.log('Some fields are empty, highlighting:', emptyFields);
       setEmptyFieldsHighlighted(emptyFields);
