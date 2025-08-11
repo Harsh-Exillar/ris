@@ -50,7 +50,7 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
     interestPaid: 'Interest Paid *',
     entertainment: 'Entertainment *',
     equipmentRental: 'Equipment Rental *',
-    fixedAssetsUnder7000: 'Fixed assets < R7000 *',
+    fixedAssetsUnder7000: 'Fixed assets < R1000 *',
     generatorLease: 'Generator Lease *',
     professionalLegalFees: 'Professional & Legal Fees *',
     television: 'Television *'

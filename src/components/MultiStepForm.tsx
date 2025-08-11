@@ -117,9 +117,10 @@ export interface OtherIncomeData {
 interface MultiStepFormProps {
   onSubmissionComplete: () => void;
   userObid: string;
+  onLogout: () => void;
 }
 
-const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, userObid }) => {
+const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, userObid, onLogout }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -427,8 +428,8 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       {/* Desktop & Mobile Layout */}
       <div className="flex min-h-screen">
         {/* Desktop Sidebar Navigation */}
-        <div className="hidden md:block w-80 text-white p-6">
-          <div className="space-y-3">
+        <div className="hidden md:flex md:flex-col w-80 text-white p-6 min-h-screen">
+          <div className="space-y-3 flex-1">
             {navigationItems.map((item) => (
               <div
                 key={item.id}
@@ -459,6 +460,15 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
                 </span>
               </div>
             ))}
+          </div>
+          <div className="mt-6">
+            <button
+              onClick={onLogout}
+              className="w-full flex items-center justify-center px-4 py-3 rounded-lg font-semibold"
+              style={{ backgroundColor: '#FFC801', color: '#00263A', fontFamily: 'Montserrat, sans-serif' }}
+            >
+              Logout
+            </button>
           </div>
         </div>
 
