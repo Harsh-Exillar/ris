@@ -35,7 +35,7 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
     console.log('Other Expenses Data:', data);
     
     // Check each expense field and make comment required if expense is filled
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 5; i++) {
       const expenseField = `otherExpenses${i}`;
       const commentField = `otherExpenses${i}Comment`;
       const expenseValue = data[expenseField as keyof OtherExpensesData];
@@ -67,7 +67,7 @@ const OtherExpensesForm: React.FC<OtherExpensesFormProps> = ({ data, setData, on
 
   const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);
 
-  const expenseFields = Array.from({ length: 10 }, (_, i) => i + 1);
+  const expenseFields = Array.from({ length: 5 }, (_, i) => i + 1);
 
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>

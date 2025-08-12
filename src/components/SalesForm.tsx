@@ -58,6 +58,39 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Month *
+            </label>
+            <select
+              value={data.month}
+              onChange={(e) => handleInputChange('month', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                isFieldEmpty('month') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            >
+              <option value="">Select a month</option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+            {errors.month && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.month}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
               Gross Sales (incl Vat) *
             </label>
             <input

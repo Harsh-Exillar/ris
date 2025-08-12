@@ -12,6 +12,7 @@ import OtherIncomeForm from './OtherIncomeForm';
 import { isFormValid } from '../utils/validation';
 
 export interface SalesData {
+  month: string;
   grossSales: string;
   vat: string;
   netSales: string;
@@ -95,16 +96,6 @@ export interface OtherExpensesData {
   otherExpenses4Comment: string;
   otherExpenses5: string;
   otherExpenses5Comment: string;
-  otherExpenses6: string;
-  otherExpenses6Comment: string;
-  otherExpenses7: string;
-  otherExpenses7Comment: string;
-  otherExpenses8: string;
-  otherExpenses8Comment: string;
-  otherExpenses9: string;
-  otherExpenses9Comment: string;
-  otherExpenses10: string;
-  otherExpenses10Comment: string;
 }
 
 export interface OtherIncomeData {
@@ -126,6 +117,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const [salesData, setSalesData] = useState<SalesData>({
+    month: '',
     grossSales: '',
     vat: '',
     netSales: '',
@@ -208,17 +200,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     otherExpenses4: '',
     otherExpenses4Comment: '',
     otherExpenses5: '',
-    otherExpenses5Comment: '',
-    otherExpenses6: '',
-    otherExpenses6Comment: '',
-    otherExpenses7: '',
-    otherExpenses7Comment: '',
-    otherExpenses8: '',
-    otherExpenses8Comment: '',
-    otherExpenses9: '',
-    otherExpenses9Comment: '',
-    otherExpenses10: '',
-    otherExpenses10Comment: ''
+    otherExpenses5Comment: ''
   });
 
   const [otherIncomeData, setOtherIncomeData] = useState<OtherIncomeData>({
@@ -264,7 +246,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
         let isValid = true;
         
         // Check each expense field and make comment required if expense is filled
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 5; i++) {
           const expenseField = `otherExpenses${i}`;
           const commentField = `otherExpenses${i}Comment`;
           const expenseValue = otherExpensesData[expenseField as keyof OtherExpensesData];
