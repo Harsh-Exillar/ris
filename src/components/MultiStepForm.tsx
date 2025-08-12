@@ -320,10 +320,27 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
   const sendWebhookData = async (allData: any) => {
     try {
       const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant Income Statement';
-      const payload = {
+      
+      // Flatten all nested objects into a single flat structure
+      const flattenedData = {
         timestamp: new Date().toISOString(),
         obid: userObid,
-        ...allData
+        // Sales data
+        ...allData.salesData,
+        // Expenses data
+        ...allData.expensesData,
+        // Expenses staff data
+        ...allData.expensesStaffData,
+        // Expenses store data
+        ...allData.expensesStoreData,
+        // Expenses administrative HQ data
+        ...allData.expensesAdministrativeHQData,
+        // Head office expenses data
+        ...allData.headOfficeExpensesData,
+        // Other expenses data
+        ...allData.otherExpensesData,
+        // Other income data
+        ...allData.otherIncomeData
       };
       
       await fetch(webhookUrl, {
@@ -331,7 +348,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(flattenedData)
       });
       console.log('Webhook data sent successfully');
     } catch (error) {
