@@ -215,7 +215,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-primary via-primary to-accent hover:from-primary/90 hover:via-primary/95 hover:to-accent/90 text-primary-foreground py-4 px-6 rounded-xl text-base font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ring-1 ring-primary/20"
+                    style={{ backgroundColor: '#FFC801' }}
+                    className="w-full text-black py-4 px-6 rounded-xl text-base font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none hover:opacity-90"
                   >
                     {isLoading ? (
                       <div className="flex items-center justify-center">
