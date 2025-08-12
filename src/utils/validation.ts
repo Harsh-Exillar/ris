@@ -5,7 +5,13 @@ export const validateNumericInput = (value: string): boolean => {
 };
 
 export const isFormValid = (data: any): boolean => {
-  return Object.values(data).every(value => (value as string).trim() !== '' && validateNumericInput(value as string));
+  return Object.entries(data).every(([key, value]) => {
+    const v = String(value).trim();
+    if (v === '') return false;
+    // Skip numeric validation for non-numeric fields
+    if (key === 'month' || key.toLowerCase().includes('comment')) return true;
+    return validateNumericInput(v);
+  });
 };
 
 export const getEmptyFields = (data: any): string[] => {
