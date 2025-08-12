@@ -15,7 +15,8 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
   const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
 
   const handleInputChange = (field: keyof SalesData, value: string) => {
-    if (value === '' || validateNumericInput(value)) {
+    // Month field doesn't need numerical validation
+    if (field === 'month' || value === '' || validateNumericInput(value)) {
       setData({
         ...data,
         [field]: value
