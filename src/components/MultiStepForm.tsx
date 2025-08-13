@@ -367,24 +367,25 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
   };
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen" style={{ backgroundColor: '#00263A' }}>
       {/* Mobile Navigation Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-background shadow-lg">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
         <div className="flex items-center justify-between p-4">
-          <h2 className="text-lg font-semibold text-foreground font-sans">
+          <h2 className="text-lg font-semibold" style={{ color: '#00263A', fontFamily: 'Montserrat, sans-serif' }}>
             Step {currentStep}: {navigationItems.find(item => item.id === currentStep)?.title}
           </h2>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+            className="p-2 rounded-lg"
+            style={{ backgroundColor: '#FFC801' }}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={24} color="#00263A" /> : <Menu size={24} color="#00263A" />}
           </button>
         </div>
         
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background border-t shadow-lg max-h-80 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 bg-white border-t shadow-lg max-h-80 overflow-y-auto">
             {navigationItems.map((item) => (
               <div
                 key={item.id}
@@ -396,22 +397,25 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
                 }}
                 className={`flex items-center space-x-3 p-4 border-b cursor-pointer transition-colors ${
                   item.isActive 
-                    ? 'bg-accent text-accent-foreground' 
+                    ? '' 
                     : isStepAccessible(item.id)
-                      ? 'hover:bg-secondary text-foreground' 
-                      : 'opacity-50 cursor-not-allowed text-muted-foreground'
+                      ? 'hover:bg-gray-50' 
+                      : 'opacity-50 cursor-not-allowed'
                 }`}
+                style={{ 
+                  backgroundColor: item.isActive ? '#FFC801' : 'white',
+                  color: item.isActive ? '#00263A' : '#666'
+                }}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                  item.isActive 
-                    ? 'bg-primary text-primary-foreground' 
-                    : completedSteps.includes(item.id) 
-                      ? 'bg-secondary text-secondary-foreground' 
-                      : 'bg-accent text-accent-foreground'
-                }`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
+                  style={{ 
+                    backgroundColor: item.isActive ? '#00263A' : completedSteps.includes(item.id) ? '#003A70' : '#FFC801',
+                    color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#00263A'
+                  }}
+                >
                   {completedSteps.includes(item.id) ? '✓' : item.id}
                 </div>
-                <span className="text-sm font-medium font-sans">
+                <span className="text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
                   {item.title}
                 </span>
               </div>
@@ -423,7 +427,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       {/* Desktop & Mobile Layout */}
       <div className="flex min-h-screen">
         {/* Desktop Sidebar Navigation */}
-        <div className="hidden md:flex md:flex-col w-80 text-primary-foreground p-6 min-h-screen">
+        <div className="hidden md:flex md:flex-col w-80 text-white p-6 min-h-screen">
           <div className="space-y-3 flex-1">
             {navigationItems.map((item) => (
               <div
@@ -431,22 +435,26 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
                 onClick={() => handleStepClick(item.id)}
                 className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
                   item.isActive 
-                    ? 'bg-accent text-accent-foreground border-l-4 border-accent' 
+                    ? 'border-l-4' 
                     : isStepAccessible(item.id)
-                      ? 'hover:bg-secondary/20 text-primary-foreground' 
-                      : 'opacity-50 cursor-not-allowed text-muted-foreground'
+                      ? 'hover:bg-blue-800' 
+                      : 'opacity-50 cursor-not-allowed'
                 }`}
+                style={{ 
+                  backgroundColor: item.isActive ? '#FFC801' : 'transparent',
+                  borderLeftColor: item.isActive ? '#FFC801' : 'transparent',
+                  color: item.isActive ? '#00263A' : 'white'
+                }}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                  item.isActive 
-                    ? 'bg-primary text-primary-foreground' 
-                    : completedSteps.includes(item.id) 
-                      ? 'bg-secondary text-secondary-foreground' 
-                      : 'bg-accent text-accent-foreground'
-                }`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold`}
+                  style={{ 
+                    backgroundColor: item.isActive ? '#00263A' : completedSteps.includes(item.id) ? '#003A70' : '#FFC801',
+                    color: item.isActive ? 'white' : completedSteps.includes(item.id) ? 'white' : '#00263A'
+                  }}
+                >
                   {completedSteps.includes(item.id) ? '✓' : item.id}
                 </div>
-                <span className="text-sm font-medium font-sans">
+                <span className="text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
                   {item.title}
                 </span>
               </div>
@@ -455,7 +463,8 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
           <div className="mt-6">
             <button
               onClick={onLogout}
-              className="w-full flex items-center justify-center px-4 py-3 rounded-lg font-semibold bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+              className="w-full flex items-center justify-center px-4 py-3 rounded-lg font-semibold"
+              style={{ backgroundColor: '#FFC801', color: '#00263A', fontFamily: 'Montserrat, sans-serif' }}
             >
               Logout
             </button>
@@ -463,7 +472,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 pt-20 md:pt-8 p-4 md:p-8 bg-secondary">
+        <div className="flex-1 pt-20 md:pt-8 p-4 md:p-8" style={{ backgroundColor: '#2E5D8A' }}>
           <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
             {currentStep === 1 && (
               <SalesForm 
