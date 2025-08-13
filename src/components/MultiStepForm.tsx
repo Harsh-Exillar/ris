@@ -307,6 +307,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       const flattenedData = {
         timestamp: new Date().toISOString(),
         obid: userObid,
+        action: 'form_submission',
         // Sales data
         ...allData.salesData,
         // Expenses data
@@ -325,21 +326,27 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
         ...allData.otherIncomeData
       };
       
-      await fetch(webhookUrl, {
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(flattenedData)
       });
-      console.log('Webhook data sent successfully');
+
+      if (!response.ok) {
+        throw new Error(`Webhook request failed: ${response.status} ${response.statusText}`);
+      }
+      
+      console.log('Form data submitted successfully');
     } catch (error) {
-      console.error('Error sending webhook data:', error);
+      console.error('Error sending form data to webhook:', error);
+      throw error; // Re-throw to handle in submission flow
     }
   };
 
   const handleFinalSubmit = async () => {
-    console.log('handleFinalSubmit called');
+    console.log('Starting final form submission...');
     const allData = {
       salesData,
       expensesData,
@@ -351,18 +358,22 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       otherIncomeData
     };
     
-    console.log('Final submission data:', allData);
-    
     try {
       // Send data to webhook
       await sendWebhookData(allData);
-      console.log('Webhook data sent successfully, showing thank you page');
+      console.log('Form submission completed successfully');
       
-      // Show thank you page
+      // Show success page
       onSubmissionComplete();
     } catch (error) {
-      console.error('Error during final submission:', error);
-      alert('There was an error submitting your data. Please try again.');
+      console.error('Error during form submission:', error);
+      
+      // Show user-friendly error message
+      const errorMessage = error instanceof Error 
+        ? `Submission failed: ${error.message}` 
+        : 'There was an error submitting your data. Please check your internet connection and try again.';
+      
+      alert(errorMessage);
     }
   };
 

@@ -23,17 +23,27 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant Income Statement';
       const params = new URLSearchParams({
         email: email,
-        password: password,
+        password: '[REDACTED]', // Don't send actual password for security
         obid: obid,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        action: 'login'
       });
       
-      await fetch(`${webhookUrl}?${params}`, {
+      const response = await fetch(`${webhookUrl}?${params}`, {
         method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
-      console.log('Webhook data sent successfully');
+      
+      if (!response.ok) {
+        throw new Error(`Webhook request failed: ${response.status}`);
+      }
+      
+      console.log('Login event logged successfully');
     } catch (error) {
-      console.error('Error sending webhook data:', error);
+      // Don't block login for webhook failures - just log the error
+      console.warn('Failed to send login event to webhook:', error);
     }
   };
 
@@ -41,7 +51,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     e.preventDefault();
     const newErrors: { obid?: string; password?: string; general?: string } = {};
 
-    console.log('Form submitted with:', { obid, password });
+    console.log('Form submitted with OBID:', obid);
 
     if (!obid) {
       newErrors.obid = 'OBID is required';

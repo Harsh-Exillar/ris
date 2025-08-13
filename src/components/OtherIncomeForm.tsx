@@ -58,8 +58,17 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
     } else {
       console.log('Some fields are empty, highlighting:', emptyFields);
       setEmptyFieldsHighlighted(emptyFields);
-      // Show error message to user
-      alert('Please fill in all required fields before submitting');
+      // Show user-friendly validation message
+      const fieldNames = emptyFields.map(field => {
+        switch(field) {
+          case 'fixedAssetDisposal': return 'Fixed Asset Disposal';
+          case 'totalOtherIncome': return 'Other Income';
+          case 'otherIncomeComment': return 'Comment about Other Income';
+          default: return field;
+        }
+      }).join(', ');
+      
+      alert(`Please fill in the following required fields: ${fieldNames}`);
     }
   };
 
