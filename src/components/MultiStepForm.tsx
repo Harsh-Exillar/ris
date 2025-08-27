@@ -301,7 +301,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
 
   const sendWebhookData = async (allData: any) => {
     try {
-      const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant-Income-Statement';
+      const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook/Restaurant-Income-Statement';
       
       // Flatten all nested objects into a single flat structure
       const flattenedData = {
