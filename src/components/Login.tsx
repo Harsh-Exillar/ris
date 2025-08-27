@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   const sendWebhookData = async (email: string, password: string, obid: string) => {
     try {
-      const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook/Restaurant-Income-Statement';
+      const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook-test/Restaurant-Income-Statement';
       const params = new URLSearchParams({
         email: email,
         password: '[REDACTED]', // Don't send actual password for security
