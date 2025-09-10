@@ -15,7 +15,8 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
   const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
 
   const handleInputChange = (field: keyof ExpensesStoreData, value: string) => {
-    if (value === '' || validateNumericInput(value)) {
+    // Comment fields can be any text, expense fields must be whole numbers only
+    if (String(field).includes('Comment') || value === '' || validateNumericInput(value)) {
       setData({
         ...data,
         [field]: value
@@ -23,7 +24,7 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter whole numbers only (no decimals)' }));
     }
   };
 
@@ -58,31 +59,43 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             { key: 'electricity', label: 'Electricity *' },
+            { key: 'communalElectricity', label: 'Communal Electricity *' },
             { key: 'water', label: 'Water *' },
             { key: 'gas', label: 'Gas *' },
+            { key: 'meterReadingFees', label: 'Meter Reading Fees *' },
+            { key: 'parking', label: 'Parking *' },
+            { key: 'refuse', label: 'Refuse *' },
+            { key: 'sanitation', label: 'Sanitation *' },
+            { key: 'internetCosts', label: 'Internet Costs *' },
+            { key: 'wifi', label: 'Wi-Fi *' },
             { key: 'insurance', label: 'Insurance *' },
             { key: 'licenses', label: 'Licenses *' },
+            { key: 'liquorLicense', label: 'Liquor License *' },
+            { key: 'cipc', label: 'CIPC *' },
             { key: 'rent', label: 'Rent *' },
             { key: 'operationalCosts', label: 'Operational Costs *' },
-            { key: 'marketing', label: 'Marketing *' },
+            { key: 'landlordMarketing', label: 'Landlord Marketing *' },
             { key: 'rates', label: 'Rates *' },
             { key: 'otherRentalExpenses', label: 'Other Rental Expenses *' },
             { key: 'repairsMaintenance', label: 'Repairs & Maintenance *' },
             { key: 'securityAlarmsGuards', label: 'Security *' },
-            { key: 'telephone', label: 'Telephone *' }
+            { key: 'telephone', label: 'Telephone *' },
+            { key: 'generatorLease', label: 'Generator Lease *' },
+            { key: 'otherStoreExpense1', label: 'Other Store Expense 1' },
+            { key: 'otherStoreExpense2', label: 'Other Store Expense 2' }
           ].map(({ key, label }) => (
             <div key={key}>
               <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
                 {label}
               </label>
               <input
-                type="text"
+                type={key === 'otherStoreExpense1' || key === 'otherStoreExpense2' ? 'number' : 'text'}
                 value={data[key as keyof ExpensesStoreData]}
                 onChange={(e) => handleInputChange(key as keyof ExpensesStoreData, e.target.value)}
                 className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                   isFieldEmpty(key) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
-                placeholder="Enter numerical value or 0 (e.g., 126.33)"
+                placeholder="Enter your value"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
               {errors[key] && (
@@ -92,6 +105,51 @@ const ExpensesStoreForm: React.FC<ExpensesStoreFormProps> = ({ data, setData, on
               )}
             </div>
           ))}
+        </div>
+
+        {/* Other Store Expenses Comments (optional) */}
+        <div className="mt-8 space-y-6">
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Other Store Expense 1 Comment
+            </label>
+            <textarea
+              value={data.otherStoreExpense1Comment}
+              onChange={(e) => handleInputChange('otherStoreExpense1Comment', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                isFieldEmpty('otherStoreExpense1Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              placeholder="Enter comment for Other Store Expense 1"
+              rows={3}
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            />
+            {errors.otherStoreExpense1Comment && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.otherStoreExpense1Comment}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Other Store Expense 2 Comment
+            </label>
+            <textarea
+              value={data.otherStoreExpense2Comment}
+              onChange={(e) => handleInputChange('otherStoreExpense2Comment', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                isFieldEmpty('otherStoreExpense2Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              placeholder="Enter comment for Other Store Expense 2"
+              rows={3}
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            />
+            {errors.otherStoreExpense2Comment && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.otherStoreExpense2Comment}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="mt-12 flex justify-between">

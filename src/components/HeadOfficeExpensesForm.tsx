@@ -15,7 +15,8 @@ const HeadOfficeExpensesForm: React.FC<HeadOfficeExpensesFormProps> = ({ data, s
   const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
 
   const handleInputChange = (field: keyof HeadOfficeExpensesData, value: string) => {
-    if (value === '' || validateNumericInput(value)) {
+    // Comment fields can be any text, expense fields must be whole numbers only
+    if (String(field).includes('Comment') || value === '' || validateNumericInput(value)) {
       setData({
         ...data,
         [field]: value
@@ -23,7 +24,7 @@ const HeadOfficeExpensesForm: React.FC<HeadOfficeExpensesFormProps> = ({ data, s
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter whole numbers only (no decimals)' }));
     }
   };
 
@@ -40,7 +41,9 @@ const HeadOfficeExpensesForm: React.FC<HeadOfficeExpensesFormProps> = ({ data, s
 
   const inputFields = [
     { key: 'obRoyaltyFees', label: 'Royalty Fees *' },
-    { key: 'obMarketingFees', label: 'Marketing Fees *' }
+  { key: 'obMarketingFees', label: 'Marketing Fees *' },
+  { key: 'otherHeadOfficeExpense1', label: 'Other Head Office Expense 1' },
+  { key: 'otherHeadOfficeExpense2', label: 'Other Head Office Expense 2' }
   ];
 
   return (
@@ -64,16 +67,16 @@ const HeadOfficeExpensesForm: React.FC<HeadOfficeExpensesFormProps> = ({ data, s
           {inputFields.map(({ key, label }) => (
             <div key={key}>
               <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-                {label} *
+                {label}
               </label>
               <input
-                type="text"
+                type={key === 'otherHeadOfficeExpense1' || key === 'otherHeadOfficeExpense2' ? 'number' : 'text'}
                 value={data[key as keyof HeadOfficeExpensesData]}
                 onChange={(e) => handleInputChange(key as keyof HeadOfficeExpensesData, e.target.value)}
                 className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                   isFieldEmpty(key) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
-                placeholder="Enter numerical value or 0 (e.g., 126.33)"
+                placeholder="Enter your value"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
               {errors[key] && (
@@ -83,6 +86,51 @@ const HeadOfficeExpensesForm: React.FC<HeadOfficeExpensesFormProps> = ({ data, s
               )}
             </div>
           ))}
+        </div>
+
+        {/* Other Head Office Expenses Comments (optional) */}
+        <div className="mt-8 space-y-6">
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Other Head Office Expense 1 Comment
+            </label>
+            <textarea
+              value={data.otherHeadOfficeExpense1Comment}
+              onChange={(e) => handleInputChange('otherHeadOfficeExpense1Comment', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                isFieldEmpty('otherHeadOfficeExpense1Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              placeholder="Enter comment for Other Head Office Expense 1"
+              rows={3}
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            />
+            {errors.otherHeadOfficeExpense1Comment && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.otherHeadOfficeExpense1Comment}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Other Head Office Expense 2 Comment
+            </label>
+            <textarea
+              value={data.otherHeadOfficeExpense2Comment}
+              onChange={(e) => handleInputChange('otherHeadOfficeExpense2Comment', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                isFieldEmpty('otherHeadOfficeExpense2Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              placeholder="Enter comment for Other Head Office Expense 2"
+              rows={3}
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            />
+            {errors.otherHeadOfficeExpense2Comment && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.otherHeadOfficeExpense2Comment}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="mt-12 flex justify-between">

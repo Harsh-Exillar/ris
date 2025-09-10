@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { validateObid, sanitizeInput } from '@/utils/validation';
+import { useRateLimit } from '@/hooks/use-security';
 import oceanBasketLogo from '@/assets/ocean-basket-logo.png';
 
 interface LoginProps {
@@ -8,11 +10,12 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
-  // Fixed email reference issue - force cache refresh
   const [obid, setObid] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ obid?: string; password?: string; general?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
+  
+  const rateLimit = useRateLimit(5, 15 * 60 * 1000); // 5 attempts per 15 minutes
 
   const convertToEmail = (id: string) => {
     return `${id}@oceanbasket.com`;
@@ -20,7 +23,13 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   const sendWebhookData = async (email: string, password: string, obid: string) => {
     try {
-      const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook/Restaurant-Income-Statement';
+      const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
+      
+      if (!webhookUrl) {
+        console.warn('Webhook URL not configured');
+        return;
+      }
+      
       const params = new URLSearchParams({
         email: email,
         password: '[REDACTED]', // Don't send actual password for security
@@ -40,7 +49,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         throw new Error(`Webhook request failed: ${response.status}`);
       }
       
-      console.log('Login event logged successfully');
+      console.warn('Login event logged successfully');
     } catch (error) {
       // Don't block login for webhook failures - just log the error
       console.warn('Failed to send login event to webhook:', error);
@@ -49,16 +58,31 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: { obid?: string; password?: string; general?: string } = {};
-
-    console.log('Form submitted with OBID:', obid);
-
-    if (!obid) {
-      newErrors.obid = 'OBID is required';
+    
+    // Check rate limiting
+    if (!rateLimit.canAttempt()) {
+      setErrors({ 
+        general: `Too many login attempts. Please wait ${rateLimit.getRemainingTime()} minutes before trying again.` 
+      });
+      return;
     }
 
-    if (!password) {
+    const newErrors: { obid?: string; password?: string; general?: string } = {};
+
+    // Sanitize inputs
+    const sanitizedObid = sanitizeInput(obid);
+    const sanitizedPassword = sanitizeInput(password);
+
+    if (!sanitizedObid) {
+      newErrors.obid = 'OBID is required';
+    } else if (!validateObid(sanitizedObid)) {
+      newErrors.obid = 'OBID must be 3-20 alphanumeric characters';
+    }
+
+    if (!sanitizedPassword) {
       newErrors.password = 'Password is required';
+    } else if (sanitizedPassword.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
     }
 
     // Check if we have validation errors
@@ -72,31 +96,31 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
     try {
       // Convert OBID to email format
-      const email = convertToEmail(obid);
-      console.log('Attempting Supabase authentication...');
+      const email = convertToEmail(sanitizedObid);
       
       // Sign in with Supabase
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
-        password: password,
+        password: sanitizedPassword,
       });
 
       if (error) {
         console.error('Supabase auth error:', error);
+        rateLimit.recordAttempt(); // Record failed attempt
         setErrors({ general: 'Invalid OBID or password' });
         return;
       }
 
       if (data.user) {
-        console.log('Authentication successful:', data.user);
+        // Send data to webhook (without password)
+        await sendWebhookData(email, sanitizedPassword, sanitizedObid);
         
-        // Send data to webhook
-        await sendWebhookData(email, password, obid);
-        
-        onLogin(obid);
+        rateLimit.reset(); // Reset on successful login
+        onLogin(sanitizedObid);
       }
     } catch (error) {
       console.error('Login error:', error);
+      rateLimit.recordAttempt(); // Record failed attempt
       setErrors({ general: 'An error occurred during login. Please try again.' });
     } finally {
       setIsLoading(false);
@@ -218,6 +242,18 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 {errors.general && (
                   <div className="bg-destructive/10 backdrop-blur-sm border border-destructive/20 text-destructive px-4 py-3 rounded-xl text-sm font-medium">
                     {errors.general}
+                  </div>
+                )}
+
+                {rateLimit.isBlocked && (
+                  <div className="bg-orange-50 border border-orange-200 text-orange-800 px-4 py-3 rounded-xl text-sm font-medium">
+                    Account temporarily locked. Remaining time: {rateLimit.getRemainingTime()} minutes
+                  </div>
+                )}
+
+                {!rateLimit.isBlocked && rateLimit.remainingAttempts < 5 && rateLimit.remainingAttempts > 0 && (
+                  <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-xl text-sm">
+                    {rateLimit.remainingAttempts} login attempts remaining
                   </div>
                 )}
 

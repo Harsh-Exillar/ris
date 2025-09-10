@@ -16,7 +16,8 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
   const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
 
   const handleInputChange = (field: keyof ExpensesData, value: string) => {
-    if (value === '' || validateNumericInput(value)) {
+    // Comment fields can be any text, expense fields must be whole numbers only
+    if (field.includes('Comment') || value === '' || validateNumericInput(value)) {
       setData({
         ...data,
         [field]: value
@@ -24,11 +25,14 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter whole numbers only (no decimals)' }));
     }
   };
 
   const handleNext = () => {
+    // Clear any previous errors
+    setErrors({});
+
     if (isFormValid(data)) {
       onNext();
     } else {
@@ -43,7 +47,7 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
     { key: 'cleaningMaterialsLaundry', label: 'Cleaning Material & Laundry *' },
     { key: 'consumablePackaging', label: 'Consumable & Packaging *' },
     { key: 'cutleryCrockery', label: 'Cutlery & Crockery *' },
-    { key: 'obVouchers', label: 'Vouchers *' },
+    { key: 'obVouchers', label: 'In Store Vouchers - Redeemed *' },
     { key: 'pestControl', label: 'Pest Control *' },
     { key: 'printingStationery', label: 'Printing & Stationery *' },
     { key: 'promotions', label: 'Promotions *' }
@@ -79,7 +83,7 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
                 className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                   isFieldEmpty(key) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
-                placeholder="Enter numerical value or 0 (e.g., 126.33)"
+                placeholder="Enter your value"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
               {errors[key] && (
@@ -89,6 +93,101 @@ const ExpensesForm: React.FC<ExpensesFormProps> = ({ data, setData, onNext, onBa
               )}
             </div>
           ))}
+        </div>
+
+        {/* Other Operational Expenses Section */}
+        <div className="mt-8 space-y-6">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif' }}>
+            Other Operational Expenses
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Operational Expense 1
+              </label>
+              <input
+                type="number"
+                value={data.otherOperationalExpense1}
+                onChange={(e) => handleInputChange('otherOperationalExpense1', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherOperationalExpense1') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter your value"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherOperationalExpense1 && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherOperationalExpense1}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Operational Expense 2
+              </label>
+              <input
+                type="number"
+                value={data.otherOperationalExpense2}
+                onChange={(e) => handleInputChange('otherOperationalExpense2', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherOperationalExpense2') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter your value"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherOperationalExpense2 && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherOperationalExpense2}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Operational Expense 1 Comment
+              </label>
+              <textarea
+                value={data.otherOperationalExpense1Comment}
+                onChange={(e) => handleInputChange('otherOperationalExpense1Comment', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherOperationalExpense1Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter comment for Other Operational Expense 1"
+                rows={3}
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherOperationalExpense1Comment && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherOperationalExpense1Comment}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Operational Expense 2 Comment
+              </label>
+              <textarea
+                value={data.otherOperationalExpense2Comment}
+                onChange={(e) => handleInputChange('otherOperationalExpense2Comment', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherOperationalExpense2Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter comment for Other Operational Expense 2"
+                rows={3}
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherOperationalExpense2Comment && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherOperationalExpense2Comment}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="mt-12 flex justify-between">

@@ -15,8 +15,8 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
   const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
 
   const handleInputChange = (field: keyof SalesData, value: string) => {
-    // Month field doesn't need numerical validation
-    if (field === 'month' || value === '' || validateNumericInput(value)) {
+    // Month field doesn't need numerical validation, comment fields can be any text
+    if (field === 'month' || field.includes('Comment') || value === '' || validateNumericInput(value)) {
       setData({
         ...data,
         [field]: value
@@ -24,11 +24,14 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter whole numbers only (no decimals)' }));
     }
   };
 
   const handleNext = () => {
+    // Clear any previous errors
+    setErrors({});
+
     if (isFormValid(data)) {
       onNext();
     } else {
@@ -46,6 +49,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
           <h1 className="text-4xl font-bold tracking-wide" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 'bold' }}>
             SALES
           </h1>
+
           <div className="bg-blue-50 p-4 rounded-lg mt-3">
             <p className="text-gray-700 text-sm leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
               Enter your sales figures below. All amounts must exclude VAT.
@@ -101,7 +105,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('grossSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value or 0 (e.g., 126.33)"
+              placeholder="Enter your value"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.grossSales && (
@@ -122,7 +126,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('vat') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value or 0 (e.g., 126.33)"
+              placeholder="Enter your value"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.vat && (
@@ -143,7 +147,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('netSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value or 0 (e.g., 126.33)"
+              placeholder="Enter your value"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.netSales && (
@@ -164,7 +168,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('costOfSales') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value or 0 (e.g., 126.33)"
+              placeholder="Enter your value"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.costOfSales && (
@@ -172,6 +176,101 @@ const SalesForm: React.FC<SalesFormProps> = ({ data, setData, onNext }) => {
                 {errors.costOfSales}
               </p>
             )}
+          </div>
+        </div>
+
+        {/* Other Sales Expenses Section */}
+        <div className="mt-8 space-y-6">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif' }}>
+            Other Sales Expenses
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Sales Expense 1
+              </label>
+              <input
+                type="number"
+                value={data.otherSalesExpense1}
+                onChange={(e) => handleInputChange('otherSalesExpense1', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherSalesExpense1') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter your value"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherSalesExpense1 && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherSalesExpense1}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Sales Expense 2
+              </label>
+              <input
+                type="number"
+                value={data.otherSalesExpense2}
+                onChange={(e) => handleInputChange('otherSalesExpense2', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherSalesExpense2') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter your value"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherSalesExpense2 && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherSalesExpense2}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Sales Expense 1 Comment
+              </label>
+              <textarea
+                value={data.otherSalesExpense1Comment}
+                onChange={(e) => handleInputChange('otherSalesExpense1Comment', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherSalesExpense1Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter comment for Other Sales Expense 1"
+                rows={3}
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherSalesExpense1Comment && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherSalesExpense1Comment}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                Other Sales Expense 2 Comment
+              </label>
+              <textarea
+                value={data.otherSalesExpense2Comment}
+                onChange={(e) => handleInputChange('otherSalesExpense2Comment', e.target.value)}
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                  isFieldEmpty('otherSalesExpense2Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter comment for Other Sales Expense 2"
+                rows={3}
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              />
+              {errors.otherSalesExpense2Comment && (
+                <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  {errors.otherSalesExpense2Comment}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 

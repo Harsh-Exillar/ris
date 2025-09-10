@@ -15,7 +15,8 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
   const [emptyFieldsHighlighted, setEmptyFieldsHighlighted] = useState<string[]>([]);
 
   const handleInputChange = (field: keyof ExpensesAdministrativeHQData, value: string) => {
-    if (value === '' || validateNumericInput(value)) {
+    // Comment fields can be any text, expense fields must be whole numbers only
+    if (String(field).includes('Comment') || value === '' || validateNumericInput(value)) {
       setData({
         ...data,
         [field]: value
@@ -23,7 +24,7 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter whole numbers only (no decimals)' }));
     }
   };
 
@@ -43,7 +44,7 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
     auditFees: 'Audit Fees *',
     bankCreditCardCharges: 'Bank & Credit Card Charges *',
     computerRepairs: 'Computer Repairs *',
-    softwareRental: 'Software Rental *',
+    posSoftwareRental: 'POS Software Rental *',
     consultingFeesFCSAudits: 'Consulting Fees *',
     depreciationComputerEquipment: 'Depreciation - Computer Equipment *',
     depreciationOtherShopfitting: 'Depreciation - Other (Shopfitting etc) *',
@@ -51,9 +52,15 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
     entertainment: 'Entertainment *',
     equipmentRental: 'Equipment Rental *',
     fixedAssetsUnder7000: 'Fixed assets < R1000 *',
-    generatorLease: 'Generator Lease *',
     professionalLegalFees: 'Professional & Legal Fees *',
-    television: 'Television *'
+    television: 'Television *',
+    subscriptions: 'Subscriptions *',
+    radio: 'Radio *',
+    loyalty: 'Loyalty *',
+    audits: 'Audits *',
+  otherHQExpenses: 'Other HQ Expenses *',
+  otherAdministrativeHQExpense1: 'Other Administrative HQ Expense 1',
+  otherAdministrativeHQExpense2: 'Other Administrative HQ Expense 2'
   };
 
   return (
@@ -80,13 +87,13 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
                 {label}
               </label>
               <input
-                type="text"
+                type={['otherAdministrativeHQExpense1','otherAdministrativeHQExpense2'].includes(field) ? 'number' : 'text'}
                 value={data[field as keyof ExpensesAdministrativeHQData]}
                 onChange={(e) => handleInputChange(field as keyof ExpensesAdministrativeHQData, e.target.value)}
                 className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                   isFieldEmpty(field) ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
-                placeholder="Enter numerical value or 0 (e.g., 126.33)"
+                placeholder="Enter your value"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               />
               {errors[field] && (
@@ -96,6 +103,51 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
               )}
             </div>
           ))}
+        </div>
+
+        {/* Other Administrative HQ Expenses Comments (optional) */}
+        <div className="mt-8 space-y-6">
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Other Administrative HQ Expense 1 Comment
+            </label>
+            <textarea
+              value={data.otherAdministrativeHQExpense1Comment}
+              onChange={(e) => handleInputChange('otherAdministrativeHQExpense1Comment', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                isFieldEmpty('otherAdministrativeHQExpense1Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              placeholder="Enter comment for Other Administrative HQ Expense 1"
+              rows={3}
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            />
+            {errors.otherAdministrativeHQExpense1Comment && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.otherAdministrativeHQExpense1Comment}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#003A70', fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+              Other Administrative HQ Expense 2 Comment
+            </label>
+            <textarea
+              value={data.otherAdministrativeHQExpense2Comment}
+              onChange={(e) => handleInputChange('otherAdministrativeHQExpense2Comment', e.target.value)}
+              className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
+                isFieldEmpty('otherAdministrativeHQExpense2Comment') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+              }`}
+              placeholder="Enter comment for Other Administrative HQ Expense 2"
+              rows={3}
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            />
+            {errors.otherAdministrativeHQExpense2Comment && (
+              <p className="text-red-500 text-sm mt-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                {errors.otherAdministrativeHQExpense2Comment}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="mt-12 flex justify-between">

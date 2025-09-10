@@ -23,7 +23,18 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
-      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-eval": "error",
+      "no-implied-eval": "error",
+      "no-new-func": "error",
+      "no-script-url": "error",
+      "no-alert": "warn",
+      "@typescript-eslint/no-unused-expressions": ["error", { 
+        allowShortCircuit: true, 
+        allowTernary: true 
+      }]
     },
   }
 );

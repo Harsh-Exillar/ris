@@ -6,7 +6,6 @@ import ExpensesStaffForm from './ExpensesStaffForm';
 import ExpensesStoreForm from './ExpensesStoreForm';
 import ExpensesAdministrativeHQForm from './ExpensesAdministrativeHQForm';
 import HeadOfficeExpensesForm from './HeadOfficeExpensesForm';
-import OtherExpensesForm from './OtherExpensesForm';
 import OtherIncomeForm from './OtherIncomeForm';
 
 import { isFormValid } from '../utils/validation';
@@ -17,6 +16,10 @@ export interface SalesData {
   vat: string;
   netSales: string;
   costOfSales: string;
+  otherSalesExpense1: string;
+  otherSalesExpense1Comment: string;
+  otherSalesExpense2: string;
+  otherSalesExpense2Comment: string;
 }
 
 export interface ExpensesData {
@@ -27,6 +30,10 @@ export interface ExpensesData {
   pestControl: string;
   printingStationery: string;
   promotions: string;
+  otherOperationalExpense1: string;
+  otherOperationalExpense1Comment: string;
+  otherOperationalExpense2: string;
+  otherOperationalExpense2Comment: string;
 }
 
 export interface ExpensesStaffData {
@@ -38,28 +45,48 @@ export interface ExpensesStaffData {
   salariesWagesManagers: string;
   salariesOwner: string;
   salariesWagesStatutoryDeductions: string;
+  bargainingCouncil: string;
+  coida: string;
   staffMealsKitchenCrew: string;
   staffMealsManagersWaiters: string;
   staffMealsOwners: string;
   staffMedicalCost: string;
   staffTransport: string;
   training: string;
+  otherStaffExpense1: string;
+  otherStaffExpense1Comment: string;
+  otherStaffExpense2: string;
+  otherStaffExpense2Comment: string;
 }
 
 export interface ExpensesStoreData {
   electricity: string;
+  communalElectricity: string;
   water: string;
   gas: string;
+  meterReadingFees: string;
+  parking: string;
+  refuse: string;
+  sanitation: string;
+  internetCosts: string;
+  wifi: string;
   insurance: string;
   licenses: string;
+  liquorLicense: string;
+  cipc: string;
   rent: string;
   operationalCosts: string;
-  marketing: string;
+  landlordMarketing: string;
   rates: string;
   otherRentalExpenses: string;
   repairsMaintenance: string;
   securityAlarmsGuards: string;
   telephone: string;
+  generatorLease: string;
+  otherStoreExpense1: string;
+  otherStoreExpense1Comment: string;
+  otherStoreExpense2: string;
+  otherStoreExpense2Comment: string;
 }
 
 export interface ExpensesAdministrativeHQData {
@@ -67,7 +94,7 @@ export interface ExpensesAdministrativeHQData {
   auditFees: string;
   bankCreditCardCharges: string;
   computerRepairs: string;
-  softwareRental: string;
+  posSoftwareRental: string;
   consultingFeesFCSAudits: string;
   depreciationComputerEquipment: string;
   depreciationOtherShopfitting: string;
@@ -75,27 +102,26 @@ export interface ExpensesAdministrativeHQData {
   entertainment: string;
   equipmentRental: string;
   fixedAssetsUnder7000: string;
-  generatorLease: string;
   professionalLegalFees: string;
   television: string;
+  subscriptions: string;
+  radio: string;
+  loyalty: string;
+  audits: string;
+  otherHQExpenses: string;
+  otherAdministrativeHQExpense1: string;
+  otherAdministrativeHQExpense1Comment: string;
+  otherAdministrativeHQExpense2: string;
+  otherAdministrativeHQExpense2Comment: string;
 }
 
 export interface HeadOfficeExpensesData {
   obRoyaltyFees: string;
   obMarketingFees: string;
-}
-
-export interface OtherExpensesData {
-  otherExpenses1: string;
-  otherExpenses1Comment: string;
-  otherExpenses2: string;
-  otherExpenses2Comment: string;
-  otherExpenses3: string;
-  otherExpenses3Comment: string;
-  otherExpenses4: string;
-  otherExpenses4Comment: string;
-  otherExpenses5: string;
-  otherExpenses5Comment: string;
+  otherHeadOfficeExpense1: string;
+  otherHeadOfficeExpense1Comment: string;
+  otherHeadOfficeExpense2: string;
+  otherHeadOfficeExpense2Comment: string;
 }
 
 export interface OtherIncomeData {
@@ -115,13 +141,18 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [submitError, setSubmitError] = useState<string>('');
   
   const [salesData, setSalesData] = useState<SalesData>({
     month: '',
     grossSales: '',
     vat: '',
     netSales: '',
-    costOfSales: ''
+    costOfSales: '',
+    otherSalesExpense1: '',
+    otherSalesExpense1Comment: '',
+    otherSalesExpense2: '',
+    otherSalesExpense2Comment: ''
   });
   
   const [expensesData, setExpensesData] = useState<ExpensesData>({
@@ -131,7 +162,11 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     obVouchers: '',
     pestControl: '',
     printingStationery: '',
-    promotions: ''
+    promotions: '',
+    otherOperationalExpense1: '',
+    otherOperationalExpense1Comment: '',
+    otherOperationalExpense2: '',
+    otherOperationalExpense2Comment: ''
   });
 
   const [expensesStaffData, setExpensesStaffData] = useState<ExpensesStaffData>({
@@ -143,28 +178,48 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     salariesWagesManagers: '',
     salariesOwner: '',
     salariesWagesStatutoryDeductions: '',
+    bargainingCouncil: '',
+    coida: '',
     staffMealsKitchenCrew: '',
     staffMealsManagersWaiters: '',
     staffMealsOwners: '',
     staffMedicalCost: '',
     staffTransport: '',
-    training: ''
+    training: '',
+    otherStaffExpense1: '',
+    otherStaffExpense1Comment: '',
+    otherStaffExpense2: '',
+    otherStaffExpense2Comment: ''
   });
 
   const [expensesStoreData, setExpensesStoreData] = useState<ExpensesStoreData>({
     electricity: '',
+    communalElectricity: '',
     water: '',
     gas: '',
+    meterReadingFees: '',
+    parking: '',
+    refuse: '',
+    sanitation: '',
+    internetCosts: '',
+    wifi: '',
     insurance: '',
     licenses: '',
+    liquorLicense: '',
+    cipc: '',
     rent: '',
     operationalCosts: '',
-    marketing: '',
+    landlordMarketing: '',
     rates: '',
     otherRentalExpenses: '',
     repairsMaintenance: '',
     securityAlarmsGuards: '',
-    telephone: ''
+    telephone: '',
+    generatorLease: '',
+    otherStoreExpense1: '',
+    otherStoreExpense1Comment: '',
+    otherStoreExpense2: '',
+    otherStoreExpense2Comment: ''
   });
 
   const [expensesAdministrativeHQData, setExpensesAdministrativeHQData] = useState<ExpensesAdministrativeHQData>({
@@ -172,7 +227,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     auditFees: '',
     bankCreditCardCharges: '',
     computerRepairs: '',
-    softwareRental: '',
+    posSoftwareRental: '',
     consultingFeesFCSAudits: '',
     depreciationComputerEquipment: '',
     depreciationOtherShopfitting: '',
@@ -180,27 +235,26 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     entertainment: '',
     equipmentRental: '',
     fixedAssetsUnder7000: '',
-    generatorLease: '',
     professionalLegalFees: '',
-    television: ''
+    television: '',
+    subscriptions: '',
+    radio: '',
+    loyalty: '',
+    audits: '',
+    otherHQExpenses: '',
+    otherAdministrativeHQExpense1: '',
+    otherAdministrativeHQExpense1Comment: '',
+    otherAdministrativeHQExpense2: '',
+    otherAdministrativeHQExpense2Comment: ''
   });
 
   const [headOfficeExpensesData, setHeadOfficeExpensesData] = useState<HeadOfficeExpensesData>({
     obRoyaltyFees: '',
-    obMarketingFees: ''
-  });
-
-  const [otherExpensesData, setOtherExpensesData] = useState<OtherExpensesData>({
-    otherExpenses1: '',
-    otherExpenses1Comment: '',
-    otherExpenses2: '',
-    otherExpenses2Comment: '',
-    otherExpenses3: '',
-    otherExpenses3Comment: '',
-    otherExpenses4: '',
-    otherExpenses4Comment: '',
-    otherExpenses5: '',
-    otherExpenses5Comment: ''
+    obMarketingFees: '',
+    otherHeadOfficeExpense1: '',
+    otherHeadOfficeExpense1Comment: '',
+    otherHeadOfficeExpense2: '',
+    otherHeadOfficeExpense2Comment: ''
   });
 
   const [otherIncomeData, setOtherIncomeData] = useState<OtherIncomeData>({
@@ -217,8 +271,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     { id: 4, title: 'Expense Store', isActive: currentStep === 4 },
     { id: 5, title: 'Expense Administrative HQ', isActive: currentStep === 5 },
     { id: 6, title: 'Head Office Expenses', isActive: currentStep === 6 },
-    { id: 7, title: 'Other Expenses', isActive: currentStep === 7 },
-    { id: 8, title: 'Other Income', isActive: currentStep === 8 }
+    { id: 7, title: 'Other Income', isActive: currentStep === 7 }
   ];
 
   const getFormData = (stepId: number) => {
@@ -229,55 +282,25 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       case 4: return expensesStoreData;
       case 5: return expensesAdministrativeHQData;
       case 6: return headOfficeExpensesData;
-      case 7: return otherExpensesData;
-      case 8: return otherIncomeData;
+      case 7: return otherIncomeData;
       default: return {};
     }
   };
 
   const handleNext = () => {
-    console.log('MultiStepForm handleNext called for step:', currentStep);
-    if (currentStep < 8) {
+    if (currentStep < 7) {
       const currentFormData = getFormData(currentStep);
       
-      // Custom validation for Other Expenses (step 7)
-      if (currentStep === 7) {
-        const otherExpensesData = currentFormData as OtherExpensesData;
-        let isValid = true;
-        
-        // Check each expense field and make comment required if expense is filled
-        for (let i = 1; i <= 5; i++) {
-          const expenseField = `otherExpenses${i}`;
-          const commentField = `otherExpenses${i}Comment`;
-          const expenseValue = otherExpensesData[expenseField as keyof OtherExpensesData];
-          const commentValue = otherExpensesData[commentField as keyof OtherExpensesData];
-          
-          if (expenseValue && expenseValue.trim() !== '' && (!commentValue || commentValue.trim() === '')) {
-            isValid = false;
-            break;
-          }
+      // Use general validation for all steps
+      if (isFormValid(currentFormData)) {
+        // Mark current step as completed
+        if (!completedSteps.includes(currentStep)) {
+          setCompletedSteps([...completedSteps, currentStep]);
         }
-        
-        if (isValid) {
-          // Mark current step as completed
-          if (!completedSteps.includes(currentStep)) {
-            setCompletedSteps([...completedSteps, currentStep]);
-          }
-          setCurrentStep(currentStep + 1);
-        }
-      } else {
-        // Use general validation for all other steps
-        if (isFormValid(currentFormData)) {
-          // Mark current step as completed
-          if (!completedSteps.includes(currentStep)) {
-            setCompletedSteps([...completedSteps, currentStep]);
-          }
-          setCurrentStep(currentStep + 1);
-        }
+        setCurrentStep(currentStep + 1);
       }
-    } else if (currentStep === 8) {
+    } else if (currentStep === 7) {
       // Final step - OtherIncomeForm handles its own validation
-      console.log('Step 8 reached, calling handleFinalSubmit');
       handleFinalSubmit();
     }
   };
@@ -301,7 +324,12 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
 
   const sendWebhookData = async (allData: any) => {
     try {
-      const webhookUrl = 'https://exillar-n8n-u48653.vm.elestio.app/webhook/Restaurant-Income-Statement';
+      const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
+      
+      if (!webhookUrl) {
+        console.warn('Webhook URL not configured, skipping webhook submission');
+        return;
+      }
       
       // Flatten all nested objects into a single flat structure
       const flattenedData = {
@@ -320,8 +348,6 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
         ...allData.expensesAdministrativeHQData,
         // Head office expenses data
         ...allData.headOfficeExpensesData,
-        // Other expenses data
-        ...allData.otherExpensesData,
         // Other income data
         ...allData.otherIncomeData
       };
@@ -337,8 +363,6 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       if (!response.ok) {
         throw new Error(`Webhook request failed: ${response.status} ${response.statusText}`);
       }
-      
-      console.log('Form data submitted successfully');
     } catch (error) {
       console.error('Error sending form data to webhook:', error);
       throw error; // Re-throw to handle in submission flow
@@ -346,7 +370,6 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
   };
 
   const handleFinalSubmit = async () => {
-    console.log('Starting final form submission...');
     const allData = {
       salesData,
       expensesData,
@@ -354,26 +377,25 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
       expensesStoreData,
       expensesAdministrativeHQData,
       headOfficeExpensesData,
-      otherExpensesData,
       otherIncomeData
     };
     
     try {
       // Send data to webhook
       await sendWebhookData(allData);
-      console.log('Form submission completed successfully');
       
       // Show success page
       onSubmissionComplete();
     } catch (error) {
       console.error('Error during form submission:', error);
       
-      // Show user-friendly error message
+      // Show user-friendly error using toast instead of alert
       const errorMessage = error instanceof Error 
         ? `Submission failed: ${error.message}` 
         : 'There was an error submitting your data. Please check your internet connection and try again.';
       
-      alert(errorMessage);
+      // Use a more secure way to show errors
+      setSubmitError(errorMessage);
     }
   };
 
@@ -533,14 +555,6 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
               />
             )}
             {currentStep === 7 && (
-              <OtherExpensesForm 
-                data={otherExpensesData} 
-                setData={setOtherExpensesData} 
-                onNext={handleNext}
-                onBack={handleBack}
-              />
-            )}
-            {currentStep === 8 && (
               <OtherIncomeForm 
                 data={otherIncomeData} 
                 setData={setOtherIncomeData} 

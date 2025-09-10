@@ -103,7 +103,7 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('fixedAssetDisposal') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value or 0 (e.g., 126.33)"
+              placeholder="Enter your value"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.fixedAssetDisposal && (
@@ -124,7 +124,7 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
               className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all ${
                 isFieldEmpty('totalOtherIncome') ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
-              placeholder="Enter numerical value or 0 (e.g., 126.33)"
+              placeholder="Enter your value"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             />
             {errors.totalOtherIncome && (
