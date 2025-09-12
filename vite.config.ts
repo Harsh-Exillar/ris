@@ -33,8 +33,9 @@ export default defineConfig(({ mode }) => ({
     sourcemap: false, // Disable source maps in production for security
     rollupOptions: {
       external: (id) => {
-        // Prevent bundling of potential server-side dependencies
-        return id.includes('node:') || id.includes('fs') || id.includes('path');
+        // Only prevent bundling of Node.js built-in modules, not npm packages or file paths
+        return id.startsWith('node:') || 
+               (id === 'fs' || id === 'path' || id === 'crypto' || id === 'os' || id === 'util');
       }
     }
   }
