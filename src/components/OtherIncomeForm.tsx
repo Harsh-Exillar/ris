@@ -31,45 +31,15 @@ const OtherIncomeForm: React.FC<OtherIncomeFormProps> = ({ data, setData, onNext
       setErrors(prev => ({ ...prev, [field]: '' }));
       setEmptyFieldsHighlighted(prev => prev.filter(f => f !== field));
     } else {
-      setErrors(prev => ({ ...prev, [field]: 'Please enter numerical value only (up to 2 decimal places)' }));
+      setErrors(prev => ({ ...prev, [field]: 'Please enter whole numbers only (no decimals)' }));
     }
   };
 
   const handleNext = () => {
-    console.log('Submit button clicked in OtherIncomeForm');
-    console.log('Current data:', JSON.stringify(data, null, 2));
-    
-    // Check if all required fields are filled
-    const requiredFields = ['fixedAssetDisposal', 'totalOtherIncome', 'otherIncomeComment'];
-    const emptyFields = requiredFields.filter(field => {
-      const value = data[field as keyof OtherIncomeData];
-      const isEmpty = !value || value.toString().trim() === '';
-      console.log(`Field ${field}: "${value}" isEmpty: ${isEmpty}`);
-      return isEmpty;
-    });
-
-    console.log('Empty fields count:', emptyFields.length, 'Empty fields:', emptyFields);
-
-    if (emptyFields.length === 0) {
-      console.log('All fields are filled, calling onNext()');
-      console.log('About to call onNext function...');
-      onNext(); // This will trigger the final submission
-      console.log('onNext function called successfully');
-    } else {
-      console.log('Some fields are empty, highlighting:', emptyFields);
-      setEmptyFieldsHighlighted(emptyFields);
-      // Show user-friendly validation message
-      const fieldNames = emptyFields.map(field => {
-        switch(field) {
-          case 'fixedAssetDisposal': return 'Fixed Asset Disposal';
-          case 'totalOtherIncome': return 'Other Income';
-          case 'otherIncomeComment': return 'Comment about Other Income';
-          default: return field;
-        }
-      }).join(', ');
-      
-      alert(`Please fill in the following required fields: ${fieldNames}`);
-    }
+    // Allow submission regardless of empty fields; final handler will send all fields (including blanks)
+    setErrors({});
+    setEmptyFieldsHighlighted([]);
+    onNext();
   };
 
   const isFieldEmpty = (field: string) => emptyFieldsHighlighted.includes(field);

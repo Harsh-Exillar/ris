@@ -9,7 +9,7 @@ export const CSP_CONFIG = {
   'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
   'font-src': ["'self'", 'https://fonts.gstatic.com'],
   'img-src': ["'self'", 'data:', 'https:'],
-  'connect-src': ["'self'", 'https://osfjlftoxaptnakviryr.supabase.co', 'https://exillar-n8n-u48653.vm.elestio.app'],
+  'connect-src': ["'self'", 'https://duzglmnrcczwpvkrrngv.supabase.co', 'https://exillar-n8n-u48653.vm.elestio.app'],
   'frame-ancestors': ["'none'"],
   'form-action': ["'self'"],
   'upgrade-insecure-requests': []

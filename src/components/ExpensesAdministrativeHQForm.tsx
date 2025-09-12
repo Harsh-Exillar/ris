@@ -56,9 +56,8 @@ const ExpensesAdministrativeHQForm: React.FC<ExpensesAdministrativeHQFormProps> 
     television: 'Television *',
     subscriptions: 'Subscriptions *',
     radio: 'Radio *',
-    loyalty: 'Loyalty *',
-    audits: 'Audits *',
-  otherHQExpenses: 'Other HQ Expenses *',
+  loyalty: 'Loyalty *',
+  audits: 'Audits *',
   otherAdministrativeHQExpense1: 'Other Administrative HQ Expense 1',
   otherAdministrativeHQExpense2: 'Other Administrative HQ Expense 2'
   };

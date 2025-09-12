@@ -1,0 +1,2 @@
+# Enforce LF for this file to avoid CRLF conversion warnings on Windows
+.env.example text eol=lf

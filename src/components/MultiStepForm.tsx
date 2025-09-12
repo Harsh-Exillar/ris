@@ -108,7 +108,6 @@ export interface ExpensesAdministrativeHQData {
   radio: string;
   loyalty: string;
   audits: string;
-  otherHQExpenses: string;
   otherAdministrativeHQExpense1: string;
   otherAdministrativeHQExpense1Comment: string;
   otherAdministrativeHQExpense2: string;
@@ -240,8 +239,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
     subscriptions: '',
     radio: '',
     loyalty: '',
-    audits: '',
-    otherHQExpenses: '',
+  audits: '',
     otherAdministrativeHQExpense1: '',
     otherAdministrativeHQExpense1Comment: '',
     otherAdministrativeHQExpense2: '',
@@ -331,25 +329,152 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
         return;
       }
       
+      // Ensure every field is present and stringified (include blanks)
+      const normalize = (obj: Record<string, any>) =>
+        Object.fromEntries(
+          Object.keys(obj).map((k) => [k, obj[k] ?? ''])
+        );
+
+      // Map internal keys to UI labels (strip trailing *) so webhook uses display names
+      const stripStar = (s: string) => s.replace(/\s*\*$/, '');
+      const keyToLabel: Record<string, string> = {
+        // Sales
+        month: 'Month',
+        grossSales: 'Gross Sales (incl Vat)',
+        vat: 'VAT',
+        netSales: 'Net Sales',
+        costOfSales: 'Cost of Sales (ex Vat)',
+        otherSalesExpense1: 'Other Sales Expense 1',
+        otherSalesExpense1Comment: 'Other Sales Expense 1 Comment',
+        otherSalesExpense2: 'Other Sales Expense 2',
+        otherSalesExpense2Comment: 'Other Sales Expense 2 Comment',
+
+        // Operational
+        cleaningMaterialsLaundry: 'Cleaning Material & Laundry',
+        consumablePackaging: 'Consumable & Packaging',
+        cutleryCrockery: 'Cutlery & Crockery',
+        obVouchers: 'In Store Vouchers - Redeemed',
+        pestControl: 'Pest Control',
+        printingStationery: 'Printing & Stationery',
+        promotions: 'Promotions',
+        otherOperationalExpense1: 'Other Operational Expense 1',
+        otherOperationalExpense1Comment: 'Other Operational Expense 1 Comment',
+        otherOperationalExpense2: 'Other Operational Expense 2',
+        otherOperationalExpense2Comment: 'Other Operational Expense 2 Comment',
+
+        // Staff
+        casualWages: 'Casual Wages',
+        uniforms: 'Uniforms',
+        salariesWagesBonus: 'Salaries & Wages Bonus',
+        salariesWagesBOH: 'Salaries & Wages BOH (Back of House)',
+        salariesWagesFOH: 'Salaries & Wages FOH (Front of House)',
+        salariesWagesManagers: 'Salaries & Wages Managers',
+        salariesOwner: 'Salaries Owner',
+        salariesWagesStatutoryDeductions: 'Salaries & Wages Statutory deductions (UIF, SDL), etc',
+        bargainingCouncil: 'Bargaining Council',
+        coida: 'COIDA',
+        staffMealsKitchenCrew: 'Staff Meals Kitchen Crew',
+        staffMealsManagersWaiters: 'Staff Meals Managers & Waiters',
+        staffMealsOwners: 'Staff Meals Owners',
+        staffMedicalCost: 'Staff Medical Cost ( First Aid )',
+        staffTransport: 'Staff Transport',
+        training: 'Training',
+        otherStaffExpense1: 'Other Staff Expense 1',
+        otherStaffExpense1Comment: 'Other Staff Expense 1 Comment',
+        otherStaffExpense2: 'Other Staff Expense 2',
+        otherStaffExpense2Comment: 'Other Staff Expense 2 Comment',
+
+        // Store
+        electricity: 'Electricity',
+        communalElectricity: 'Communal Electricity',
+        water: 'Water',
+        gas: 'Gas',
+        meterReadingFees: 'Meter Reading Fees',
+        parking: 'Parking',
+        refuse: 'Refuse',
+        sanitation: 'Sanitation',
+        internetCosts: 'Internet Costs',
+        wifi: 'Wi-Fi',
+        insurance: 'Insurance',
+        licenses: 'Licenses',
+        liquorLicense: 'Liquor License',
+        cipc: 'CIPC',
+        rent: 'Rent',
+        operationalCosts: 'Operational Costs',
+        landlordMarketing: 'Landlord Marketing',
+        rates: 'Rates',
+        otherRentalExpenses: 'Other Rental Expenses',
+        repairsMaintenance: 'Repairs & Maintenance',
+        securityAlarmsGuards: 'Security',
+        telephone: 'Telephone',
+        generatorLease: 'Generator Lease',
+        otherStoreExpense1: 'Other Store Expense 1',
+        otherStoreExpense1Comment: 'Other Store Expense 1 Comment',
+        otherStoreExpense2: 'Other Store Expense 2',
+        otherStoreExpense2Comment: 'Other Store Expense 2 Comment',
+
+        // Administrative HQ
+        advertisingOwn: 'Advertising Own',
+        auditFees: 'Audit Fees',
+        bankCreditCardCharges: 'Bank & Credit Card Charges',
+        computerRepairs: 'Computer Repairs',
+        posSoftwareRental: 'POS Software Rental',
+        consultingFeesFCSAudits: 'Consulting Fees',
+        depreciationComputerEquipment: 'Depreciation - Computer Equipment',
+        depreciationOtherShopfitting: 'Depreciation - Other (Shopfitting etc)',
+        interestPaid: 'Interest Paid',
+        entertainment: 'Entertainment',
+        equipmentRental: 'Equipment Rental',
+        fixedAssetsUnder7000: 'Fixed assets < R1000',
+        professionalLegalFees: 'Professional & Legal Fees',
+        television: 'Television',
+        subscriptions: 'Subscriptions',
+        radio: 'Radio',
+        loyalty: 'Loyalty',
+        audits: 'Audits',
+        otherAdministrativeHQExpense1: 'Other Administrative HQ Expense 1',
+        otherAdministrativeHQExpense1Comment: 'Other Administrative HQ Expense 1 Comment',
+        otherAdministrativeHQExpense2: 'Other Administrative HQ Expense 2',
+        otherAdministrativeHQExpense2Comment: 'Other Administrative HQ Expense 2 Comment',
+
+        // Head Office
+        obRoyaltyFees: 'Royalty Fees',
+        obMarketingFees: 'Marketing Fees',
+        otherHeadOfficeExpense1: 'Other Head Office Expense 1',
+        otherHeadOfficeExpense1Comment: 'Other Head Office Expense 1 Comment',
+        otherHeadOfficeExpense2: 'Other Head Office Expense 2',
+        otherHeadOfficeExpense2Comment: 'Other Head Office Expense 2 Comment',
+
+        // Other Income
+        fixedAssetDisposal: 'Fixed Asset Disposal',
+        totalOtherIncome: 'Other Income',
+        otherIncomeComment: 'Comment about Other Income',
+      };
+
+      const relabel = (obj: Record<string, any>) =>
+        Object.fromEntries(
+          Object.entries(obj).map(([k, v]) => [stripStar(keyToLabel[k] || k), v])
+        );
+
       // Flatten all nested objects into a single flat structure
       const flattenedData = {
         timestamp: new Date().toISOString(),
         obid: userObid,
         action: 'form_submission',
         // Sales data
-        ...allData.salesData,
+        ...relabel(normalize(allData.salesData)),
         // Expenses data
-        ...allData.expensesData,
+        ...relabel(normalize(allData.expensesData)),
         // Expenses staff data
-        ...allData.expensesStaffData,
+        ...relabel(normalize(allData.expensesStaffData)),
         // Expenses store data
-        ...allData.expensesStoreData,
+        ...relabel(normalize(allData.expensesStoreData)),
         // Expenses administrative HQ data
-        ...allData.expensesAdministrativeHQData,
+        ...relabel(normalize(allData.expensesAdministrativeHQData)),
         // Head office expenses data
-        ...allData.headOfficeExpensesData,
+        ...relabel(normalize(allData.headOfficeExpensesData)),
         // Other income data
-        ...allData.otherIncomeData
+        ...relabel(normalize(allData.otherIncomeData))
       };
       
       const response = await fetch(webhookUrl, {
