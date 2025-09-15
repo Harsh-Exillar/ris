@@ -631,7 +631,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onSubmissionComplete, use
 
         {/* Main Content */}
         <div className="flex-1 pt-20 md:pt-8 p-4 md:p-8" style={{ backgroundColor: '#2E5D8A' }}>
-          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
             {currentStep === 1 && (
               <SalesForm 
                 data={salesData} 
